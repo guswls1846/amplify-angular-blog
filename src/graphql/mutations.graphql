@@ -1,0 +1,487 @@
+# this is an auto generated file. This will be overwritten
+mutation CreateUser(
+  $input: CreateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  createUser(input: $input, condition: $condition) {
+    id
+    name
+    posts {
+      items {
+        id
+        title
+        userID
+        content
+        user {
+          id
+          name
+          posts {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        comments {
+          items {
+            id
+            postID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateUser(
+  $input: UpdateUserInput!
+  $condition: ModelUserConditionInput
+) {
+  updateUser(input: $input, condition: $condition) {
+    id
+    name
+    posts {
+      items {
+        id
+        title
+        userID
+        content
+        user {
+          id
+          name
+          posts {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        comments {
+          items {
+            id
+            postID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteUser(
+  $input: DeleteUserInput!
+  $condition: ModelUserConditionInput
+) {
+  deleteUser(input: $input, condition: $condition) {
+    id
+    name
+    posts {
+      items {
+        id
+        title
+        userID
+        content
+        user {
+          id
+          name
+          posts {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        comments {
+          items {
+            id
+            postID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreatePost(
+  $input: CreatePostInput!
+  $condition: ModelPostConditionInput
+) {
+  createPost(input: $input, condition: $condition) {
+    id
+    title
+    userID
+    content
+    user {
+      id
+      name
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          user {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          comments {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    comments {
+      items {
+        id
+        postID
+        post {
+          id
+          title
+          userID
+          content
+          user {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          comments {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        content
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdatePost(
+  $input: UpdatePostInput!
+  $condition: ModelPostConditionInput
+) {
+  updatePost(input: $input, condition: $condition) {
+    id
+    title
+    userID
+    content
+    user {
+      id
+      name
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          user {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          comments {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    comments {
+      items {
+        id
+        postID
+        post {
+          id
+          title
+          userID
+          content
+          user {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          comments {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        content
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation DeletePost(
+  $input: DeletePostInput!
+  $condition: ModelPostConditionInput
+) {
+  deletePost(input: $input, condition: $condition) {
+    id
+    title
+    userID
+    content
+    user {
+      id
+      name
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          user {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          comments {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    comments {
+      items {
+        id
+        postID
+        post {
+          id
+          title
+          userID
+          content
+          user {
+            id
+            name
+            createdAt
+            updatedAt
+          }
+          comments {
+            nextToken
+          }
+          createdAt
+          updatedAt
+        }
+        content
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+    createdAt
+    updatedAt
+  }
+}
+mutation CreateComment(
+  $input: CreateCommentInput!
+  $condition: ModelCommentConditionInput
+) {
+  createComment(input: $input, condition: $condition) {
+    id
+    postID
+    post {
+      id
+      title
+      userID
+      content
+      user {
+        id
+        name
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      comments {
+        items {
+          id
+          postID
+          post {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          content
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    content
+    createdAt
+    updatedAt
+  }
+}
+mutation UpdateComment(
+  $input: UpdateCommentInput!
+  $condition: ModelCommentConditionInput
+) {
+  updateComment(input: $input, condition: $condition) {
+    id
+    postID
+    post {
+      id
+      title
+      userID
+      content
+      user {
+        id
+        name
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      comments {
+        items {
+          id
+          postID
+          post {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          content
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    content
+    createdAt
+    updatedAt
+  }
+}
+mutation DeleteComment(
+  $input: DeleteCommentInput!
+  $condition: ModelCommentConditionInput
+) {
+  deleteComment(input: $input, condition: $condition) {
+    id
+    postID
+    post {
+      id
+      title
+      userID
+      content
+      user {
+        id
+        name
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        createdAt
+        updatedAt
+      }
+      comments {
+        items {
+          id
+          postID
+          post {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          content
+          createdAt
+          updatedAt
+        }
+        nextToken
+      }
+      createdAt
+      updatedAt
+    }
+    content
+    createdAt
+    updatedAt
+  }
+}
