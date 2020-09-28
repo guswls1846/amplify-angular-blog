@@ -16,6 +16,13 @@
                 "blogdbd25b8f": {
                     "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\",\"client_id\":\"414776279076-ned6clkvsv8kvth6itc3jq4o7r2ndnua.apps.googleusercontent.com\",\"client_secret\":\"VHj48amRme4Oeup4kSraIRmL\"}]",
                     "googleClientId": "414776279076-ned6clkvsv8kvth6itc3jq4o7r2ndnua.apps.googleusercontent.com"
+                },
+                "userPoolGroups": {}
+            },
+            "hosting": {
+                "amplifyhosting": {
+                    "appId": "dpawwawyzm1zz",
+                    "type": "cicd"
                 }
             }
         }

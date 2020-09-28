@@ -1,11 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { APIService } from "../API.service";
-import Amplify, { API, Auth } from "aws-amplify";
-import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api-graphql";
-import * as queries from "../../graphql/queries";
+
 import { Store, Select } from "@ngxs/store";
 import { AuthState } from "src/ngxs/auth/auth.state";
-import { Login } from "src/ngxs/auth/auth.action";
+
 import { Observable, Subscription } from "rxjs";
 
 @Component({

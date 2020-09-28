@@ -172,6 +172,29 @@ export type CreateUserMutation = {
       title: string;
       userID: string;
       content: string | null;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
+      comments: {
+        __typename: "ModelCommentConnection";
+        items: Array<{
+          __typename: "Comment";
+          id: string;
+          postID: string;
+          content: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -193,6 +216,29 @@ export type UpdateUserMutation = {
       title: string;
       userID: string;
       content: string | null;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
+      comments: {
+        __typename: "ModelCommentConnection";
+        items: Array<{
+          __typename: "Comment";
+          id: string;
+          postID: string;
+          content: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -214,6 +260,29 @@ export type DeleteUserMutation = {
       title: string;
       userID: string;
       content: string | null;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
+      comments: {
+        __typename: "ModelCommentConnection";
+        items: Array<{
+          __typename: "Comment";
+          id: string;
+          postID: string;
+          content: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -235,6 +304,26 @@ export type CreatePostMutation = {
     name: string;
     posts: {
       __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -246,6 +335,26 @@ export type CreatePostMutation = {
       __typename: "Comment";
       id: string;
       postID: string;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
       content: string;
       createdAt: string;
       updatedAt: string;
@@ -268,6 +377,26 @@ export type UpdatePostMutation = {
     name: string;
     posts: {
       __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -279,6 +408,26 @@ export type UpdatePostMutation = {
       __typename: "Comment";
       id: string;
       postID: string;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
       content: string;
       createdAt: string;
       updatedAt: string;
@@ -301,6 +450,26 @@ export type DeletePostMutation = {
     name: string;
     posts: {
       __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -312,6 +481,26 @@ export type DeletePostMutation = {
       __typename: "Comment";
       id: string;
       postID: string;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
       content: string;
       createdAt: string;
       updatedAt: string;
@@ -336,11 +525,41 @@ export type CreateCommentMutation = {
       __typename: "User";
       id: string;
       name: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        postID: string;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -365,11 +584,41 @@ export type UpdateCommentMutation = {
       __typename: "User";
       id: string;
       name: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        postID: string;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -394,11 +643,41 @@ export type DeleteCommentMutation = {
       __typename: "User";
       id: string;
       name: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        postID: string;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -421,6 +700,29 @@ export type GetUserQuery = {
       title: string;
       userID: string;
       content: string | null;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
+      comments: {
+        __typename: "ModelCommentConnection";
+        items: Array<{
+          __typename: "Comment";
+          id: string;
+          postID: string;
+          content: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -438,6 +740,26 @@ export type ListUsersQuery = {
     name: string;
     posts: {
       __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -458,6 +780,26 @@ export type GetPostQuery = {
     name: string;
     posts: {
       __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -469,6 +811,26 @@ export type GetPostQuery = {
       __typename: "Comment";
       id: string;
       postID: string;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
       content: string;
       createdAt: string;
       updatedAt: string;
@@ -491,11 +853,41 @@ export type ListPostsQuery = {
       __typename: "User";
       id: string;
       name: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        postID: string;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -518,11 +910,41 @@ export type GetCommentQuery = {
       __typename: "User";
       id: string;
       name: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        postID: string;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -545,6 +967,29 @@ export type ListCommentsQuery = {
       title: string;
       userID: string;
       content: string | null;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
+      comments: {
+        __typename: "ModelCommentConnection";
+        items: Array<{
+          __typename: "Comment";
+          id: string;
+          postID: string;
+          content: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null;
@@ -567,6 +1012,29 @@ export type OnCreateUserSubscription = {
       title: string;
       userID: string;
       content: string | null;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
+      comments: {
+        __typename: "ModelCommentConnection";
+        items: Array<{
+          __typename: "Comment";
+          id: string;
+          postID: string;
+          content: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -588,6 +1056,29 @@ export type OnUpdateUserSubscription = {
       title: string;
       userID: string;
       content: string | null;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
+      comments: {
+        __typename: "ModelCommentConnection";
+        items: Array<{
+          __typename: "Comment";
+          id: string;
+          postID: string;
+          content: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -609,6 +1100,29 @@ export type OnDeleteUserSubscription = {
       title: string;
       userID: string;
       content: string | null;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
+      comments: {
+        __typename: "ModelCommentConnection";
+        items: Array<{
+          __typename: "Comment";
+          id: string;
+          postID: string;
+          content: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null> | null;
@@ -630,6 +1144,26 @@ export type OnCreatePostSubscription = {
     name: string;
     posts: {
       __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -641,6 +1175,26 @@ export type OnCreatePostSubscription = {
       __typename: "Comment";
       id: string;
       postID: string;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
       content: string;
       createdAt: string;
       updatedAt: string;
@@ -663,6 +1217,26 @@ export type OnUpdatePostSubscription = {
     name: string;
     posts: {
       __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -674,6 +1248,26 @@ export type OnUpdatePostSubscription = {
       __typename: "Comment";
       id: string;
       postID: string;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
       content: string;
       createdAt: string;
       updatedAt: string;
@@ -696,6 +1290,26 @@ export type OnDeletePostSubscription = {
     name: string;
     posts: {
       __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -707,6 +1321,26 @@ export type OnDeletePostSubscription = {
       __typename: "Comment";
       id: string;
       postID: string;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+        createdAt: string;
+        updatedAt: string;
+      } | null;
       content: string;
       createdAt: string;
       updatedAt: string;
@@ -731,11 +1365,41 @@ export type OnCreateCommentSubscription = {
       __typename: "User";
       id: string;
       name: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        postID: string;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -760,11 +1424,41 @@ export type OnUpdateCommentSubscription = {
       __typename: "User";
       id: string;
       name: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        postID: string;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -789,11 +1483,41 @@ export type OnDeleteCommentSubscription = {
       __typename: "User";
       id: string;
       name: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
       createdAt: string;
       updatedAt: string;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        postID: string;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+      } | null> | null;
       nextToken: string | null;
     } | null;
     createdAt: string;
@@ -825,6 +1549,29 @@ export class APIService {
               title
               userID
               content
+              user {
+                __typename
+                id
+                name
+                posts {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              comments {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
@@ -862,6 +1609,29 @@ export class APIService {
               title
               userID
               content
+              user {
+                __typename
+                id
+                name
+                posts {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              comments {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
@@ -899,6 +1669,29 @@ export class APIService {
               title
               userID
               content
+              user {
+                __typename
+                id
+                name
+                posts {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              comments {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
@@ -936,6 +1729,26 @@ export class APIService {
             name
             posts {
               __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -947,6 +1760,26 @@ export class APIService {
               __typename
               id
               postID
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               content
               createdAt
               updatedAt
@@ -985,6 +1818,26 @@ export class APIService {
             name
             posts {
               __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -996,6 +1849,26 @@ export class APIService {
               __typename
               id
               postID
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               content
               createdAt
               updatedAt
@@ -1034,6 +1907,26 @@ export class APIService {
             name
             posts {
               __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1045,6 +1938,26 @@ export class APIService {
               __typename
               id
               postID
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               content
               createdAt
               updatedAt
@@ -1085,11 +1998,41 @@ export class APIService {
               __typename
               id
               name
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
             comments {
               __typename
+              items {
+                __typename
+                id
+                postID
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                content
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1130,11 +2073,41 @@ export class APIService {
               __typename
               id
               name
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
             comments {
               __typename
+              items {
+                __typename
+                id
+                postID
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                content
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1175,11 +2148,41 @@ export class APIService {
               __typename
               id
               name
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
             comments {
               __typename
+              items {
+                __typename
+                id
+                postID
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                content
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1215,6 +2218,29 @@ export class APIService {
               title
               userID
               content
+              user {
+                __typename
+                id
+                name
+                posts {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              comments {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
@@ -1246,6 +2272,26 @@ export class APIService {
             name
             posts {
               __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1283,6 +2329,26 @@ export class APIService {
             name
             posts {
               __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1294,6 +2360,26 @@ export class APIService {
               __typename
               id
               postID
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               content
               createdAt
               updatedAt
@@ -1330,11 +2416,41 @@ export class APIService {
               __typename
               id
               name
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
             comments {
               __typename
+              items {
+                __typename
+                id
+                postID
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                content
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1374,11 +2490,41 @@ export class APIService {
               __typename
               id
               name
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
             comments {
               __typename
+              items {
+                __typename
+                id
+                postID
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                content
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1415,6 +2561,29 @@ export class APIService {
               title
               userID
               content
+              user {
+                __typename
+                id
+                name
+                posts {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              comments {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
@@ -1455,6 +2624,29 @@ export class APIService {
               title
               userID
               content
+              user {
+                __typename
+                id
+                name
+                posts {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              comments {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
@@ -1482,6 +2674,29 @@ export class APIService {
               title
               userID
               content
+              user {
+                __typename
+                id
+                name
+                posts {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              comments {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
@@ -1509,6 +2724,29 @@ export class APIService {
               title
               userID
               content
+              user {
+                __typename
+                id
+                name
+                posts {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
+              comments {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
@@ -1536,6 +2774,26 @@ export class APIService {
             name
             posts {
               __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1547,6 +2805,26 @@ export class APIService {
               __typename
               id
               postID
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               content
               createdAt
               updatedAt
@@ -1575,6 +2853,26 @@ export class APIService {
             name
             posts {
               __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1586,6 +2884,26 @@ export class APIService {
               __typename
               id
               postID
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               content
               createdAt
               updatedAt
@@ -1614,6 +2932,26 @@ export class APIService {
             name
             posts {
               __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1625,6 +2963,26 @@ export class APIService {
               __typename
               id
               postID
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                user {
+                  __typename
+                  id
+                  name
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+                createdAt
+                updatedAt
+              }
               content
               createdAt
               updatedAt
@@ -1657,11 +3015,41 @@ export class APIService {
               __typename
               id
               name
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
             comments {
               __typename
+              items {
+                __typename
+                id
+                postID
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                content
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1694,11 +3082,41 @@ export class APIService {
               __typename
               id
               name
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
             comments {
               __typename
+              items {
+                __typename
+                id
+                postID
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                content
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
@@ -1731,11 +3149,41 @@ export class APIService {
               __typename
               id
               name
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
               createdAt
               updatedAt
             }
             comments {
               __typename
+              items {
+                __typename
+                id
+                postID
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                content
+                createdAt
+                updatedAt
+              }
               nextToken
             }
             createdAt
