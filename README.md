@@ -15,10 +15,8 @@ A simple and clean blog template based off of the [startbootstrap.com](https://s
 1. Fork 🍴 and Star ⭐️ this repository
 2. `git clone` to your local directory 💻
 3. cd `amplify-angular-blog`
-4. run `npm install`
-5. in a new terminal cd `amplify-angular-blog`
-6. run `npm install`
-7. run `npm start` on backend and frontend :tada:
+4. run `npm install or yarn add`
+5. run `ng serve` on backend and frontend :tada:
 
 ## Author 👨‍💻
 
