@@ -54,7 +54,8 @@
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
     "userPoolGroupList": [
         "user",
-        "admin"
+        "admin",
+        "guest"
     ],
     "dependsOn": [],
     "thirdPartyAuth": true,
@@ -64,10 +65,9 @@
     "userPoolGroups": true,
     "adminQueries": true,
     "triggers": "{}",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:4200/\",\"http://localhost:4200/\"],\"LogoutURLs\":[\"http://localhost:4200/\",\"http://localhost:4200/\"]}",
-    "adminQueryGroup": "admin",
     "parentStack": {
         "Ref": "AWS::StackId"
     },
-    "permissions": []
+    "permissions": [],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://master.dpawwawyzm1zz.amplifyapp.com/\",\"http://localhost:4200/\"],\"LogoutURLs\":[\"https://master.dpawwawyzm1zz.amplifyapp.com/\",\"http://localhost:4200/\"]}"
 }
