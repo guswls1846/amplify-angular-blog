@@ -6,6 +6,7 @@ import { AuthState } from "src/ngxs/auth/auth.state";
 
 import { Observable, Subscription } from "rxjs";
 import { Login } from "src/ngxs/auth/auth.action";
+import Amplify, { Auth } from "aws-amplify";
 
 @Component({
   selector: "app-home",
@@ -20,15 +21,15 @@ export class HomeComponent implements OnInit {
   constructor(private apiService: APIService, private store: Store) {}
   @Select(AuthState.isAuthenticated) isLogin$: Observable<boolean>;
   ngOnInit() {
-    this.loginSubsription = this.isLogin$.subscribe((logined) => {
-      console.log(logined);
-      if (!logined) {
-        // this.store.dispatch(new Login({ username: environment.guest.id, password: environment.guest.paswword }));
-        this.store.dispatch(new Login({ username: "guest", password: "12345678" }));
-      } else {
-        this.getPosts();
-      }
-    });
+    // this.loginSubsription = this.isLogin$.subscribe((logined) => {
+    //   console.log(logined);
+    //   if (!logined) {
+    //     // this.store.dispatch(new Login({ username: environment.guest.id, password: environment.guest.paswword }));
+    //     this.store.dispatch(new Login({ username: "guest", password: "12345678" }));
+    //   } else {
+    this.getPosts();
+    //   }
+    // });
   }
 
   ngOnDestroy() {

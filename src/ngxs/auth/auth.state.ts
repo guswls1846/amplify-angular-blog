@@ -63,6 +63,8 @@ export class AuthState {
   @ImmutableContext()
   login(ctx: StateContext<AuthStateModel>, action: Login) {
     Auth.signIn(action.payload).then((result) => {
+      console.log(result);
+
       const token = result.signInUserSession.accessToken.jwtToken;
       const group = result.signInUserSession.accessToken.payload["cognito:groups"];
       ctx.setState((state: AuthStateModel) => {
