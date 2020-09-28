@@ -5,6 +5,7 @@ import { Store, Select } from "@ngxs/store";
 import { AuthState } from "src/ngxs/auth/auth.state";
 
 import { Observable, Subscription } from "rxjs";
+import { Login } from "src/ngxs/auth/auth.action";
 
 @Component({
   selector: "app-home",
@@ -19,10 +20,22 @@ export class HomeComponent implements OnInit {
   constructor(private apiService: APIService, private store: Store) {}
   @Select(AuthState.isAuthenticated) isLogin$: Observable<boolean>;
   ngOnInit() {
-    this.getPosts();
+    this.loginSubsription = this.isLogin$.subscribe((logined) => {
+      console.log(logined);
+      if (!logined) {
+        // this.store.dispatch(new Login({ username: environment.guest.id, password: environment.guest.paswword }));
+        this.store.dispatch(new Login({ username: "guest", password: "12345678" }));
+      } else {
+        this.getPosts();
+      }
+    });
   }
 
-  ngOnDestroy() {}
+  ngOnDestroy() {
+    if (this.loginSubsription) {
+      this.loginSubsription.unsubscribe();
+    }
+  }
   getPosts() {
     this.apiService.ListPosts().then((result) => {
       // console.log(result);

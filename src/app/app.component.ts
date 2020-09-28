@@ -22,14 +22,6 @@ export class AppComponent {
     this.actions.pipe(ofActionDispatched(Logout)).subscribe(() => {
       this.router.navigate(["/home"]);
     });
-
-    this.loginSubsription = this.isLogin$.subscribe((logined) => {
-      console.log(logined);
-      if (!logined) {
-        // this.store.dispatch(new Login({ username: environment.guest.id, password: environment.guest.paswword }));
-        this.store.dispatch(new Login({ username: "guest", password: "12345678" }));
-      }
-    });
   }
 
   ngOnDestroy() {
