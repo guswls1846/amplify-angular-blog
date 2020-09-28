@@ -10,31 +10,13 @@ A simple and clean blog template based off of the [startbootstrap.com](https://s
 
 ![Alt text](./screenshot/screenshot.png?raw=true "Clean Angular Blog")
 
-# Built with 🔧
-
-- [Angular 8](https://angular.io)
-- [Protractor](https://www.protractortest.org/)
-- [Bootstrap](https://startbootstrap.com/template-overviews/clean-blog/)
-- [PHP Mailer](https://github.com/PHPMailer/PHPMailer)
-
-## Features :star2:
-
-- Fullstack
-- Create & Delete
-- Working contact form with [PHP Mailer](https://github.com/PHPMailer/PHPMailer)!
-
-## Tests :heavy_check_mark:
-
-1. cd `blog-front`
-2. `npm test`
-
 ## Getting Started :man_astronaut:
 
 1. Fork 🍴 and Star ⭐️ this repository
 2. `git clone` to your local directory 💻
-3. cd `blog-front`
+3. cd `amplify-angular-blog`
 4. run `npm install`
-5. in a new terminal cd `blog-back`
+5. in a new terminal cd `amplify-angular-blog`
 6. run `npm install`
 7. run `npm start` on backend and frontend :tada:
 
