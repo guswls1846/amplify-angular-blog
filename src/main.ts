@@ -9,17 +9,10 @@ import AWSAppSyncClient, { AUTH_TYPE } from "aws-appsync";
 import awsconfig from "./aws-exports";
 // Amplify.configure(awsconfig);
 
+awsconfig.oauth.redirectSignIn = `${window.location.origin}/`;
+awsconfig.oauth.redirectSignOut = `${window.location.origin}/`;
 Auth.configure(awsconfig);
 API.configure(awsconfig);
-
-// const client = new AWSAppSyncClient({
-//   url: awsconfig.aws_appsync_graphqlEndpoint,
-//   region: awsconfig.aws_appsync_region,
-//   auth: {
-//     type: AUTH_TYPE.AWS_IAM,
-//     credentials: () => Auth.currentCredentials(),
-//   },
-// });
 
 if (environment.production) {
   enableProdMode();
