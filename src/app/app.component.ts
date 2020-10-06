@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { Logout, Login } from "src/ngxs/auth/auth.action";
 import { AuthState } from "src/ngxs/auth/auth.state";
 import { Observable, Subscription } from "rxjs";
-import { environment } from "../environments/environment.prod";
+
 import Amplify from "aws-amplify";
 
 @Component({
@@ -22,18 +22,25 @@ export class AppComponent {
     this.actions.pipe(ofActionDispatched(Logout)).subscribe(() => {
       this.router.navigate(["/home"]);
     });
-    // this.loginSubsription = this.isLogin$.subscribe((logined) => {
-    //   console.log(logined);
-    //   if (!logined) {
-    //     // this.store.dispatch(new Login({ username: environment.guest.id, password: environment.guest.paswword }));
-    //     this.store.dispatch(new Login({ username: "guest", password: "12345678" }));
-    //   }
-    // });
+    this.loginSubsription = this.isLogin$.subscribe((logined) => {
+      // console.log(logined);
+      if (!logined) {
+        Amplify.configure({
+          aws_appsync_authenticationType: "AWS_IAM",
+        });
+      } else {
+        console.log("로그인");
+
+        Amplify.configure({
+          aws_appsync_authenticationType: "AMAZON_COGNITO_USER_POOLS",
+        });
+      }
+    });
   }
 
-  // ngOnDestroy() {
-  //   if (this.loginSubsription) {
-  //     this.loginSubsription.unsubscribe();
-  //   }
-  // }
+  ngOnDestroy() {
+    if (this.loginSubsription) {
+      this.loginSubsription.unsubscribe();
+    }
+  }
 }

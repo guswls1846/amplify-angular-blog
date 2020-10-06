@@ -9,6 +9,18 @@ Parameters:
     Type: String
   
   
+  
+  
+  functionblogdbd25b8fPostConfirmationArn: 
+    Type: String
+    Default: functionblogdbd25b8fPostConfirmationArn
+  
+  functionblogdbd25b8fPostConfirmationName: 
+    Type: String
+    Default: functionblogdbd25b8fPostConfirmationName
+  
+  
+  
 
     
   identityPoolName:
@@ -104,12 +116,6 @@ Parameters:
   dependsOn:
     Type: CommaDelimitedList
         
-  thirdPartyAuth:
-    Type: String
-                    
-  authProviders:
-    Type: CommaDelimitedList
-        
   userPoolGroups:
     Type: String
               
@@ -118,11 +124,17 @@ Parameters:
             
   triggers:
     Type: String
-                                
+                    
   parentStack:
     Type: String
                 
   permissions:
+    Type: CommaDelimitedList
+        
+  thirdPartyAuth:
+    Type: String
+                    
+  authProviders:
     Type: CommaDelimitedList
       
   hostedUIProviderCreds:
@@ -132,6 +144,9 @@ Parameters:
     Type: String
               
   oAuthMetadata:
+    Type: String
+              
+  adminQueryGroup:
     Type: String
             
 Conditions:
@@ -187,6 +202,19 @@ Resources:
         
       
       
+      LambdaConfig:
+        
+        
+        
+        
+        
+          PostConfirmation: !Ref functionblogdbd25b8fPostConfirmationArn
+        
+        
+        
+        
+        
+      
       
       AutoVerifiedAttributes: !Ref autoVerifiedAttributes
       
@@ -213,6 +241,15 @@ Resources:
     
   
     
+  
+  UserPoolPostConfirmationLambdaInvokePermission: 
+    Type: "AWS::Lambda::Permission"
+    DependsOn: UserPool
+    Properties: 
+      Action: "lambda:invokeFunction"
+      Principal: "cognito-idp.amazonaws.com"
+      FunctionName: !Ref functionblogdbd25b8fPostConfirmationName
+      SourceArn: !GetAtt UserPool.Arn
     
   
   
@@ -221,12 +258,47 @@ Resources:
   # Updating lambda role with permissions to Cognito
   
   
+  blogdbd25b8fPostConfirmationAddToGroupCognito:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: blogdbd25b8fPostConfirmationAddToGroupCognito
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+            
+              - cognito-idp:AdminAddUserToGroup
+            
+              - cognito-idp:GetGroup
+            
+              - cognito-idp:CreateGroup
+            
+            
+            
+            Resource: !GetAtt
+            
+              - UserPool
+            
+              - Arn
+            
+            
+            
+
+      Roles:
+        - !Join ['',["blogdbd25b8fPostConfirmation", '-', !Ref env]]
+  
+  
+  
   UserPoolClientWeb:
   # Created provide application access to user pool
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
       ClientName: blogdbd25b8f_app_clientWeb
+      
+      ReadAttributes: !Ref userpoolClientReadAttributes
+      WriteAttributes: !Ref userpoolClientWriteAttributes
       
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity
       UserPoolId: !Ref UserPool
@@ -237,6 +309,9 @@ Resources:
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
       ClientName: blogdbd25b8f_app_client
+      
+      ReadAttributes: !Ref userpoolClientReadAttributes
+      WriteAttributes: !Ref userpoolClientWriteAttributes
       
       GenerateSecret: !Ref userpoolClientGenerateSecret
       RefreshTokenValidity: !Ref userpoolClientRefreshTokenValidity

@@ -2,21 +2,28 @@ import { AuthStateModel } from "./auth.model";
 import { State, Selector, Action, StateContext, Store } from "@ngxs/store";
 import { Injectable } from "@angular/core";
 import { ImmutableSelector, ImmutableContext } from "@ngxs-labs/immer-adapter";
-import { Login, Logout, SocialLogin, SetUser } from "./auth.action";
+import { Login, Logout, SocialLogin, SetUser, CreateUser } from "./auth.action";
 import { tap } from "rxjs/operators";
 import { Auth } from "aws-amplify";
 import { Hub, ICredentials } from "@aws-amplify/core";
 import { APIService } from "src/app/API.service";
+import { from } from "rxjs";
 @State<AuthStateModel>({
   name: "auth",
   defaults: {
     token: null,
     username: null,
-    group: null,
-  },
+    group: null
+  }
 })
 @Injectable()
 export class AuthState {
+  @Selector()
+  @ImmutableSelector()
+  static username(state: AuthStateModel): string | null {
+    return state.username;
+  }
+
   @Selector()
   @ImmutableSelector()
   static token(state: AuthStateModel): string | null {
@@ -42,7 +49,7 @@ export class AuthState {
   constructor(private store: Store, private apiService: APIService) {
     Hub.listen("auth", ({ payload: { event, data } }) => {
       console.log(data);
-      console.log(event);
+      // console.log(event);
       switch (event) {
         case "signIn":
           this.store.dispatch(new SetUser(data));
@@ -62,7 +69,7 @@ export class AuthState {
   @Action(Login)
   @ImmutableContext()
   login(ctx: StateContext<AuthStateModel>, action: Login) {
-    Auth.signIn(action.payload).then((result) => {
+    Auth.signIn(action.payload).then(result => {
       console.log(result);
 
       const token = result.signInUserSession.accessToken.jwtToken;
@@ -80,7 +87,7 @@ export class AuthState {
   @ImmutableContext()
   socialSignIn(ctx: StateContext<AuthStateModel>, action: SocialLogin) {
     Auth.federatedSignIn({
-      provider: action.provider,
+      provider: action.provider
     });
   }
 
@@ -96,7 +103,7 @@ export class AuthState {
           return state;
         });
       })
-      .catch((err) => console.log(err));
+      .catch(err => console.log(err));
   }
 
   @Action(SetUser)
@@ -113,12 +120,32 @@ export class AuthState {
     } else {
       const token = action.data.signInUserSession.accessToken.jwtToken;
       const group = action.data.signInUserSession.accessToken.payload["cognito:groups"];
+      const id = action.data.signInUserSession.idToken.payload.email;
       ctx.setState((state: AuthStateModel) => {
         state.token = token;
-        state.username = action.data.username;
+        state.username = id;
         state.group = group;
         return state;
       });
+      // ctx.dispatch(new CreateUser({ id: id }));
+
+      return from(this.apiService.GetUser(id)).pipe(
+        tap(result => {
+          if (!result) {
+            ctx.dispatch(new CreateUser({ id: id }));
+          }
+        })
+      );
     }
+  }
+
+  @Action(CreateUser)
+  @ImmutableContext()
+  createUser(ctx: StateContext<AuthStateModel>, action: CreateUser) {
+    return from(this.apiService.CreateUser(action.params)).pipe(
+      tap(result => {
+        // console.log(result);
+      })
+    );
   }
 }

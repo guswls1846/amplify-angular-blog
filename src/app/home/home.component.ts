@@ -6,8 +6,9 @@ import { AuthState } from "src/ngxs/auth/auth.state";
 
 import { Observable, Subscription } from "rxjs";
 import { Login } from "src/ngxs/auth/auth.action";
-import Amplify, { Auth } from "aws-amplify";
-
+import Amplify, { Auth, API } from "aws-amplify";
+import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api-graphql";
+import { listPosts } from "../../graphql/queries";
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
@@ -21,25 +22,14 @@ export class HomeComponent implements OnInit {
   constructor(private apiService: APIService, private store: Store) {}
   @Select(AuthState.isAuthenticated) isLogin$: Observable<boolean>;
   ngOnInit() {
-    this.loginSubsription = this.isLogin$.subscribe((logined) => {
-      console.log(logined);
-      if (!logined) {
-        // this.store.dispatch(new Login({ username: environment.guest.id, password: environment.guest.paswword }));
-        this.store.dispatch(new Login({ username: "guest", password: "12345678" }));
-      } else {
-        this.getPosts();
-      }
-    });
+    this.getPosts();
   }
 
-  ngOnDestroy() {
-    if (this.loginSubsription) {
-      this.loginSubsription.unsubscribe();
-    }
-  }
+  ngOnDestroy() {}
+
   getPosts() {
     this.apiService.ListPosts().then((result) => {
-      // console.log(result);
+      console.log(result);
       this.posts = result.items;
       this.loading = false;
     });

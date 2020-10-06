@@ -12,9 +12,9 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "Your verification code",
-    "emailVerificationMessage": "Your verification code is {####}",
-    "defaultPasswordPolicy": false,
+    "emailVerificationSubject": "검증코드 입니다.",
+    "emailVerificationMessage": "검증코드 {####}",
+    "defaultPasswordPolicy": true,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
@@ -23,13 +23,27 @@
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
+        "address",
+        "birthdate",
+        "gender",
+        "name",
+        "nickname",
+        "phone_number",
+        "profile",
         "email"
     ],
     "userpoolClientReadAttributes": [
-        "email"
+        "address",
+        "birthdate",
+        "email",
+        "gender",
+        "name",
+        "nickname",
+        "phone_number",
+        "profile"
     ],
     "userpoolClientLambdaRole": "blogdbdbd25b8f_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "sharedId": "dbd25b8f",
     "resourceName": "blogdbd25b8f",
     "authSelections": "identityPoolAndUserPool",
@@ -57,17 +71,30 @@
         "admin",
         "guest"
     ],
-    "dependsOn": [],
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "blogdbd25b8fPostConfirmation",
+            "triggerProvider": "Cognito",
+            "attributes": [
+                "Arn",
+                "Name"
+            ]
+        }
+    ],
+    "userPoolGroups": true,
+    "adminQueries": true,
+    "triggers": "{\"PostConfirmation\":[\"add-to-group\"]}",
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [
+        "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}"
+    ],
     "thirdPartyAuth": true,
     "authProviders": [
         "accounts.google.com"
     ],
-    "userPoolGroups": true,
-    "adminQueries": true,
-    "triggers": "{}",
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "permissions": [],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://master.dpawwawyzm1zz.amplifyapp.com/\",\"http://localhost:4200/\"],\"LogoutURLs\":[\"https://master.dpawwawyzm1zz.amplifyapp.com/\",\"http://localhost:4200/\"]}"
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://master.dpawwawyzm1zz.amplifyapp.com/\",\"http://localhost:4200/\"],\"LogoutURLs\":[\"https://master.dpawwawyzm1zz.amplifyapp.com/\",\"http://localhost:4200/\"]}",
+    "adminQueryGroup": "admin"
 }

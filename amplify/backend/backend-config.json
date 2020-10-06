@@ -3,7 +3,17 @@
         "blogdbd25b8f": {
             "service": "Cognito",
             "providerPlugin": "awscloudformation",
-            "dependsOn": [],
+            "dependsOn": [
+                {
+                    "category": "function",
+                    "resourceName": "blogdbd25b8fPostConfirmation",
+                    "triggerProvider": "Cognito",
+                    "attributes": [
+                        "Arn",
+                        "Name"
+                    ]
+                }
+            ],
             "customAuth": false
         },
         "userPoolGroups": {
@@ -36,13 +46,6 @@
                         }
                     },
                     "additionalAuthenticationProviders": [
-                        {
-                            "authenticationType": "API_KEY",
-                            "apiKeyConfig": {
-                                "apiKeyExpirationDays": 7,
-                                "description": "public_api_key"
-                            }
-                        },
                         {
                             "authenticationType": "AWS_IAM"
                         }
@@ -86,12 +89,53 @@
                     ]
                 }
             ]
+        },
+        "blogdbd25b8fPostConfirmation": {
+            "build": true,
+            "providerPlugin": "awscloudformation",
+            "service": "Lambda"
         }
     },
     "hosting": {
         "amplifyhosting": {
             "service": "amplifyhosting",
             "type": "cicd"
+        }
+    },
+    "storage": {
+        "blogS3": {
+            "service": "S3",
+            "providerPlugin": "awscloudformation",
+            "dependsOn": [
+                {
+                    "category": "auth",
+                    "resourceName": "blogdbd25b8f",
+                    "attributes": [
+                        "UserPoolId"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "userPoolGroups",
+                    "attributes": [
+                        "userGroupRole"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "userPoolGroups",
+                    "attributes": [
+                        "adminGroupRole"
+                    ]
+                },
+                {
+                    "category": "auth",
+                    "resourceName": "userPoolGroups",
+                    "attributes": [
+                        "guestGroupRole"
+                    ]
+                }
+            ]
         }
     }
 }

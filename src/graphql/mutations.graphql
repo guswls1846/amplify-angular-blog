@@ -6,21 +6,32 @@ mutation CreateUser(
   createUser(input: $input, condition: $condition) {
     id
     name
+    phone
+    accountNumber
+    createdAt
+    updatedAt
+    owner
     posts {
       items {
         id
         title
         userID
         content
+        createdAt
+        updatedAt
         user {
           id
           name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          owner
           posts {
             nextToken
           }
-          createdAt
-          updatedAt
         }
+        owner
         comments {
           items {
             id
@@ -28,16 +39,13 @@ mutation CreateUser(
             content
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
-        createdAt
-        updatedAt
       }
       nextToken
     }
-    createdAt
-    updatedAt
   }
 }
 mutation UpdateUser(
@@ -47,21 +55,32 @@ mutation UpdateUser(
   updateUser(input: $input, condition: $condition) {
     id
     name
+    phone
+    accountNumber
+    createdAt
+    updatedAt
+    owner
     posts {
       items {
         id
         title
         userID
         content
+        createdAt
+        updatedAt
         user {
           id
           name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          owner
           posts {
             nextToken
           }
-          createdAt
-          updatedAt
         }
+        owner
         comments {
           items {
             id
@@ -69,16 +88,13 @@ mutation UpdateUser(
             content
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
-        createdAt
-        updatedAt
       }
       nextToken
     }
-    createdAt
-    updatedAt
   }
 }
 mutation DeleteUser(
@@ -88,21 +104,32 @@ mutation DeleteUser(
   deleteUser(input: $input, condition: $condition) {
     id
     name
+    phone
+    accountNumber
+    createdAt
+    updatedAt
+    owner
     posts {
       items {
         id
         title
         userID
         content
+        createdAt
+        updatedAt
         user {
           id
           name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          owner
           posts {
             nextToken
           }
-          createdAt
-          updatedAt
         }
+        owner
         comments {
           items {
             id
@@ -110,16 +137,13 @@ mutation DeleteUser(
             content
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
-        createdAt
-        updatedAt
       }
       nextToken
     }
-    createdAt
-    updatedAt
   }
 }
 mutation CreatePost(
@@ -131,61 +155,74 @@ mutation CreatePost(
     title
     userID
     content
+    createdAt
+    updatedAt
     user {
       id
       name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      owner
       posts {
         items {
           id
           title
           userID
           content
+          createdAt
+          updatedAt
           user {
             id
             name
+            phone
+            accountNumber
             createdAt
             updatedAt
+            owner
           }
+          owner
           comments {
             nextToken
           }
-          createdAt
-          updatedAt
         }
         nextToken
       }
-      createdAt
-      updatedAt
     }
+    owner
     comments {
       items {
         id
         postID
+        content
+        createdAt
+        updatedAt
         post {
           id
           title
           userID
           content
+          createdAt
+          updatedAt
           user {
             id
             name
+            phone
+            accountNumber
             createdAt
             updatedAt
+            owner
           }
+          owner
           comments {
             nextToken
           }
-          createdAt
-          updatedAt
         }
-        content
-        createdAt
-        updatedAt
+        owner
       }
       nextToken
     }
-    createdAt
-    updatedAt
   }
 }
 mutation UpdatePost(
@@ -197,61 +234,74 @@ mutation UpdatePost(
     title
     userID
     content
+    createdAt
+    updatedAt
     user {
       id
       name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      owner
       posts {
         items {
           id
           title
           userID
           content
+          createdAt
+          updatedAt
           user {
             id
             name
+            phone
+            accountNumber
             createdAt
             updatedAt
+            owner
           }
+          owner
           comments {
             nextToken
           }
-          createdAt
-          updatedAt
         }
         nextToken
       }
-      createdAt
-      updatedAt
     }
+    owner
     comments {
       items {
         id
         postID
+        content
+        createdAt
+        updatedAt
         post {
           id
           title
           userID
           content
+          createdAt
+          updatedAt
           user {
             id
             name
+            phone
+            accountNumber
             createdAt
             updatedAt
+            owner
           }
+          owner
           comments {
             nextToken
           }
-          createdAt
-          updatedAt
         }
-        content
-        createdAt
-        updatedAt
+        owner
       }
       nextToken
     }
-    createdAt
-    updatedAt
   }
 }
 mutation DeletePost(
@@ -263,61 +313,74 @@ mutation DeletePost(
     title
     userID
     content
+    createdAt
+    updatedAt
     user {
       id
       name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      owner
       posts {
         items {
           id
           title
           userID
           content
+          createdAt
+          updatedAt
           user {
             id
             name
+            phone
+            accountNumber
             createdAt
             updatedAt
+            owner
           }
+          owner
           comments {
             nextToken
           }
-          createdAt
-          updatedAt
         }
         nextToken
       }
-      createdAt
-      updatedAt
     }
+    owner
     comments {
       items {
         id
         postID
+        content
+        createdAt
+        updatedAt
         post {
           id
           title
           userID
           content
+          createdAt
+          updatedAt
           user {
             id
             name
+            phone
+            accountNumber
             createdAt
             updatedAt
+            owner
           }
+          owner
           comments {
             nextToken
           }
-          createdAt
-          updatedAt
         }
-        content
-        createdAt
-        updatedAt
+        owner
       }
       nextToken
     }
-    createdAt
-    updatedAt
   }
 }
 mutation CreateComment(
@@ -327,14 +390,24 @@ mutation CreateComment(
   createComment(input: $input, condition: $condition) {
     id
     postID
+    content
+    createdAt
+    updatedAt
     post {
       id
       title
       userID
       content
+      createdAt
+      updatedAt
       user {
         id
         name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        owner
         posts {
           items {
             id
@@ -343,16 +416,19 @@ mutation CreateComment(
             content
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
-        createdAt
-        updatedAt
       }
+      owner
       comments {
         items {
           id
           postID
+          content
+          createdAt
+          updatedAt
           post {
             id
             title
@@ -360,19 +436,14 @@ mutation CreateComment(
             content
             createdAt
             updatedAt
+            owner
           }
-          content
-          createdAt
-          updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
     }
-    content
-    createdAt
-    updatedAt
+    owner
   }
 }
 mutation UpdateComment(
@@ -382,14 +453,24 @@ mutation UpdateComment(
   updateComment(input: $input, condition: $condition) {
     id
     postID
+    content
+    createdAt
+    updatedAt
     post {
       id
       title
       userID
       content
+      createdAt
+      updatedAt
       user {
         id
         name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        owner
         posts {
           items {
             id
@@ -398,16 +479,19 @@ mutation UpdateComment(
             content
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
-        createdAt
-        updatedAt
       }
+      owner
       comments {
         items {
           id
           postID
+          content
+          createdAt
+          updatedAt
           post {
             id
             title
@@ -415,19 +499,14 @@ mutation UpdateComment(
             content
             createdAt
             updatedAt
+            owner
           }
-          content
-          createdAt
-          updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
     }
-    content
-    createdAt
-    updatedAt
+    owner
   }
 }
 mutation DeleteComment(
@@ -437,14 +516,24 @@ mutation DeleteComment(
   deleteComment(input: $input, condition: $condition) {
     id
     postID
+    content
+    createdAt
+    updatedAt
     post {
       id
       title
       userID
       content
+      createdAt
+      updatedAt
       user {
         id
         name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        owner
         posts {
           items {
             id
@@ -453,16 +542,19 @@ mutation DeleteComment(
             content
             createdAt
             updatedAt
+            owner
           }
           nextToken
         }
-        createdAt
-        updatedAt
       }
+      owner
       comments {
         items {
           id
           postID
+          content
+          createdAt
+          updatedAt
           post {
             id
             title
@@ -470,18 +562,13 @@ mutation DeleteComment(
             content
             createdAt
             updatedAt
+            owner
           }
-          content
-          createdAt
-          updatedAt
+          owner
         }
         nextToken
       }
-      createdAt
-      updatedAt
     }
-    content
-    createdAt
-    updatedAt
+    owner
   }
 }

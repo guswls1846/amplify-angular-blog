@@ -24,6 +24,11 @@
                     "appId": "dpawwawyzm1zz",
                     "type": "cicd"
                 }
+            },
+            "function": {
+                "blogdbd25b8fPostConfirmation": {
+                    "GROUP": "user"
+                }
             }
         }
     }

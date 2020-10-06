@@ -1,4 +1,5 @@
 import Auth, { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
+import { CreateUserInput } from "src/app/API.service";
 
 //
 
@@ -19,4 +20,9 @@ export class SocialLogin {
 export class SetUser {
   static readonly type = "[Auth] SetUser";
   constructor(public data: any) {}
+}
+
+export class CreateUser {
+  static readonly type = "[Auth] CreateUser in userTable";
+  constructor(public params: CreateUserInput) {}
 }

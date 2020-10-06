@@ -11,11 +11,11 @@ import { Observable } from "rxjs";
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.css"],
+  styleUrls: ["./navbar.component.css"]
 })
 export class NavbarComponent implements OnInit {
   @Select(AuthState.isAuthenticated) isLogin$: Observable<boolean>;
-  @Select(AuthState.isGuest) isGuest$: Observable<boolean>;
+  // @Select(AuthState.isGuest) isGuest$: Observable<boolean>;
   constructor(public dialog: MatDialog, private store: Store) {}
 
   ngOnInit() {}
@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(LoginComponent);
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
     });
   }
