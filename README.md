@@ -1,6 +1,6 @@
 # Clean Angular Blog Template 📰
 
-A simple and clean blog template based off of the [startbootstrap.com](https://startbootstrap.com/template-overviews/clean-blog/) clean blog theme
+A simple and clean blog template based off of the [startbootstrap.com](https://startbootstrap.com/template-overviews/clean-blog/) clean blog theme.
 
 # Demo 🖥
 
