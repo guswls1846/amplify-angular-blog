@@ -48,7 +48,7 @@ export class AuthState {
 
   constructor(private store: Store, private apiService: APIService) {
     Hub.listen("auth", ({ payload: { event, data } }) => {
-      console.log(data);
+      console.log(data, event);
       // console.log(event);
       switch (event) {
         case "signIn":
@@ -115,6 +115,7 @@ export class AuthState {
       ctx.setState((state: AuthStateModel) => {
         state.token = null;
         state.username = null;
+        state.group = null;
         return state;
       });
     } else {

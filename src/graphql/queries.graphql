@@ -14,27 +14,6 @@ query ListUsers(
       updatedAt
       owner
       posts {
-        items {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-          comments {
-            nextToken
-          }
-        }
         nextToken
       }
     }
@@ -58,30 +37,7 @@ query GetUser($id: ID!) {
         content
         createdAt
         updatedAt
-        user {
-          id
-          name
-          phone
-          accountNumber
-          createdAt
-          updatedAt
-          owner
-          posts {
-            nextToken
-          }
-        }
         owner
-        comments {
-          items {
-            id
-            postID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
       }
       nextToken
     }
@@ -108,38 +64,9 @@ query ListPosts(
         createdAt
         updatedAt
         owner
-        posts {
-          items {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
       }
       owner
       comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-          post {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-        }
         nextToken
       }
     }
@@ -163,27 +90,6 @@ query GetPost($id: ID!) {
       updatedAt
       owner
       posts {
-        items {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-          comments {
-            nextToken
-          }
-        }
         nextToken
       }
     }
@@ -195,27 +101,6 @@ query GetPost($id: ID!) {
         content
         createdAt
         updatedAt
-        post {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-          comments {
-            nextToken
-          }
-        }
         owner
       }
       nextToken
@@ -244,38 +129,9 @@ query GetComment($id: ID!) {
         createdAt
         updatedAt
         owner
-        posts {
-          items {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
       }
       owner
       comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-          post {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-        }
         nextToken
       }
     }
@@ -301,30 +157,7 @@ query ListComments(
         content
         createdAt
         updatedAt
-        user {
-          id
-          name
-          phone
-          accountNumber
-          createdAt
-          updatedAt
-          owner
-          posts {
-            nextToken
-          }
-        }
         owner
-        comments {
-          items {
-            id
-            postID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
       }
       owner
     }

@@ -20,7 +20,7 @@ export class AuthorPostComponent implements OnInit {
   public success: boolean = false;
   public failure: boolean = false;
 
-  postPath = "https://blogda80a8d3965d41b9914f9a229347b6d291519-dev.s3.ap-northeast-2.amazonaws.com/post";
+  postPath = "https://blog0c3cc48588e44806b7c782b346d0a7e204800-dev.s3.ap-northeast-2.amazonaws.com/post";
   editor: Editor;
   imageURL;
   setPostId: string = "";

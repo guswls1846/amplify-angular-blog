@@ -187,34 +187,7 @@ export type CreateUserMutation = {
       content: string | null;
       createdAt: string;
       updatedAt: string;
-      user: {
-        __typename: "User";
-        id: string;
-        name: string | null;
-        phone: string | null;
-        accountNumber: string | null;
-        createdAt: string;
-        updatedAt: string;
-        owner: string | null;
-        posts: {
-          __typename: "ModelPostConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
-      comments: {
-        __typename: "ModelCommentConnection";
-        items: Array<{
-          __typename: "Comment";
-          id: string;
-          postID: string;
-          content: string;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -239,34 +212,7 @@ export type UpdateUserMutation = {
       content: string | null;
       createdAt: string;
       updatedAt: string;
-      user: {
-        __typename: "User";
-        id: string;
-        name: string | null;
-        phone: string | null;
-        accountNumber: string | null;
-        createdAt: string;
-        updatedAt: string;
-        owner: string | null;
-        posts: {
-          __typename: "ModelPostConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
-      comments: {
-        __typename: "ModelCommentConnection";
-        items: Array<{
-          __typename: "Comment";
-          id: string;
-          postID: string;
-          content: string;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -291,34 +237,7 @@ export type DeleteUserMutation = {
       content: string | null;
       createdAt: string;
       updatedAt: string;
-      user: {
-        __typename: "User";
-        id: string;
-        name: string | null;
-        phone: string | null;
-        accountNumber: string | null;
-        createdAt: string;
-        updatedAt: string;
-        owner: string | null;
-        posts: {
-          __typename: "ModelPostConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
-      comments: {
-        __typename: "ModelCommentConnection";
-        items: Array<{
-          __typename: "Comment";
-          id: string;
-          postID: string;
-          content: string;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -343,30 +262,6 @@ export type CreatePostMutation = {
     owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
-      items: Array<{
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -380,30 +275,6 @@ export type CreatePostMutation = {
       content: string;
       createdAt: string;
       updatedAt: string;
-      post: {
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
     } | null> | null;
     nextToken: string | null;
@@ -429,30 +300,6 @@ export type UpdatePostMutation = {
     owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
-      items: Array<{
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -466,30 +313,6 @@ export type UpdatePostMutation = {
       content: string;
       createdAt: string;
       updatedAt: string;
-      post: {
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
     } | null> | null;
     nextToken: string | null;
@@ -515,30 +338,6 @@ export type DeletePostMutation = {
     owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
-      items: Array<{
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -552,30 +351,6 @@ export type DeletePostMutation = {
       content: string;
       createdAt: string;
       updatedAt: string;
-      post: {
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
     } | null> | null;
     nextToken: string | null;
@@ -606,43 +381,10 @@ export type CreateCommentMutation = {
       createdAt: string;
       updatedAt: string;
       owner: string | null;
-      posts: {
-        __typename: "ModelPostConnection";
-        items: Array<{
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null;
     owner: string | null;
     comments: {
       __typename: "ModelCommentConnection";
-      items: Array<{
-        __typename: "Comment";
-        id: string;
-        postID: string;
-        content: string;
-        createdAt: string;
-        updatedAt: string;
-        post: {
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -673,43 +415,10 @@ export type UpdateCommentMutation = {
       createdAt: string;
       updatedAt: string;
       owner: string | null;
-      posts: {
-        __typename: "ModelPostConnection";
-        items: Array<{
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null;
     owner: string | null;
     comments: {
       __typename: "ModelCommentConnection";
-      items: Array<{
-        __typename: "Comment";
-        id: string;
-        postID: string;
-        content: string;
-        createdAt: string;
-        updatedAt: string;
-        post: {
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -740,43 +449,10 @@ export type DeleteCommentMutation = {
       createdAt: string;
       updatedAt: string;
       owner: string | null;
-      posts: {
-        __typename: "ModelPostConnection";
-        items: Array<{
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null;
     owner: string | null;
     comments: {
       __typename: "ModelCommentConnection";
-      items: Array<{
-        __typename: "Comment";
-        id: string;
-        postID: string;
-        content: string;
-        createdAt: string;
-        updatedAt: string;
-        post: {
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -796,30 +472,6 @@ export type ListUsersQuery = {
     owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
-      items: Array<{
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null> | null;
@@ -845,34 +497,7 @@ export type GetUserQuery = {
       content: string | null;
       createdAt: string;
       updatedAt: string;
-      user: {
-        __typename: "User";
-        id: string;
-        name: string | null;
-        phone: string | null;
-        accountNumber: string | null;
-        createdAt: string;
-        updatedAt: string;
-        owner: string | null;
-        posts: {
-          __typename: "ModelPostConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
-      comments: {
-        __typename: "ModelCommentConnection";
-        items: Array<{
-          __typename: "Comment";
-          id: string;
-          postID: string;
-          content: string;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -897,43 +522,10 @@ export type ListPostsQuery = {
       createdAt: string;
       updatedAt: string;
       owner: string | null;
-      posts: {
-        __typename: "ModelPostConnection";
-        items: Array<{
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null;
     owner: string | null;
     comments: {
       __typename: "ModelCommentConnection";
-      items: Array<{
-        __typename: "Comment";
-        id: string;
-        postID: string;
-        content: string;
-        createdAt: string;
-        updatedAt: string;
-        post: {
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null> | null;
@@ -959,30 +551,6 @@ export type GetPostQuery = {
     owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
-      items: Array<{
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -996,30 +564,6 @@ export type GetPostQuery = {
       content: string;
       createdAt: string;
       updatedAt: string;
-      post: {
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
     } | null> | null;
     nextToken: string | null;
@@ -1050,43 +594,10 @@ export type GetCommentQuery = {
       createdAt: string;
       updatedAt: string;
       owner: string | null;
-      posts: {
-        __typename: "ModelPostConnection";
-        items: Array<{
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null;
     owner: string | null;
     comments: {
       __typename: "ModelCommentConnection";
-      items: Array<{
-        __typename: "Comment";
-        id: string;
-        postID: string;
-        content: string;
-        createdAt: string;
-        updatedAt: string;
-        post: {
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -1110,34 +621,7 @@ export type ListCommentsQuery = {
       content: string | null;
       createdAt: string;
       updatedAt: string;
-      user: {
-        __typename: "User";
-        id: string;
-        name: string | null;
-        phone: string | null;
-        accountNumber: string | null;
-        createdAt: string;
-        updatedAt: string;
-        owner: string | null;
-        posts: {
-          __typename: "ModelPostConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
-      comments: {
-        __typename: "ModelCommentConnection";
-        items: Array<{
-          __typename: "Comment";
-          id: string;
-          postID: string;
-          content: string;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null;
     owner: string | null;
   } | null> | null;
@@ -1163,34 +647,7 @@ export type OnCreateUserSubscription = {
       content: string | null;
       createdAt: string;
       updatedAt: string;
-      user: {
-        __typename: "User";
-        id: string;
-        name: string | null;
-        phone: string | null;
-        accountNumber: string | null;
-        createdAt: string;
-        updatedAt: string;
-        owner: string | null;
-        posts: {
-          __typename: "ModelPostConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
-      comments: {
-        __typename: "ModelCommentConnection";
-        items: Array<{
-          __typename: "Comment";
-          id: string;
-          postID: string;
-          content: string;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -1215,34 +672,7 @@ export type OnUpdateUserSubscription = {
       content: string | null;
       createdAt: string;
       updatedAt: string;
-      user: {
-        __typename: "User";
-        id: string;
-        name: string | null;
-        phone: string | null;
-        accountNumber: string | null;
-        createdAt: string;
-        updatedAt: string;
-        owner: string | null;
-        posts: {
-          __typename: "ModelPostConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
-      comments: {
-        __typename: "ModelCommentConnection";
-        items: Array<{
-          __typename: "Comment";
-          id: string;
-          postID: string;
-          content: string;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -1267,34 +697,7 @@ export type OnDeleteUserSubscription = {
       content: string | null;
       createdAt: string;
       updatedAt: string;
-      user: {
-        __typename: "User";
-        id: string;
-        name: string | null;
-        phone: string | null;
-        accountNumber: string | null;
-        createdAt: string;
-        updatedAt: string;
-        owner: string | null;
-        posts: {
-          __typename: "ModelPostConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
-      comments: {
-        __typename: "ModelCommentConnection";
-        items: Array<{
-          __typename: "Comment";
-          id: string;
-          postID: string;
-          content: string;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -1319,30 +722,6 @@ export type OnCreatePostSubscription = {
     owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
-      items: Array<{
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -1356,30 +735,6 @@ export type OnCreatePostSubscription = {
       content: string;
       createdAt: string;
       updatedAt: string;
-      post: {
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
     } | null> | null;
     nextToken: string | null;
@@ -1405,30 +760,6 @@ export type OnUpdatePostSubscription = {
     owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
-      items: Array<{
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -1442,30 +773,6 @@ export type OnUpdatePostSubscription = {
       content: string;
       createdAt: string;
       updatedAt: string;
-      post: {
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
     } | null> | null;
     nextToken: string | null;
@@ -1491,30 +798,6 @@ export type OnDeletePostSubscription = {
     owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
-      items: Array<{
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -1528,30 +811,6 @@ export type OnDeletePostSubscription = {
       content: string;
       createdAt: string;
       updatedAt: string;
-      post: {
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
       owner: string | null;
     } | null> | null;
     nextToken: string | null;
@@ -1582,43 +841,10 @@ export type OnCreateCommentSubscription = {
       createdAt: string;
       updatedAt: string;
       owner: string | null;
-      posts: {
-        __typename: "ModelPostConnection";
-        items: Array<{
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null;
     owner: string | null;
     comments: {
       __typename: "ModelCommentConnection";
-      items: Array<{
-        __typename: "Comment";
-        id: string;
-        postID: string;
-        content: string;
-        createdAt: string;
-        updatedAt: string;
-        post: {
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -1649,43 +875,10 @@ export type OnUpdateCommentSubscription = {
       createdAt: string;
       updatedAt: string;
       owner: string | null;
-      posts: {
-        __typename: "ModelPostConnection";
-        items: Array<{
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null;
     owner: string | null;
     comments: {
       __typename: "ModelCommentConnection";
-      items: Array<{
-        __typename: "Comment";
-        id: string;
-        postID: string;
-        content: string;
-        createdAt: string;
-        updatedAt: string;
-        post: {
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -1716,43 +909,10 @@ export type OnDeleteCommentSubscription = {
       createdAt: string;
       updatedAt: string;
       owner: string | null;
-      posts: {
-        __typename: "ModelPostConnection";
-        items: Array<{
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
     } | null;
     owner: string | null;
     comments: {
       __typename: "ModelCommentConnection";
-      items: Array<{
-        __typename: "Comment";
-        id: string;
-        postID: string;
-        content: string;
-        createdAt: string;
-        updatedAt: string;
-        post: {
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        owner: string | null;
-      } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
@@ -1787,34 +947,7 @@ export class APIService {
               content
               createdAt
               updatedAt
-              user {
-                __typename
-                id
-                name
-                phone
-                accountNumber
-                createdAt
-                updatedAt
-                owner
-                posts {
-                  __typename
-                  nextToken
-                }
-              }
               owner
-              comments {
-                __typename
-                items {
-                  __typename
-                  id
-                  postID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             nextToken
           }
@@ -1855,34 +988,7 @@ export class APIService {
               content
               createdAt
               updatedAt
-              user {
-                __typename
-                id
-                name
-                phone
-                accountNumber
-                createdAt
-                updatedAt
-                owner
-                posts {
-                  __typename
-                  nextToken
-                }
-              }
               owner
-              comments {
-                __typename
-                items {
-                  __typename
-                  id
-                  postID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             nextToken
           }
@@ -1923,34 +1029,7 @@ export class APIService {
               content
               createdAt
               updatedAt
-              user {
-                __typename
-                id
-                name
-                phone
-                accountNumber
-                createdAt
-                updatedAt
-                owner
-                posts {
-                  __typename
-                  nextToken
-                }
-              }
               owner
-              comments {
-                __typename
-                items {
-                  __typename
-                  id
-                  postID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             nextToken
           }
@@ -1991,30 +1070,6 @@ export class APIService {
             owner
             posts {
               __typename
-              items {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               nextToken
             }
           }
@@ -2028,30 +1083,6 @@ export class APIService {
               content
               createdAt
               updatedAt
-              post {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               owner
             }
             nextToken
@@ -2093,30 +1124,6 @@ export class APIService {
             owner
             posts {
               __typename
-              items {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               nextToken
             }
           }
@@ -2130,30 +1137,6 @@ export class APIService {
               content
               createdAt
               updatedAt
-              post {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               owner
             }
             nextToken
@@ -2195,30 +1178,6 @@ export class APIService {
             owner
             posts {
               __typename
-              items {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               nextToken
             }
           }
@@ -2232,30 +1191,6 @@ export class APIService {
               content
               createdAt
               updatedAt
-              post {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               owner
             }
             nextToken
@@ -2302,43 +1237,10 @@ export class APIService {
               createdAt
               updatedAt
               owner
-              posts {
-                __typename
-                items {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             owner
             comments {
               __typename
-              items {
-                __typename
-                id
-                postID
-                content
-                createdAt
-                updatedAt
-                post {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-              }
               nextToken
             }
           }
@@ -2385,43 +1287,10 @@ export class APIService {
               createdAt
               updatedAt
               owner
-              posts {
-                __typename
-                items {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             owner
             comments {
               __typename
-              items {
-                __typename
-                id
-                postID
-                content
-                createdAt
-                updatedAt
-                post {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-              }
               nextToken
             }
           }
@@ -2468,43 +1337,10 @@ export class APIService {
               createdAt
               updatedAt
               owner
-              posts {
-                __typename
-                items {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             owner
             comments {
               __typename
-              items {
-                __typename
-                id
-                postID
-                content
-                createdAt
-                updatedAt
-                post {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-              }
               nextToken
             }
           }
@@ -2541,30 +1377,6 @@ export class APIService {
             owner
             posts {
               __typename
-              items {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               nextToken
             }
           }
@@ -2607,34 +1419,7 @@ export class APIService {
               content
               createdAt
               updatedAt
-              user {
-                __typename
-                id
-                name
-                phone
-                accountNumber
-                createdAt
-                updatedAt
-                owner
-                posts {
-                  __typename
-                  nextToken
-                }
-              }
               owner
-              comments {
-                __typename
-                items {
-                  __typename
-                  id
-                  postID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             nextToken
           }
@@ -2673,43 +1458,10 @@ export class APIService {
               createdAt
               updatedAt
               owner
-              posts {
-                __typename
-                items {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             owner
             comments {
               __typename
-              items {
-                __typename
-                id
-                postID
-                content
-                createdAt
-                updatedAt
-                post {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-              }
               nextToken
             }
           }
@@ -2752,30 +1504,6 @@ export class APIService {
             owner
             posts {
               __typename
-              items {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               nextToken
             }
           }
@@ -2789,30 +1517,6 @@ export class APIService {
               content
               createdAt
               updatedAt
-              post {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               owner
             }
             nextToken
@@ -2853,43 +1557,10 @@ export class APIService {
               createdAt
               updatedAt
               owner
-              posts {
-                __typename
-                items {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             owner
             comments {
               __typename
-              items {
-                __typename
-                id
-                postID
-                content
-                createdAt
-                updatedAt
-                post {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-              }
               nextToken
             }
           }
@@ -2927,34 +1598,7 @@ export class APIService {
               content
               createdAt
               updatedAt
-              user {
-                __typename
-                id
-                name
-                phone
-                accountNumber
-                createdAt
-                updatedAt
-                owner
-                posts {
-                  __typename
-                  nextToken
-                }
-              }
               owner
-              comments {
-                __typename
-                items {
-                  __typename
-                  id
-                  postID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             owner
           }
@@ -2998,34 +1642,7 @@ export class APIService {
               content
               createdAt
               updatedAt
-              user {
-                __typename
-                id
-                name
-                phone
-                accountNumber
-                createdAt
-                updatedAt
-                owner
-                posts {
-                  __typename
-                  nextToken
-                }
-              }
               owner
-              comments {
-                __typename
-                items {
-                  __typename
-                  id
-                  postID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             nextToken
           }
@@ -3056,34 +1673,7 @@ export class APIService {
               content
               createdAt
               updatedAt
-              user {
-                __typename
-                id
-                name
-                phone
-                accountNumber
-                createdAt
-                updatedAt
-                owner
-                posts {
-                  __typename
-                  nextToken
-                }
-              }
               owner
-              comments {
-                __typename
-                items {
-                  __typename
-                  id
-                  postID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             nextToken
           }
@@ -3114,34 +1704,7 @@ export class APIService {
               content
               createdAt
               updatedAt
-              user {
-                __typename
-                id
-                name
-                phone
-                accountNumber
-                createdAt
-                updatedAt
-                owner
-                posts {
-                  __typename
-                  nextToken
-                }
-              }
               owner
-              comments {
-                __typename
-                items {
-                  __typename
-                  id
-                  postID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             nextToken
           }
@@ -3172,30 +1735,6 @@ export class APIService {
             owner
             posts {
               __typename
-              items {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               nextToken
             }
           }
@@ -3209,30 +1748,6 @@ export class APIService {
               content
               createdAt
               updatedAt
-              post {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               owner
             }
             nextToken
@@ -3264,30 +1779,6 @@ export class APIService {
             owner
             posts {
               __typename
-              items {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               nextToken
             }
           }
@@ -3301,30 +1792,6 @@ export class APIService {
               content
               createdAt
               updatedAt
-              post {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               owner
             }
             nextToken
@@ -3356,30 +1823,6 @@ export class APIService {
             owner
             posts {
               __typename
-              items {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               nextToken
             }
           }
@@ -3393,30 +1836,6 @@ export class APIService {
               content
               createdAt
               updatedAt
-              post {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
               owner
             }
             nextToken
@@ -3455,43 +1874,10 @@ export class APIService {
               createdAt
               updatedAt
               owner
-              posts {
-                __typename
-                items {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             owner
             comments {
               __typename
-              items {
-                __typename
-                id
-                postID
-                content
-                createdAt
-                updatedAt
-                post {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-              }
               nextToken
             }
           }
@@ -3530,43 +1916,10 @@ export class APIService {
               createdAt
               updatedAt
               owner
-              posts {
-                __typename
-                items {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             owner
             comments {
               __typename
-              items {
-                __typename
-                id
-                postID
-                content
-                createdAt
-                updatedAt
-                post {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-              }
               nextToken
             }
           }
@@ -3605,43 +1958,10 @@ export class APIService {
               createdAt
               updatedAt
               owner
-              posts {
-                __typename
-                items {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
             }
             owner
             comments {
               __typename
-              items {
-                __typename
-                id
-                postID
-                content
-                createdAt
-                updatedAt
-                post {
-                  __typename
-                  id
-                  title
-                  userID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                owner
-              }
               nextToken
             }
           }

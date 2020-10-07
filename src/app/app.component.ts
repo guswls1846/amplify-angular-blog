@@ -22,9 +22,11 @@ export class AppComponent {
     this.actions.pipe(ofActionDispatched(Logout)).subscribe(() => {
       this.router.navigate(["/home"]);
     });
-    this.loginSubsription = this.isLogin$.subscribe((logined) => {
+    this.loginSubsription = this.isLogin$.subscribe(async (logined) => {
       // console.log(logined);
       if (!logined) {
+        console.log("비로그인");
+
         Amplify.configure({
           aws_appsync_authenticationType: "AWS_IAM",
         });

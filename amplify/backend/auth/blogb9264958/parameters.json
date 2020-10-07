@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "blogdbd25b8f_identitypool_dbd25b8f",
+    "identityPoolName": "blogb9264958_identitypool_b9264958",
     "allowUnauthenticatedIdentities": true,
-    "resourceNameTruncated": "blogdbd25b8f",
-    "userPoolName": "blogdbd25b8f_userpool_dbd25b8f",
+    "resourceNameTruncated": "blogb9264958",
+    "userPoolName": "blogb9264958_userpool_b9264958",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -12,9 +12,9 @@
     ],
     "smsAuthenticationMessage": "Your authentication code is {####}",
     "smsVerificationMessage": "Your verification code is {####}",
-    "emailVerificationSubject": "검증코드 입니다.",
-    "emailVerificationMessage": "검증코드 {####}",
-    "defaultPasswordPolicy": true,
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
@@ -23,29 +23,21 @@
     "userpoolClientGenerateSecret": true,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
-        "address",
-        "birthdate",
         "gender",
         "name",
-        "nickname",
         "phone_number",
-        "profile",
         "email"
     ],
     "userpoolClientReadAttributes": [
-        "address",
-        "birthdate",
         "email",
         "gender",
         "name",
-        "nickname",
-        "phone_number",
-        "profile"
+        "phone_number"
     ],
-    "userpoolClientLambdaRole": "blogdbdbd25b8f_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "blogb9b9264958_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": true,
-    "sharedId": "dbd25b8f",
-    "resourceName": "blogdbd25b8f",
+    "sharedId": "b9264958",
+    "resourceName": "blogb9264958",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -61,20 +53,26 @@
     },
     "useDefault": "manual",
     "hostedUI": true,
-    "hostedUIDomainName": "blogdbd25b8f-dbd25b8f",
+    "triggers": "{\"PostConfirmation\":[\"add-to-group\"]}",
+    "hostedUIDomainName": "blogb9264958-b9264958",
     "authProvidersUserPool": [
         "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
     "userPoolGroupList": [
-        "user",
         "admin",
-        "guest"
+        "user"
+    ],
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [
+        "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}"
     ],
     "dependsOn": [
         {
             "category": "function",
-            "resourceName": "blogdbd25b8fPostConfirmation",
+            "resourceName": "blogb9264958PostConfirmation",
             "triggerProvider": "Cognito",
             "attributes": [
                 "Arn",
@@ -82,19 +80,11 @@
             ]
         }
     ],
-    "userPoolGroups": true,
-    "adminQueries": true,
-    "triggers": "{\"PostConfirmation\":[\"add-to-group\"]}",
-    "parentStack": {
-        "Ref": "AWS::StackId"
-    },
-    "permissions": [
-        "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}"
-    ],
     "thirdPartyAuth": true,
     "authProviders": [
         "accounts.google.com"
     ],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://master.dpawwawyzm1zz.amplifyapp.com/\",\"http://localhost:4200/\"],\"LogoutURLs\":[\"https://master.dpawwawyzm1zz.amplifyapp.com/\",\"http://localhost:4200/\"]}",
-    "adminQueryGroup": "admin"
+    "userPoolGroups": true,
+    "adminQueries": false,
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:4200/\"],\"LogoutURLs\":[\"http://localhost:4200/\"]}"
 }

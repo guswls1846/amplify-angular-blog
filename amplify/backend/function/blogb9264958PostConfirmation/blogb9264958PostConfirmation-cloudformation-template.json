@@ -61,12 +61,12 @@
 				"FunctionName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"blogdbd25b8fPostConfirmation",
+						"blogb9264958PostConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"blogdbd25b8fPostConfirmation",
+									"blogb9264958PostConfirmation",
 									"-",
 									{
 										"Ref": "env"
@@ -101,8 +101,8 @@
 				"Runtime": "nodejs10.x",
 				"Timeout": "25",
 				"Code": {
-					"S3Bucket": "amplify-blog-dev-91519-deployment",
-					"S3Key": "amplify-builds/blogdbd25b8fPostConfirmation-58647155692f6a6b6846-build.zip"
+					"S3Bucket": "amplify-blog-dev-04800-deployment",
+					"S3Key": "amplify-builds/blogb9264958PostConfirmation-6b44766e656839545374-build.zip"
 				}
 			}
 		},
@@ -112,12 +112,12 @@
 				"RoleName": {
 					"Fn::If": [
 						"ShouldNotCreateEnvResources",
-						"blogdbd25b8fPostConfirmation",
+						"blogb9264958PostConfirmation",
 						{
 							"Fn::Join": [
 								"",
 								[
-									"blogdbd25b8fPostConfirmation",
+									"blogb9264958PostConfirmation",
 									"-",
 									{
 										"Ref": "env"

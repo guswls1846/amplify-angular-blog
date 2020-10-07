@@ -10,7 +10,9 @@ type Post
   @model
   @aws_iam
   @aws_cognito_user_pools
-  @auth(rules: [{ allow: owner, operations: [create, read, update, delete] }, { allow: public, provider: iam, operations: [read] }, { allow: groups, groups: ["user"], operations: [read] }])
+  @auth(
+    rules: [{ allow: owner, operations: [create, read, update, delete] }, { allow: public, provider: iam, operations: [read] }, { allow: groups, groups: ["user"], operations: [create, read, update] }]
+  )
   @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   title: String!

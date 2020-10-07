@@ -16,30 +16,7 @@ subscription OnCreateUser($owner: String) {
         content
         createdAt
         updatedAt
-        user {
-          id
-          name
-          phone
-          accountNumber
-          createdAt
-          updatedAt
-          owner
-          posts {
-            nextToken
-          }
-        }
         owner
-        comments {
-          items {
-            id
-            postID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
       }
       nextToken
     }
@@ -62,30 +39,7 @@ subscription OnUpdateUser($owner: String) {
         content
         createdAt
         updatedAt
-        user {
-          id
-          name
-          phone
-          accountNumber
-          createdAt
-          updatedAt
-          owner
-          posts {
-            nextToken
-          }
-        }
         owner
-        comments {
-          items {
-            id
-            postID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
       }
       nextToken
     }
@@ -108,30 +62,7 @@ subscription OnDeleteUser($owner: String) {
         content
         createdAt
         updatedAt
-        user {
-          id
-          name
-          phone
-          accountNumber
-          createdAt
-          updatedAt
-          owner
-          posts {
-            nextToken
-          }
-        }
         owner
-        comments {
-          items {
-            id
-            postID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
       }
       nextToken
     }
@@ -154,27 +85,6 @@ subscription OnCreatePost($owner: String) {
       updatedAt
       owner
       posts {
-        items {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-          comments {
-            nextToken
-          }
-        }
         nextToken
       }
     }
@@ -186,27 +96,6 @@ subscription OnCreatePost($owner: String) {
         content
         createdAt
         updatedAt
-        post {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-          comments {
-            nextToken
-          }
-        }
         owner
       }
       nextToken
@@ -230,27 +119,6 @@ subscription OnUpdatePost($owner: String) {
       updatedAt
       owner
       posts {
-        items {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-          comments {
-            nextToken
-          }
-        }
         nextToken
       }
     }
@@ -262,27 +130,6 @@ subscription OnUpdatePost($owner: String) {
         content
         createdAt
         updatedAt
-        post {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-          comments {
-            nextToken
-          }
-        }
         owner
       }
       nextToken
@@ -306,27 +153,6 @@ subscription OnDeletePost($owner: String) {
       updatedAt
       owner
       posts {
-        items {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-          comments {
-            nextToken
-          }
-        }
         nextToken
       }
     }
@@ -338,27 +164,6 @@ subscription OnDeletePost($owner: String) {
         content
         createdAt
         updatedAt
-        post {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-          comments {
-            nextToken
-          }
-        }
         owner
       }
       nextToken
@@ -387,38 +192,9 @@ subscription OnCreateComment($owner: String) {
         createdAt
         updatedAt
         owner
-        posts {
-          items {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
       }
       owner
       comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-          post {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-        }
         nextToken
       }
     }
@@ -447,38 +223,9 @@ subscription OnUpdateComment($owner: String) {
         createdAt
         updatedAt
         owner
-        posts {
-          items {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
       }
       owner
       comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-          post {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-        }
         nextToken
       }
     }
@@ -507,38 +254,9 @@ subscription OnDeleteComment($owner: String) {
         createdAt
         updatedAt
         owner
-        posts {
-          items {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
       }
       owner
       comments {
-        items {
-          id
-          postID
-          content
-          createdAt
-          updatedAt
-          post {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          owner
-        }
         nextToken
       }
     }
