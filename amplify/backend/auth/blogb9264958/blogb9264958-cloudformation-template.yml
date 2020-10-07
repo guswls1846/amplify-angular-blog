@@ -124,25 +124,25 @@ Parameters:
               
   dependsOn:
     Type: CommaDelimitedList
-      
-  hostedUIProviderCreds:
-    Type: String
-                
+        
   thirdPartyAuth:
     Type: String
                     
   authProviders:
     Type: CommaDelimitedList
-      
-  googleClientId:
-    Type: String
-                
+        
   userPoolGroups:
     Type: String
               
   adminQueries:
     Type: String
             
+  hostedUIProviderCreds:
+    Type: String
+              
+  googleClientId:
+    Type: String
+              
   oAuthMetadata:
     Type: String
                         
