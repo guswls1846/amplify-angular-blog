@@ -1,8 +1,6 @@
 import Auth, { CognitoHostedUIIdentityProvider } from "@aws-amplify/auth";
 import { CreateUserInput } from "src/app/API.service";
 
-//
-
 export class Login {
   static readonly type = "[Auth] Login";
   constructor(public payload: { username: string; password: string }) {}

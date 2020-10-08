@@ -19,7 +19,29 @@ mutation CreateUser(
         content
         createdAt
         updatedAt
-        owner
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          owner
+          posts {
+            nextToken
+          }
+        }
+        comments {
+          items {
+            id
+            postID
+            content
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       nextToken
     }
@@ -45,7 +67,29 @@ mutation UpdateUser(
         content
         createdAt
         updatedAt
-        owner
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          owner
+          posts {
+            nextToken
+          }
+        }
+        comments {
+          items {
+            id
+            postID
+            content
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       nextToken
     }
@@ -71,7 +115,29 @@ mutation DeleteUser(
         content
         createdAt
         updatedAt
-        owner
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          owner
+          posts {
+            nextToken
+          }
+        }
+        comments {
+          items {
+            id
+            postID
+            content
+            createdAt
+            updatedAt
+            owner
+          }
+          nextToken
+        }
       }
       nextToken
     }
@@ -97,10 +163,29 @@ mutation CreatePost(
       updatedAt
       owner
       posts {
+        items {
+          id
+          title
+          userID
+          content
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            owner
+          }
+          comments {
+            nextToken
+          }
+        }
         nextToken
       }
     }
-    owner
     comments {
       items {
         id
@@ -108,6 +193,26 @@ mutation CreatePost(
         content
         createdAt
         updatedAt
+        post {
+          id
+          title
+          userID
+          content
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            owner
+          }
+          comments {
+            nextToken
+          }
+        }
         owner
       }
       nextToken
@@ -134,10 +239,29 @@ mutation UpdatePost(
       updatedAt
       owner
       posts {
+        items {
+          id
+          title
+          userID
+          content
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            owner
+          }
+          comments {
+            nextToken
+          }
+        }
         nextToken
       }
     }
-    owner
     comments {
       items {
         id
@@ -145,6 +269,26 @@ mutation UpdatePost(
         content
         createdAt
         updatedAt
+        post {
+          id
+          title
+          userID
+          content
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            owner
+          }
+          comments {
+            nextToken
+          }
+        }
         owner
       }
       nextToken
@@ -171,10 +315,29 @@ mutation DeletePost(
       updatedAt
       owner
       posts {
+        items {
+          id
+          title
+          userID
+          content
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            owner
+          }
+          comments {
+            nextToken
+          }
+        }
         nextToken
       }
     }
-    owner
     comments {
       items {
         id
@@ -182,6 +345,26 @@ mutation DeletePost(
         content
         createdAt
         updatedAt
+        post {
+          id
+          title
+          userID
+          content
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            owner
+          }
+          comments {
+            nextToken
+          }
+        }
         owner
       }
       nextToken
@@ -213,9 +396,35 @@ mutation CreateComment(
         createdAt
         updatedAt
         owner
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
       }
-      owner
       comments {
+        items {
+          id
+          postID
+          content
+          createdAt
+          updatedAt
+          post {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          owner
+        }
         nextToken
       }
     }
@@ -247,9 +456,35 @@ mutation UpdateComment(
         createdAt
         updatedAt
         owner
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
       }
-      owner
       comments {
+        items {
+          id
+          postID
+          content
+          createdAt
+          updatedAt
+          post {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          owner
+        }
         nextToken
       }
     }
@@ -281,9 +516,35 @@ mutation DeleteComment(
         createdAt
         updatedAt
         owner
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
       }
-      owner
       comments {
+        items {
+          id
+          postID
+          content
+          createdAt
+          updatedAt
+          post {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          owner
+        }
         nextToken
       }
     }

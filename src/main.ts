@@ -12,15 +12,15 @@ console.log(window.location.origin);
 awsconfig.oauth.redirectSignIn = `${window.location.origin}/`;
 awsconfig.oauth.redirectSignOut = `${window.location.origin}/`;
 
-Auth.configure(awsconfig);
+Auth.configure({ ...awsconfig, storage: sessionStorage });
 API.configure(awsconfig);
 Storage.configure(awsconfig);
 
-// Amplify.configure(awsconfig);
+Amplify.configure(awsconfig);
 if (environment.production) {
   enableProdMode();
 }
 
 platformBrowserDynamic()
   .bootstrapModule(AppModule)
-  .catch((err) => console.error(err));
+  .catch(err => console.error(err));

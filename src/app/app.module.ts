@@ -42,7 +42,7 @@ import { environment } from "src/environments/environment";
     PreviewPostComponent,
     AuthorPostComponent,
     LoadingComponent,
-    LoginComponent,
+    LoginComponent
   ],
   entryComponents: [LoginComponent],
   imports: [
@@ -58,20 +58,20 @@ import { environment } from "src/environments/environment";
       developmentMode: !environment.production,
       selectorOptions: {
         suppressErrors: false,
-        injectContainerState: false,
+        injectContainerState: false
       },
       compatibility: {
-        strictContentSecurityPolicy: true,
-      },
+        strictContentSecurityPolicy: true
+      }
     }),
     NgxsStoragePluginModule.forRoot({
-      storage: StorageOption.LocalStorage,
-      key: ["auth.token", "auth.username", "auth.group"],
+      storage: StorageOption.SessionStorage,
+      key: ["auth.token", "auth.username", "auth.group"]
     }),
-    NgxsRouterPluginModule.forRoot(),
+    NgxsRouterPluginModule.forRoot()
     // environment.plugins,
   ],
   providers: [{ provide: RouterStateSerializer, useClass: CustomRouterStateSerializer }],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

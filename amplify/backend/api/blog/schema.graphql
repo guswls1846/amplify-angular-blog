@@ -7,11 +7,17 @@ type User @model @aws_iam @aws_cognito_user_pools @auth(rules: [{ allow: owner, 
 }
 
 type Post
-  @model
+  @model(subscriptions: { level: public })
   @aws_iam
   @aws_cognito_user_pools
   @auth(
-    rules: [{ allow: owner, operations: [create, read, update, delete] }, { allow: public, provider: iam, operations: [read] }, { allow: groups, groups: ["user"], operations: [create, read, update] }]
+    rules: [
+      { allow: public, provider: iam, operations: [read] }
+      { allow: private, operations: [read, create, update, delete] }
+      # { allow: owner, operations: [create, read, update, delete] }
+      # { allow: public, provider: iam, operations: [read, create, update] }
+      # { allow: groups, groups: ["user"], operations: [create, read, update] }
+    ]
   )
   @key(name: "byUser", fields: ["userID"]) {
   id: ID!
@@ -32,4 +38,10 @@ type Comment
   postID: ID!
   post: Post @connection(fields: ["postID"])
   content: String!
+}
+
+type Subscription {
+  onCreatePostPublic: Post @aws_subscribe(mutations: ["createPost"]) @aws_iam @aws_cognito_user_pools
+  onUpdatePostPublic: Post @aws_subscribe(mutations: ["updatePost"]) @aws_iam @aws_cognito_user_pools
+  onDeletePostPublic: Post @aws_subscribe(mutations: ["deletePost"]) @aws_iam @aws_cognito_user_pools
 }
