@@ -65,7 +65,7 @@ import { environment } from "src/environments/environment";
       }
     }),
     NgxsStoragePluginModule.forRoot({
-      storage: StorageOption.SessionStorage,
+      storage: StorageOption.LocalStorage,
       key: ["auth.token", "auth.username", "auth.group"]
     }),
     NgxsRouterPluginModule.forRoot()

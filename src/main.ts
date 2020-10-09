@@ -12,7 +12,8 @@ console.log(window.location.origin);
 awsconfig.oauth.redirectSignIn = `${window.location.origin}/`;
 awsconfig.oauth.redirectSignOut = `${window.location.origin}/`;
 
-Auth.configure({ ...awsconfig, storage: sessionStorage });
+// Auth.configure({ ...awsconfig, storage: sessionStorage });
+Auth.configure(awsconfig);
 API.configure(awsconfig);
 Storage.configure(awsconfig);
 
