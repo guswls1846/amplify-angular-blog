@@ -5,7 +5,7 @@ export class ListPosts {
   constructor(public params?: ListPostsParams) {}
 }
 
-export class PostsListener {
-  static readonly type = "[Posts] PostsListener";
+export class CreatPostsListener {
+  static readonly type = "[Posts] CreatPostsListener";
   constructor(public authMode?: GRAPHQL_AUTH_MODE) {}
 }

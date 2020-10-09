@@ -7,7 +7,7 @@ import { AuthState } from "src/ngxs/auth/auth.state";
 import { Observable, Subscription, Subject, from } from "rxjs";
 import { Login } from "src/ngxs/auth/auth.action";
 
-import { ListPosts, PostsListener } from "src/ngxs/posts/posts.action";
+import { ListPosts, CreatPostsListener } from "src/ngxs/posts/posts.action";
 import { PostsState } from "src/ngxs/posts/posts.state";
 import { takeUntil } from "rxjs/operators";
 import Amplify, { API, graphqlOperation, Auth } from "aws-amplify";
@@ -19,7 +19,7 @@ import * as subscriptions from "../../graphql/subscriptions";
 @Component({
   selector: "app-home",
   templateUrl: "./home.component.html",
-  styleUrls: ["./home.component.css"],
+  styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
   loading: boolean = true;
@@ -30,33 +30,22 @@ export class HomeComponent implements OnInit {
   @Select(AuthState.isAuthenticated) isLogin$: Observable<boolean>;
   @Select(PostsState.listPosts) posts$: Observable<ListPostsQuery["items"]>;
   ngOnInit() {
-    this.actions.pipe(ofActionSuccessful(ListPosts), takeUntil(this.unSubscribe)).subscribe((result) => {
+    this.actions.pipe(ofActionSuccessful(CreatPostsListener), takeUntil(this.unSubscribe)).subscribe(result => {
+      this.getPosts();
+    });
+
+    this.actions.pipe(ofActionSuccessful(ListPosts), takeUntil(this.unSubscribe)).subscribe(result => {
       this.loading = false;
     });
-    this.getPosts();
-
-    this.createPostsListener();
   }
 
   ngOnDestroy() {
     this.unSubscribe.next();
     this.unSubscribe.complete();
-    // this.test.unsubscribe();
   }
 
   getPosts() {
     let params = { filter: null, limit: null, nextToken: null };
     this.store.dispatch(new ListPosts(params));
-  }
-
-  createPostsListener() {
-    // this.isLogin$.subscribe((logined) => {
-    //   // console.log(logined);
-    //   if (!logined) {
-    //     this.store.dispatch(new PostsListener(GRAPHQL_AUTH_MODE.AWS_IAM));
-    //   } else {
-    //     this.store.dispatch(new PostsListener(GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS));
-    //   }
-    // });
   }
 }

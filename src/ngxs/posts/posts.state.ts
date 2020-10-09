@@ -7,7 +7,7 @@ import { Auth, API, graphqlOperation } from "aws-amplify";
 
 import { APIService, OnCreatePostPublicSubscription } from "src/app/API.service";
 import { from } from "rxjs";
-import { ListPosts, PostsListener } from "./posts.action";
+import { ListPosts, CreatPostsListener } from "./posts.action";
 import { PostsStateModel } from "./posts.model";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api-graphql";
 import * as subscriptions from "../../graphql/subscriptions";
@@ -43,9 +43,9 @@ export class PostsState {
     );
   }
 
-  @Action(PostsListener)
+  @Action(CreatPostsListener)
   @ImmutableContext()
-  postsListener(ctx: StateContext<PostsStateModel>, action: PostsListener) {
+  postsListener(ctx: StateContext<PostsStateModel>, action: CreatPostsListener) {
     console.log(action.authMode);
 
     return from(API.graphql({ ...graphqlOperation(subscriptions.onCreatePostPublic), authMode: action.authMode })).subscribe((result: any) => {

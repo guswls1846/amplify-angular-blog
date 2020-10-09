@@ -94,7 +94,7 @@ export class AuthState {
   @Action(Logout)
   @ImmutableContext()
   logout(ctx: StateContext<AuthStateModel>) {
-    Auth.signOut()
+    Auth.signOut({ global: true })
       .then(() => {
         ctx.setState((state: AuthStateModel) => {
           state.token = null;
@@ -128,7 +128,6 @@ export class AuthState {
         state.group = group;
         return state;
       });
-      // ctx.dispatch(new CreateUser({ id: id }));
 
       return from(this.apiService.GetUser(id)).pipe(
         tap(result => {
