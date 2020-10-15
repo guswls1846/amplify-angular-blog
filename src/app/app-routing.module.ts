@@ -6,7 +6,7 @@ import { ContactComponent } from "src/app/component/contact/contact.component";
 
 import { AuthorPostComponent } from "src/app/component/author-post/author-post.component";
 import { AuthGuard } from "./service/guard/auth-canActivate.service";
-import { AuthCanLoad } from "./service/guard/auth-canload.service";
+import { AuthCanLoad } from "./service/guard/auth-canLoad.service";
 
 const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" }, //default route
