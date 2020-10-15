@@ -1,7 +1,8 @@
-import { ModelPostFilterInput, ListPostsQuery } from "src/app/API.service";
+import { ModelPostFilterInput, ListPostsQuery, GetPostQuery } from "src/app/API.service";
 
 export interface PostsStateModel {
   posts: ListPostsQuery;
+  post: GetPostQuery;
   nextToken: string;
 }
 

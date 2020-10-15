@@ -7,7 +7,7 @@ import { Auth, API, graphqlOperation } from "aws-amplify";
 
 import { APIService, OnCreatePostPublicSubscription } from "src/app/API.service";
 import { from } from "rxjs";
-import { ListPosts, CreatPostsListener } from "./posts.action";
+import { ListPosts, CreatPostsListener, GetPost } from "./posts.action";
 import { PostsStateModel } from "./posts.model";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api-graphql";
 import * as subscriptions from "../../graphql/subscriptions";
@@ -15,6 +15,7 @@ import * as subscriptions from "../../graphql/subscriptions";
   name: "posts",
   defaults: {
     posts: null,
+    post: null,
     nextToken: null
   }
 })
@@ -28,6 +29,12 @@ export class PostsState {
     return state.posts.items;
   }
 
+  @Selector()
+  @ImmutableSelector()
+  static getPost(state: PostsStateModel) {
+    return state.post;
+  }
+
   @Action(ListPosts)
   @ImmutableContext()
   listPosts(ctx: StateContext<PostsStateModel>, action: ListPosts) {
@@ -37,6 +44,20 @@ export class PostsState {
         ctx.setState((state: PostsStateModel) => {
           state.posts = result;
           state.nextToken = result.nextToken;
+          return state;
+        });
+      })
+    );
+  }
+
+  @Action(GetPost)
+  @ImmutableContext()
+  getPost(ctx: StateContext<PostsStateModel>, action: GetPost) {
+    return from(this.apiService.GetPost(action.postID)).pipe(
+      tap(result => {
+        console.log(result);
+        ctx.setState((state: PostsStateModel) => {
+          state.post = result;
           return state;
         });
       })

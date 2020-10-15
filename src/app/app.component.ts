@@ -25,30 +25,8 @@ export class AppComponent {
     this.actions.pipe(ofActionDispatched(Logout)).subscribe(() => {
       this.router.navigate(["/home"]);
     });
-    this.loginSubsription = this.isLogin$.pipe(debounceTime(500)).subscribe(logined => {
-      console.log(logined);
-      if (logined === true) {
-        this.authModeHandler(GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS).then(() => {
-          this.store.dispatch(new CreatPostsListener(GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS));
-        });
-      } else if (logined === false) {
-        this.authModeHandler(GRAPHQL_AUTH_MODE.AWS_IAM).then(() => {
-          this.store.dispatch(new CreatPostsListener(GRAPHQL_AUTH_MODE.AWS_IAM));
-        });
-      }
-    });
+  }
 
-    this.isLogin$.pipe();
-  }
-  authModeHandler(authMode) {
-    return new Promise((resolve, reject) => {
-      resolve(
-        Amplify.configure({
-          aws_appsync_authenticationType: authMode
-        })
-      );
-    });
-  }
   ngOnDestroy() {
     if (this.loginSubsription) {
       this.loginSubsription.unsubscribe();

@@ -7,7 +7,7 @@
   padding-bottom: 18px;
 }
 
-#mainNav .navbar-nav>li.nav-item>a {
+#mainNav .navbar-nav > li.nav-item > a {
   margin-top: 12px;
 }
 
@@ -16,5 +16,11 @@ textarea.form-control {
   border-radius: 0;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

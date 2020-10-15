@@ -9,3 +9,8 @@ export class CreatPostsListener {
   static readonly type = "[Posts] CreatPostsListener";
   constructor(public authMode?: GRAPHQL_AUTH_MODE) {}
 }
+
+export class GetPost {
+  static readonly type = "[Posts] GetPost";
+  constructor(public postID: string) {}
+}

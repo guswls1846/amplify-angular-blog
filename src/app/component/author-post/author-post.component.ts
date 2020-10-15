@@ -1,17 +1,17 @@
-import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { BlogPost } from "../models/blog-post";
-import { APIService } from "../API.service";
+import { BlogPost } from "../../models/blog-post";
+import { APIService } from "../../API.service";
 import Editor from "@toast-ui/editor";
 import colorSyntax from "@toast-ui/editor-plugin-color-syntax";
 import { Storage } from "aws-amplify";
-import { Buffer } from "buffer";
+
 import { Store } from "@ngxs/store";
 import { AuthState } from "src/ngxs/auth/auth.state";
 @Component({
   selector: "app-author-post",
   templateUrl: "./author-post.component.html",
-  styleUrls: ["./author-post.component.css"],
+  styleUrls: ["./author-post.component.css"]
 })
 export class AuthorPostComponent implements OnInit {
   public post: BlogPost;
@@ -44,8 +44,8 @@ export class AuthorPostComponent implements OnInit {
       hooks: {
         addImageBlobHook: (blob, callback) => {
           this.imageUpload(blob, callback);
-        },
-      },
+        }
+      }
     });
   }
 
@@ -55,13 +55,13 @@ export class AuthorPostComponent implements OnInit {
 
     Storage.put(fileName, blob, {
       contentType: blob.type,
-      customPrefix: { public: `post/${this.setPostId}/` },
+      customPrefix: { public: `post/${this.setPostId}/` }
     })
-      .then((result) => {
+      .then(result => {
         console.log(result);
         callback(`${this.postPath}/${this.setPostId}/${fileName}`, fileName);
       })
-      .catch((err) => {
+      .catch(err => {
         console.log(err);
       });
   }
@@ -77,7 +77,7 @@ export class AuthorPostComponent implements OnInit {
   }
 
   uuid4() {
-    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, c => {
       let r = (Math.random() * 16) | 0,
         v = c === "x" ? r : (r & 0x3) | 0x8;
       return v.toString(16);
@@ -87,7 +87,7 @@ export class AuthorPostComponent implements OnInit {
   setPostID() {
     let today = new Date();
 
-    let randomID = "xxxxyyyxyxy".replace(/[xy]/g, (c) => {
+    let randomID = "xxxxyyyxyxy".replace(/[xy]/g, c => {
       let r = (Math.random() * 16) | 0,
         v = c === "x" ? r : (r & 0x3) | 0x8;
       return v.toString(16);

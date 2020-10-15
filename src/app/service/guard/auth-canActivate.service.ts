@@ -5,16 +5,15 @@ import { Store } from "@ngxs/store";
 
 import { Navigate } from "@ngxs/router-plugin";
 import { AuthState } from "src/ngxs/auth/auth.state";
-import Amplify from "@aws-amplify/core";
+
 @Injectable({
-  providedIn: "root",
+  providedIn: "root"
 })
 export class AuthGuard implements CanActivate {
-  constructor(private router: Router, private store: Store) {}
+  constructor(private store: Store) {}
 
   canActivate(): boolean {
     const isAuthenticated = this.store.selectSnapshot(AuthState.isAuthenticated);
-    // console.log(isAuthenticated);
 
     if (isAuthenticated) {
       return isAuthenticated;
