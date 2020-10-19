@@ -2,8 +2,7 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 import { Injectable } from "@angular/core";
-import API, { graphqlOperation } from "@aws-amplify/api";
-import { GraphQLResult } from "@aws-amplify/api/lib/types";
+import API, { graphqlOperation, GraphQLResult } from "@aws-amplify/api-graphql";
 import { Observable } from "zen-observable-ts";
 
 export type CreateUserInput = {
@@ -117,11 +116,13 @@ export type DeletePostInput = {
 
 export type CreateCommentInput = {
   id?: string | null;
+  userID: string;
   postID: string;
   content: string;
 };
 
 export type ModelCommentConditionInput = {
+  userID?: ModelIDInput | null;
   postID?: ModelIDInput | null;
   content?: ModelStringInput | null;
   and?: Array<ModelCommentConditionInput | null> | null;
@@ -131,6 +132,7 @@ export type ModelCommentConditionInput = {
 
 export type UpdateCommentInput = {
   id: string;
+  userID?: string | null;
   postID?: string | null;
   content?: string | null;
 };
@@ -161,6 +163,7 @@ export type ModelPostFilterInput = {
 
 export type ModelCommentFilterInput = {
   id?: ModelIDInput | null;
+  userID?: ModelIDInput | null;
   postID?: ModelIDInput | null;
   content?: ModelStringInput | null;
   and?: Array<ModelCommentFilterInput | null> | null;
@@ -176,7 +179,6 @@ export type CreateUserMutation = {
   accountNumber: string | null;
   createdAt: string;
   updatedAt: string;
-  owner: string | null;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -195,7 +197,6 @@ export type CreateUserMutation = {
         accountNumber: string | null;
         createdAt: string;
         updatedAt: string;
-        owner: string | null;
         posts: {
           __typename: "ModelPostConnection";
           nextToken: string | null;
@@ -206,11 +207,11 @@ export type CreateUserMutation = {
         items: Array<{
           __typename: "Comment";
           id: string;
+          userID: string;
           postID: string;
           content: string;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null> | null;
         nextToken: string | null;
       } | null;
@@ -227,7 +228,6 @@ export type UpdateUserMutation = {
   accountNumber: string | null;
   createdAt: string;
   updatedAt: string;
-  owner: string | null;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -246,7 +246,6 @@ export type UpdateUserMutation = {
         accountNumber: string | null;
         createdAt: string;
         updatedAt: string;
-        owner: string | null;
         posts: {
           __typename: "ModelPostConnection";
           nextToken: string | null;
@@ -257,11 +256,11 @@ export type UpdateUserMutation = {
         items: Array<{
           __typename: "Comment";
           id: string;
+          userID: string;
           postID: string;
           content: string;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null> | null;
         nextToken: string | null;
       } | null;
@@ -278,7 +277,6 @@ export type DeleteUserMutation = {
   accountNumber: string | null;
   createdAt: string;
   updatedAt: string;
-  owner: string | null;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -297,7 +295,6 @@ export type DeleteUserMutation = {
         accountNumber: string | null;
         createdAt: string;
         updatedAt: string;
-        owner: string | null;
         posts: {
           __typename: "ModelPostConnection";
           nextToken: string | null;
@@ -308,11 +305,11 @@ export type DeleteUserMutation = {
         items: Array<{
           __typename: "Comment";
           id: string;
+          userID: string;
           postID: string;
           content: string;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null> | null;
         nextToken: string | null;
       } | null;
@@ -337,7 +334,6 @@ export type CreatePostMutation = {
     accountNumber: string | null;
     createdAt: string;
     updatedAt: string;
-    owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
       items: Array<{
@@ -356,7 +352,6 @@ export type CreatePostMutation = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -371,10 +366,24 @@ export type CreatePostMutation = {
     items: Array<{
       __typename: "Comment";
       id: string;
+      userID: string;
       postID: string;
       content: string;
       createdAt: string;
       updatedAt: string;
+      commentor: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
       post: {
         __typename: "Post";
         id: string;
@@ -391,14 +400,12 @@ export type CreatePostMutation = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
         } | null;
       } | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -420,7 +427,6 @@ export type UpdatePostMutation = {
     accountNumber: string | null;
     createdAt: string;
     updatedAt: string;
-    owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
       items: Array<{
@@ -439,7 +445,6 @@ export type UpdatePostMutation = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -454,10 +459,24 @@ export type UpdatePostMutation = {
     items: Array<{
       __typename: "Comment";
       id: string;
+      userID: string;
       postID: string;
       content: string;
       createdAt: string;
       updatedAt: string;
+      commentor: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
       post: {
         __typename: "Post";
         id: string;
@@ -474,14 +493,12 @@ export type UpdatePostMutation = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
         } | null;
       } | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -503,7 +520,6 @@ export type DeletePostMutation = {
     accountNumber: string | null;
     createdAt: string;
     updatedAt: string;
-    owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
       items: Array<{
@@ -522,7 +538,6 @@ export type DeletePostMutation = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -537,10 +552,24 @@ export type DeletePostMutation = {
     items: Array<{
       __typename: "Comment";
       id: string;
+      userID: string;
       postID: string;
       content: string;
       createdAt: string;
       updatedAt: string;
+      commentor: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
       post: {
         __typename: "Post";
         id: string;
@@ -557,14 +586,12 @@ export type DeletePostMutation = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
         } | null;
       } | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -573,198 +600,12 @@ export type DeletePostMutation = {
 export type CreateCommentMutation = {
   __typename: "Comment";
   id: string;
+  userID: string;
   postID: string;
   content: string;
   createdAt: string;
   updatedAt: string;
-  post: {
-    __typename: "Post";
-    id: string;
-    title: string;
-    userID: string;
-    content: string | null;
-    createdAt: string;
-    updatedAt: string;
-    user: {
-      __typename: "User";
-      id: string;
-      name: string | null;
-      phone: string | null;
-      accountNumber: string | null;
-      createdAt: string;
-      updatedAt: string;
-      owner: string | null;
-      posts: {
-        __typename: "ModelPostConnection";
-        items: Array<{
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
-    } | null;
-    comments: {
-      __typename: "ModelCommentConnection";
-      items: Array<{
-        __typename: "Comment";
-        id: string;
-        postID: string;
-        content: string;
-        createdAt: string;
-        updatedAt: string;
-        post: {
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-        } | null;
-        owner: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-  } | null;
-  owner: string | null;
-};
-
-export type UpdateCommentMutation = {
-  __typename: "Comment";
-  id: string;
-  postID: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  post: {
-    __typename: "Post";
-    id: string;
-    title: string;
-    userID: string;
-    content: string | null;
-    createdAt: string;
-    updatedAt: string;
-    user: {
-      __typename: "User";
-      id: string;
-      name: string | null;
-      phone: string | null;
-      accountNumber: string | null;
-      createdAt: string;
-      updatedAt: string;
-      owner: string | null;
-      posts: {
-        __typename: "ModelPostConnection";
-        items: Array<{
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
-    } | null;
-    comments: {
-      __typename: "ModelCommentConnection";
-      items: Array<{
-        __typename: "Comment";
-        id: string;
-        postID: string;
-        content: string;
-        createdAt: string;
-        updatedAt: string;
-        post: {
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-        } | null;
-        owner: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-  } | null;
-  owner: string | null;
-};
-
-export type DeleteCommentMutation = {
-  __typename: "Comment";
-  id: string;
-  postID: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
-  post: {
-    __typename: "Post";
-    id: string;
-    title: string;
-    userID: string;
-    content: string | null;
-    createdAt: string;
-    updatedAt: string;
-    user: {
-      __typename: "User";
-      id: string;
-      name: string | null;
-      phone: string | null;
-      accountNumber: string | null;
-      createdAt: string;
-      updatedAt: string;
-      owner: string | null;
-      posts: {
-        __typename: "ModelPostConnection";
-        items: Array<{
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
-    } | null;
-    comments: {
-      __typename: "ModelCommentConnection";
-      items: Array<{
-        __typename: "Comment";
-        id: string;
-        postID: string;
-        content: string;
-        createdAt: string;
-        updatedAt: string;
-        post: {
-          __typename: "Post";
-          id: string;
-          title: string;
-          userID: string;
-          content: string | null;
-          createdAt: string;
-          updatedAt: string;
-        } | null;
-        owner: string | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-  } | null;
-  owner: string | null;
-};
-
-export type ListUsersQuery = {
-  __typename: "ModelUserConnection";
-  items: Array<{
+  commentor: {
     __typename: "User";
     id: string;
     name: string | null;
@@ -772,7 +613,6 @@ export type ListUsersQuery = {
     accountNumber: string | null;
     createdAt: string;
     updatedAt: string;
-    owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
       items: Array<{
@@ -791,7 +631,321 @@ export type ListUsersQuery = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+  post: {
+    __typename: "Post";
+    id: string;
+    title: string;
+    userID: string;
+    content: string | null;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    comments: {
+      __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        userID: string;
+        postID: string;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type UpdateCommentMutation = {
+  __typename: "Comment";
+  id: string;
+  userID: string;
+  postID: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  commentor: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+  post: {
+    __typename: "Post";
+    id: string;
+    title: string;
+    userID: string;
+    content: string | null;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    comments: {
+      __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        userID: string;
+        postID: string;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type DeleteCommentMutation = {
+  __typename: "Comment";
+  id: string;
+  userID: string;
+  postID: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  commentor: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+  post: {
+    __typename: "Post";
+    id: string;
+    title: string;
+    userID: string;
+    content: string | null;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    comments: {
+      __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        userID: string;
+        postID: string;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type ListUsersQuery = {
+  __typename: "ModelUserConnection";
+  items: Array<{
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -812,7 +966,6 @@ export type GetUserQuery = {
   accountNumber: string | null;
   createdAt: string;
   updatedAt: string;
-  owner: string | null;
   posts: {
     __typename: "ModelPostConnection";
     items: Array<{
@@ -831,7 +984,6 @@ export type GetUserQuery = {
         accountNumber: string | null;
         createdAt: string;
         updatedAt: string;
-        owner: string | null;
         posts: {
           __typename: "ModelPostConnection";
           nextToken: string | null;
@@ -842,11 +994,11 @@ export type GetUserQuery = {
         items: Array<{
           __typename: "Comment";
           id: string;
+          userID: string;
           postID: string;
           content: string;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null> | null;
         nextToken: string | null;
       } | null;
@@ -873,7 +1025,6 @@ export type ListPostsQuery = {
       accountNumber: string | null;
       createdAt: string;
       updatedAt: string;
-      owner: string | null;
       posts: {
         __typename: "ModelPostConnection";
         items: Array<{
@@ -893,10 +1044,20 @@ export type ListPostsQuery = {
       items: Array<{
         __typename: "Comment";
         id: string;
+        userID: string;
         postID: string;
         content: string;
         createdAt: string;
         updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
         post: {
           __typename: "Post";
           id: string;
@@ -906,7 +1067,6 @@ export type ListPostsQuery = {
           createdAt: string;
           updatedAt: string;
         } | null;
-        owner: string | null;
       } | null> | null;
       nextToken: string | null;
     } | null;
@@ -930,7 +1090,6 @@ export type GetPostQuery = {
     accountNumber: string | null;
     createdAt: string;
     updatedAt: string;
-    owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
       items: Array<{
@@ -949,7 +1108,6 @@ export type GetPostQuery = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -964,10 +1122,24 @@ export type GetPostQuery = {
     items: Array<{
       __typename: "Comment";
       id: string;
+      userID: string;
       postID: string;
       content: string;
       createdAt: string;
       updatedAt: string;
+      commentor: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
       post: {
         __typename: "Post";
         id: string;
@@ -984,14 +1156,12 @@ export type GetPostQuery = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
         } | null;
       } | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -1000,10 +1170,46 @@ export type GetPostQuery = {
 export type GetCommentQuery = {
   __typename: "Comment";
   id: string;
+  userID: string;
   postID: string;
   content: string;
   createdAt: string;
   updatedAt: string;
+  commentor: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
   post: {
     __typename: "Post";
     id: string;
@@ -1020,7 +1226,6 @@ export type GetCommentQuery = {
       accountNumber: string | null;
       createdAt: string;
       updatedAt: string;
-      owner: string | null;
       posts: {
         __typename: "ModelPostConnection";
         items: Array<{
@@ -1040,10 +1245,20 @@ export type GetCommentQuery = {
       items: Array<{
         __typename: "Comment";
         id: string;
+        userID: string;
         postID: string;
         content: string;
         createdAt: string;
         updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
         post: {
           __typename: "Post";
           id: string;
@@ -1053,12 +1268,10 @@ export type GetCommentQuery = {
           createdAt: string;
           updatedAt: string;
         } | null;
-        owner: string | null;
       } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
-  owner: string | null;
 };
 
 export type ListCommentsQuery = {
@@ -1066,10 +1279,33 @@ export type ListCommentsQuery = {
   items: Array<{
     __typename: "Comment";
     id: string;
+    userID: string;
     postID: string;
     content: string;
     createdAt: string;
     updatedAt: string;
+    commentor: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
     post: {
       __typename: "Post";
       id: string;
@@ -1086,7 +1322,6 @@ export type ListCommentsQuery = {
         accountNumber: string | null;
         createdAt: string;
         updatedAt: string;
-        owner: string | null;
         posts: {
           __typename: "ModelPostConnection";
           nextToken: string | null;
@@ -1097,264 +1332,161 @@ export type ListCommentsQuery = {
         items: Array<{
           __typename: "Comment";
           id: string;
+          userID: string;
           postID: string;
           content: string;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null> | null;
         nextToken: string | null;
       } | null;
     } | null;
-    owner: string | null;
   } | null> | null;
   nextToken: string | null;
 };
 
-export type OnCreatePostPublicSubscription = {
-  __typename: "Post";
+export type OnCreateUserSubscription = {
+  __typename: "User";
   id: string;
-  title: string;
-  userID: string;
-  content: string | null;
+  name: string | null;
+  phone: string | null;
+  accountNumber: string | null;
   createdAt: string;
   updatedAt: string;
-  user: {
-    __typename: "User";
-    id: string;
-    name: string | null;
-    phone: string | null;
-    accountNumber: string | null;
-    createdAt: string;
-    updatedAt: string;
-    owner: string | null;
-    posts: {
-      __typename: "ModelPostConnection";
-      items: Array<{
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-  } | null;
-  comments: {
-    __typename: "ModelCommentConnection";
+  posts: {
+    __typename: "ModelPostConnection";
     items: Array<{
-      __typename: "Comment";
+      __typename: "Post";
       id: string;
-      postID: string;
-      content: string;
+      title: string;
+      userID: string;
+      content: string | null;
       createdAt: string;
       updatedAt: string;
-      post: {
-        __typename: "Post";
+      user: {
+        __typename: "User";
         id: string;
-        title: string;
-        userID: string;
-        content: string | null;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
         createdAt: string;
         updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        comments: {
-          __typename: "ModelCommentConnection";
+        posts: {
+          __typename: "ModelPostConnection";
           nextToken: string | null;
         } | null;
       } | null;
-      owner: string | null;
+      comments: {
+        __typename: "ModelCommentConnection";
+        items: Array<{
+          __typename: "Comment";
+          id: string;
+          userID: string;
+          postID: string;
+          content: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
 };
 
-export type OnUpdatePostPublicSubscription = {
-  __typename: "Post";
+export type OnUpdateUserSubscription = {
+  __typename: "User";
   id: string;
-  title: string;
-  userID: string;
-  content: string | null;
+  name: string | null;
+  phone: string | null;
+  accountNumber: string | null;
   createdAt: string;
   updatedAt: string;
-  user: {
-    __typename: "User";
-    id: string;
-    name: string | null;
-    phone: string | null;
-    accountNumber: string | null;
-    createdAt: string;
-    updatedAt: string;
-    owner: string | null;
-    posts: {
-      __typename: "ModelPostConnection";
-      items: Array<{
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-  } | null;
-  comments: {
-    __typename: "ModelCommentConnection";
+  posts: {
+    __typename: "ModelPostConnection";
     items: Array<{
-      __typename: "Comment";
+      __typename: "Post";
       id: string;
-      postID: string;
-      content: string;
+      title: string;
+      userID: string;
+      content: string | null;
       createdAt: string;
       updatedAt: string;
-      post: {
-        __typename: "Post";
+      user: {
+        __typename: "User";
         id: string;
-        title: string;
-        userID: string;
-        content: string | null;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
         createdAt: string;
         updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        comments: {
-          __typename: "ModelCommentConnection";
+        posts: {
+          __typename: "ModelPostConnection";
           nextToken: string | null;
         } | null;
       } | null;
-      owner: string | null;
+      comments: {
+        __typename: "ModelCommentConnection";
+        items: Array<{
+          __typename: "Comment";
+          id: string;
+          userID: string;
+          postID: string;
+          content: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
 };
 
-export type OnDeletePostPublicSubscription = {
-  __typename: "Post";
+export type OnDeleteUserSubscription = {
+  __typename: "User";
   id: string;
-  title: string;
-  userID: string;
-  content: string | null;
+  name: string | null;
+  phone: string | null;
+  accountNumber: string | null;
   createdAt: string;
   updatedAt: string;
-  user: {
-    __typename: "User";
-    id: string;
-    name: string | null;
-    phone: string | null;
-    accountNumber: string | null;
-    createdAt: string;
-    updatedAt: string;
-    owner: string | null;
-    posts: {
-      __typename: "ModelPostConnection";
-      items: Array<{
-        __typename: "Post";
-        id: string;
-        title: string;
-        userID: string;
-        content: string | null;
-        createdAt: string;
-        updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        comments: {
-          __typename: "ModelCommentConnection";
-          nextToken: string | null;
-        } | null;
-      } | null> | null;
-      nextToken: string | null;
-    } | null;
-  } | null;
-  comments: {
-    __typename: "ModelCommentConnection";
+  posts: {
+    __typename: "ModelPostConnection";
     items: Array<{
-      __typename: "Comment";
+      __typename: "Post";
       id: string;
-      postID: string;
-      content: string;
+      title: string;
+      userID: string;
+      content: string | null;
       createdAt: string;
       updatedAt: string;
-      post: {
-        __typename: "Post";
+      user: {
+        __typename: "User";
         id: string;
-        title: string;
-        userID: string;
-        content: string | null;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
         createdAt: string;
         updatedAt: string;
-        user: {
-          __typename: "User";
-          id: string;
-          name: string | null;
-          phone: string | null;
-          accountNumber: string | null;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null;
-        comments: {
-          __typename: "ModelCommentConnection";
+        posts: {
+          __typename: "ModelPostConnection";
           nextToken: string | null;
         } | null;
       } | null;
-      owner: string | null;
+      comments: {
+        __typename: "ModelCommentConnection";
+        items: Array<{
+          __typename: "Comment";
+          id: string;
+          userID: string;
+          postID: string;
+          content: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -1376,7 +1508,6 @@ export type OnCreatePostSubscription = {
     accountNumber: string | null;
     createdAt: string;
     updatedAt: string;
-    owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
       items: Array<{
@@ -1395,7 +1526,6 @@ export type OnCreatePostSubscription = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -1410,10 +1540,24 @@ export type OnCreatePostSubscription = {
     items: Array<{
       __typename: "Comment";
       id: string;
+      userID: string;
       postID: string;
       content: string;
       createdAt: string;
       updatedAt: string;
+      commentor: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
       post: {
         __typename: "Post";
         id: string;
@@ -1430,14 +1574,12 @@ export type OnCreatePostSubscription = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
         } | null;
       } | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -1459,7 +1601,6 @@ export type OnUpdatePostSubscription = {
     accountNumber: string | null;
     createdAt: string;
     updatedAt: string;
-    owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
       items: Array<{
@@ -1478,7 +1619,6 @@ export type OnUpdatePostSubscription = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -1493,10 +1633,24 @@ export type OnUpdatePostSubscription = {
     items: Array<{
       __typename: "Comment";
       id: string;
+      userID: string;
       postID: string;
       content: string;
       createdAt: string;
       updatedAt: string;
+      commentor: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
       post: {
         __typename: "Post";
         id: string;
@@ -1513,14 +1667,12 @@ export type OnUpdatePostSubscription = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
         } | null;
       } | null;
-      owner: string | null;
     } | null> | null;
     nextToken: string | null;
   } | null;
@@ -1542,7 +1694,6 @@ export type OnDeletePostSubscription = {
     accountNumber: string | null;
     createdAt: string;
     updatedAt: string;
-    owner: string | null;
     posts: {
       __typename: "ModelPostConnection";
       items: Array<{
@@ -1561,7 +1712,6 @@ export type OnDeletePostSubscription = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -1576,10 +1726,24 @@ export type OnDeletePostSubscription = {
     items: Array<{
       __typename: "Comment";
       id: string;
+      userID: string;
       postID: string;
       content: string;
       createdAt: string;
       updatedAt: string;
+      commentor: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
       post: {
         __typename: "Post";
         id: string;
@@ -1596,166 +1760,11 @@ export type OnDeletePostSubscription = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
-          owner: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
         } | null;
-      } | null;
-      owner: string | null;
-    } | null> | null;
-    nextToken: string | null;
-  } | null;
-};
-
-export type OnCreateUserSubscription = {
-  __typename: "User";
-  id: string;
-  name: string | null;
-  phone: string | null;
-  accountNumber: string | null;
-  createdAt: string;
-  updatedAt: string;
-  owner: string | null;
-  posts: {
-    __typename: "ModelPostConnection";
-    items: Array<{
-      __typename: "Post";
-      id: string;
-      title: string;
-      userID: string;
-      content: string | null;
-      createdAt: string;
-      updatedAt: string;
-      user: {
-        __typename: "User";
-        id: string;
-        name: string | null;
-        phone: string | null;
-        accountNumber: string | null;
-        createdAt: string;
-        updatedAt: string;
-        owner: string | null;
-        posts: {
-          __typename: "ModelPostConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
-      comments: {
-        __typename: "ModelCommentConnection";
-        items: Array<{
-          __typename: "Comment";
-          id: string;
-          postID: string;
-          content: string;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
-    } | null> | null;
-    nextToken: string | null;
-  } | null;
-};
-
-export type OnUpdateUserSubscription = {
-  __typename: "User";
-  id: string;
-  name: string | null;
-  phone: string | null;
-  accountNumber: string | null;
-  createdAt: string;
-  updatedAt: string;
-  owner: string | null;
-  posts: {
-    __typename: "ModelPostConnection";
-    items: Array<{
-      __typename: "Post";
-      id: string;
-      title: string;
-      userID: string;
-      content: string | null;
-      createdAt: string;
-      updatedAt: string;
-      user: {
-        __typename: "User";
-        id: string;
-        name: string | null;
-        phone: string | null;
-        accountNumber: string | null;
-        createdAt: string;
-        updatedAt: string;
-        owner: string | null;
-        posts: {
-          __typename: "ModelPostConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
-      comments: {
-        __typename: "ModelCommentConnection";
-        items: Array<{
-          __typename: "Comment";
-          id: string;
-          postID: string;
-          content: string;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
-      } | null;
-    } | null> | null;
-    nextToken: string | null;
-  } | null;
-};
-
-export type OnDeleteUserSubscription = {
-  __typename: "User";
-  id: string;
-  name: string | null;
-  phone: string | null;
-  accountNumber: string | null;
-  createdAt: string;
-  updatedAt: string;
-  owner: string | null;
-  posts: {
-    __typename: "ModelPostConnection";
-    items: Array<{
-      __typename: "Post";
-      id: string;
-      title: string;
-      userID: string;
-      content: string | null;
-      createdAt: string;
-      updatedAt: string;
-      user: {
-        __typename: "User";
-        id: string;
-        name: string | null;
-        phone: string | null;
-        accountNumber: string | null;
-        createdAt: string;
-        updatedAt: string;
-        owner: string | null;
-        posts: {
-          __typename: "ModelPostConnection";
-          nextToken: string | null;
-        } | null;
-      } | null;
-      comments: {
-        __typename: "ModelCommentConnection";
-        items: Array<{
-          __typename: "Comment";
-          id: string;
-          postID: string;
-          content: string;
-          createdAt: string;
-          updatedAt: string;
-          owner: string | null;
-        } | null> | null;
-        nextToken: string | null;
       } | null;
     } | null> | null;
     nextToken: string | null;
@@ -1765,10 +1774,46 @@ export type OnDeleteUserSubscription = {
 export type OnCreateCommentSubscription = {
   __typename: "Comment";
   id: string;
+  userID: string;
   postID: string;
   content: string;
   createdAt: string;
   updatedAt: string;
+  commentor: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
   post: {
     __typename: "Post";
     id: string;
@@ -1785,7 +1830,6 @@ export type OnCreateCommentSubscription = {
       accountNumber: string | null;
       createdAt: string;
       updatedAt: string;
-      owner: string | null;
       posts: {
         __typename: "ModelPostConnection";
         items: Array<{
@@ -1805,10 +1849,20 @@ export type OnCreateCommentSubscription = {
       items: Array<{
         __typename: "Comment";
         id: string;
+        userID: string;
         postID: string;
         content: string;
         createdAt: string;
         updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
         post: {
           __typename: "Post";
           id: string;
@@ -1818,21 +1872,55 @@ export type OnCreateCommentSubscription = {
           createdAt: string;
           updatedAt: string;
         } | null;
-        owner: string | null;
       } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
-  owner: string | null;
 };
 
 export type OnUpdateCommentSubscription = {
   __typename: "Comment";
   id: string;
+  userID: string;
   postID: string;
   content: string;
   createdAt: string;
   updatedAt: string;
+  commentor: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
   post: {
     __typename: "Post";
     id: string;
@@ -1849,7 +1937,6 @@ export type OnUpdateCommentSubscription = {
       accountNumber: string | null;
       createdAt: string;
       updatedAt: string;
-      owner: string | null;
       posts: {
         __typename: "ModelPostConnection";
         items: Array<{
@@ -1869,10 +1956,20 @@ export type OnUpdateCommentSubscription = {
       items: Array<{
         __typename: "Comment";
         id: string;
+        userID: string;
         postID: string;
         content: string;
         createdAt: string;
         updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
         post: {
           __typename: "Post";
           id: string;
@@ -1882,21 +1979,55 @@ export type OnUpdateCommentSubscription = {
           createdAt: string;
           updatedAt: string;
         } | null;
-        owner: string | null;
       } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
-  owner: string | null;
 };
 
 export type OnDeleteCommentSubscription = {
   __typename: "Comment";
   id: string;
+  userID: string;
   postID: string;
   content: string;
   createdAt: string;
   updatedAt: string;
+  commentor: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
   post: {
     __typename: "Post";
     id: string;
@@ -1913,7 +2044,6 @@ export type OnDeleteCommentSubscription = {
       accountNumber: string | null;
       createdAt: string;
       updatedAt: string;
-      owner: string | null;
       posts: {
         __typename: "ModelPostConnection";
         items: Array<{
@@ -1933,10 +2063,20 @@ export type OnDeleteCommentSubscription = {
       items: Array<{
         __typename: "Comment";
         id: string;
+        userID: string;
         postID: string;
         content: string;
         createdAt: string;
         updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
         post: {
           __typename: "Post";
           id: string;
@@ -1946,12 +2086,10 @@ export type OnDeleteCommentSubscription = {
           createdAt: string;
           updatedAt: string;
         } | null;
-        owner: string | null;
       } | null> | null;
       nextToken: string | null;
     } | null;
   } | null;
-  owner: string | null;
 };
 
 @Injectable({
@@ -1971,7 +2109,6 @@ export class APIService {
           accountNumber
           createdAt
           updatedAt
-          owner
           posts {
             __typename
             items {
@@ -1990,7 +2127,6 @@ export class APIService {
                 accountNumber
                 createdAt
                 updatedAt
-                owner
                 posts {
                   __typename
                   nextToken
@@ -2001,11 +2137,11 @@ export class APIService {
                 items {
                   __typename
                   id
+                  userID
                   postID
                   content
                   createdAt
                   updatedAt
-                  owner
                 }
                 nextToken
               }
@@ -2038,7 +2174,6 @@ export class APIService {
           accountNumber
           createdAt
           updatedAt
-          owner
           posts {
             __typename
             items {
@@ -2057,7 +2192,6 @@ export class APIService {
                 accountNumber
                 createdAt
                 updatedAt
-                owner
                 posts {
                   __typename
                   nextToken
@@ -2068,11 +2202,11 @@ export class APIService {
                 items {
                   __typename
                   id
+                  userID
                   postID
                   content
                   createdAt
                   updatedAt
-                  owner
                 }
                 nextToken
               }
@@ -2105,7 +2239,6 @@ export class APIService {
           accountNumber
           createdAt
           updatedAt
-          owner
           posts {
             __typename
             items {
@@ -2124,7 +2257,6 @@ export class APIService {
                 accountNumber
                 createdAt
                 updatedAt
-                owner
                 posts {
                   __typename
                   nextToken
@@ -2135,11 +2267,11 @@ export class APIService {
                 items {
                   __typename
                   id
+                  userID
                   postID
                   content
                   createdAt
                   updatedAt
-                  owner
                 }
                 nextToken
               }
@@ -2180,7 +2312,6 @@ export class APIService {
             accountNumber
             createdAt
             updatedAt
-            owner
             posts {
               __typename
               items {
@@ -2199,7 +2330,6 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
@@ -2214,10 +2344,24 @@ export class APIService {
             items {
               __typename
               id
+              userID
               postID
               content
               createdAt
               updatedAt
+              commentor {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
               post {
                 __typename
                 id
@@ -2234,14 +2378,12 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
                   nextToken
                 }
               }
-              owner
             }
             nextToken
           }
@@ -2279,7 +2421,6 @@ export class APIService {
             accountNumber
             createdAt
             updatedAt
-            owner
             posts {
               __typename
               items {
@@ -2298,7 +2439,6 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
@@ -2313,10 +2453,24 @@ export class APIService {
             items {
               __typename
               id
+              userID
               postID
               content
               createdAt
               updatedAt
+              commentor {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
               post {
                 __typename
                 id
@@ -2333,14 +2487,12 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
                   nextToken
                 }
               }
-              owner
             }
             nextToken
           }
@@ -2378,7 +2530,6 @@ export class APIService {
             accountNumber
             createdAt
             updatedAt
-            owner
             posts {
               __typename
               items {
@@ -2397,7 +2548,6 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
@@ -2412,10 +2562,24 @@ export class APIService {
             items {
               __typename
               id
+              userID
               postID
               content
               createdAt
               updatedAt
+              commentor {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
               post {
                 __typename
                 id
@@ -2432,14 +2596,12 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
                   nextToken
                 }
               }
-              owner
             }
             nextToken
           }
@@ -2464,10 +2626,46 @@ export class APIService {
         createComment(input: $input, condition: $condition) {
           __typename
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
           post {
             __typename
             id
@@ -2484,7 +2682,6 @@ export class APIService {
               accountNumber
               createdAt
               updatedAt
-              owner
               posts {
                 __typename
                 items {
@@ -2504,10 +2701,20 @@ export class APIService {
               items {
                 __typename
                 id
+                userID
                 postID
                 content
                 createdAt
                 updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
                 post {
                   __typename
                   id
@@ -2517,12 +2724,10 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
-                owner
               }
               nextToken
             }
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2544,10 +2749,46 @@ export class APIService {
         updateComment(input: $input, condition: $condition) {
           __typename
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
           post {
             __typename
             id
@@ -2564,7 +2805,6 @@ export class APIService {
               accountNumber
               createdAt
               updatedAt
-              owner
               posts {
                 __typename
                 items {
@@ -2584,10 +2824,20 @@ export class APIService {
               items {
                 __typename
                 id
+                userID
                 postID
                 content
                 createdAt
                 updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
                 post {
                   __typename
                   id
@@ -2597,12 +2847,10 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
-                owner
               }
               nextToken
             }
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2624,10 +2872,46 @@ export class APIService {
         deleteComment(input: $input, condition: $condition) {
           __typename
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
           post {
             __typename
             id
@@ -2644,7 +2928,6 @@ export class APIService {
               accountNumber
               createdAt
               updatedAt
-              owner
               posts {
                 __typename
                 items {
@@ -2664,10 +2947,20 @@ export class APIService {
               items {
                 __typename
                 id
+                userID
                 postID
                 content
                 createdAt
                 updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
                 post {
                   __typename
                   id
@@ -2677,12 +2970,10 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
-                owner
               }
               nextToken
             }
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -2712,7 +3003,6 @@ export class APIService {
             accountNumber
             createdAt
             updatedAt
-            owner
             posts {
               __typename
               items {
@@ -2731,7 +3021,6 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
@@ -2769,7 +3058,6 @@ export class APIService {
           accountNumber
           createdAt
           updatedAt
-          owner
           posts {
             __typename
             items {
@@ -2788,7 +3076,6 @@ export class APIService {
                 accountNumber
                 createdAt
                 updatedAt
-                owner
                 posts {
                   __typename
                   nextToken
@@ -2799,11 +3086,11 @@ export class APIService {
                 items {
                   __typename
                   id
+                  userID
                   postID
                   content
                   createdAt
                   updatedAt
-                  owner
                 }
                 nextToken
               }
@@ -2844,7 +3131,6 @@ export class APIService {
               accountNumber
               createdAt
               updatedAt
-              owner
               posts {
                 __typename
                 items {
@@ -2864,10 +3150,20 @@ export class APIService {
               items {
                 __typename
                 id
+                userID
                 postID
                 content
                 createdAt
                 updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
                 post {
                   __typename
                   id
@@ -2877,7 +3173,6 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
-                owner
               }
               nextToken
             }
@@ -2918,7 +3213,6 @@ export class APIService {
             accountNumber
             createdAt
             updatedAt
-            owner
             posts {
               __typename
               items {
@@ -2937,7 +3231,6 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
@@ -2952,10 +3245,24 @@ export class APIService {
             items {
               __typename
               id
+              userID
               postID
               content
               createdAt
               updatedAt
+              commentor {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
               post {
                 __typename
                 id
@@ -2972,14 +3279,12 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
                   nextToken
                 }
               }
-              owner
             }
             nextToken
           }
@@ -2998,10 +3303,46 @@ export class APIService {
         getComment(id: $id) {
           __typename
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
           post {
             __typename
             id
@@ -3018,7 +3359,6 @@ export class APIService {
               accountNumber
               createdAt
               updatedAt
-              owner
               posts {
                 __typename
                 items {
@@ -3038,10 +3378,20 @@ export class APIService {
               items {
                 __typename
                 id
+                userID
                 postID
                 content
                 createdAt
                 updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
                 post {
                   __typename
                   id
@@ -3051,12 +3401,10 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
-                owner
               }
               nextToken
             }
           }
-          owner
         }
       }`;
     const gqlAPIServiceArguments: any = {
@@ -3078,10 +3426,33 @@ export class APIService {
           items {
             __typename
             id
+            userID
             postID
             content
             createdAt
             updatedAt
+            commentor {
+              __typename
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+            }
             post {
               __typename
               id
@@ -3098,7 +3469,6 @@ export class APIService {
                 accountNumber
                 createdAt
                 updatedAt
-                owner
                 posts {
                   __typename
                   nextToken
@@ -3109,16 +3479,15 @@ export class APIService {
                 items {
                   __typename
                   id
+                  userID
                   postID
                   content
                   createdAt
                   updatedAt
-                  owner
                 }
                 nextToken
               }
             }
-            owner
           }
           nextToken
         }
@@ -3138,278 +3507,170 @@ export class APIService {
     )) as any;
     return <ListCommentsQuery>response.data.listComments;
   }
-  OnCreatePostPublicListener: Observable<
-    OnCreatePostPublicSubscription
-  > = API.graphql(
+  OnCreateUserListener: Observable<OnCreateUserSubscription> = API.graphql(
     graphqlOperation(
-      `subscription OnCreatePostPublic {
-        onCreatePostPublic {
+      `subscription OnCreateUser {
+        onCreateUser {
           __typename
           id
-          title
-          userID
-          content
+          name
+          phone
+          accountNumber
           createdAt
           updatedAt
-          user {
-            __typename
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-            posts {
-              __typename
-              items {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
-              nextToken
-            }
-          }
-          comments {
+          posts {
             __typename
             items {
               __typename
               id
-              postID
+              title
+              userID
               content
               createdAt
               updatedAt
-              post {
+              user {
                 __typename
                 id
-                title
-                userID
-                content
+                name
+                phone
+                accountNumber
                 createdAt
                 updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                comments {
+                posts {
                   __typename
                   nextToken
                 }
               }
-              owner
+              comments {
+                __typename
+                items {
+                  __typename
+                  id
+                  userID
+                  postID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
             }
             nextToken
           }
         }
       }`
     )
-  ) as Observable<OnCreatePostPublicSubscription>;
+  ) as Observable<OnCreateUserSubscription>;
 
-  OnUpdatePostPublicListener: Observable<
-    OnUpdatePostPublicSubscription
-  > = API.graphql(
+  OnUpdateUserListener: Observable<OnUpdateUserSubscription> = API.graphql(
     graphqlOperation(
-      `subscription OnUpdatePostPublic {
-        onUpdatePostPublic {
+      `subscription OnUpdateUser {
+        onUpdateUser {
           __typename
           id
-          title
-          userID
-          content
+          name
+          phone
+          accountNumber
           createdAt
           updatedAt
-          user {
-            __typename
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-            posts {
-              __typename
-              items {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
-              nextToken
-            }
-          }
-          comments {
+          posts {
             __typename
             items {
               __typename
               id
-              postID
+              title
+              userID
               content
               createdAt
               updatedAt
-              post {
+              user {
                 __typename
                 id
-                title
-                userID
-                content
+                name
+                phone
+                accountNumber
                 createdAt
                 updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                comments {
+                posts {
                   __typename
                   nextToken
                 }
               }
-              owner
+              comments {
+                __typename
+                items {
+                  __typename
+                  id
+                  userID
+                  postID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
             }
             nextToken
           }
         }
       }`
     )
-  ) as Observable<OnUpdatePostPublicSubscription>;
+  ) as Observable<OnUpdateUserSubscription>;
 
-  OnDeletePostPublicListener: Observable<
-    OnDeletePostPublicSubscription
-  > = API.graphql(
+  OnDeleteUserListener: Observable<OnDeleteUserSubscription> = API.graphql(
     graphqlOperation(
-      `subscription OnDeletePostPublic {
-        onDeletePostPublic {
+      `subscription OnDeleteUser {
+        onDeleteUser {
           __typename
           id
-          title
-          userID
-          content
+          name
+          phone
+          accountNumber
           createdAt
           updatedAt
-          user {
-            __typename
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-            posts {
-              __typename
-              items {
-                __typename
-                id
-                title
-                userID
-                content
-                createdAt
-                updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                comments {
-                  __typename
-                  nextToken
-                }
-              }
-              nextToken
-            }
-          }
-          comments {
+          posts {
             __typename
             items {
               __typename
               id
-              postID
+              title
+              userID
               content
               createdAt
               updatedAt
-              post {
+              user {
                 __typename
                 id
-                title
-                userID
-                content
+                name
+                phone
+                accountNumber
                 createdAt
                 updatedAt
-                user {
-                  __typename
-                  id
-                  name
-                  phone
-                  accountNumber
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                comments {
+                posts {
                   __typename
                   nextToken
                 }
               }
-              owner
+              comments {
+                __typename
+                items {
+                  __typename
+                  id
+                  userID
+                  postID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
             }
             nextToken
           }
         }
       }`
     )
-  ) as Observable<OnDeletePostPublicSubscription>;
+  ) as Observable<OnDeleteUserSubscription>;
 
   OnCreatePostListener: Observable<OnCreatePostSubscription> = API.graphql(
     graphqlOperation(
@@ -3430,7 +3691,6 @@ export class APIService {
             accountNumber
             createdAt
             updatedAt
-            owner
             posts {
               __typename
               items {
@@ -3449,7 +3709,6 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
@@ -3464,10 +3723,24 @@ export class APIService {
             items {
               __typename
               id
+              userID
               postID
               content
               createdAt
               updatedAt
+              commentor {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
               post {
                 __typename
                 id
@@ -3484,14 +3757,12 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
                   nextToken
                 }
               }
-              owner
             }
             nextToken
           }
@@ -3519,7 +3790,6 @@ export class APIService {
             accountNumber
             createdAt
             updatedAt
-            owner
             posts {
               __typename
               items {
@@ -3538,7 +3808,6 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
@@ -3553,10 +3822,24 @@ export class APIService {
             items {
               __typename
               id
+              userID
               postID
               content
               createdAt
               updatedAt
+              commentor {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
               post {
                 __typename
                 id
@@ -3573,14 +3856,12 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
                   nextToken
                 }
               }
-              owner
             }
             nextToken
           }
@@ -3608,7 +3889,6 @@ export class APIService {
             accountNumber
             createdAt
             updatedAt
-            owner
             posts {
               __typename
               items {
@@ -3627,7 +3907,6 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
@@ -3642,10 +3921,24 @@ export class APIService {
             items {
               __typename
               id
+              userID
               postID
               content
               createdAt
               updatedAt
+              commentor {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
               post {
                 __typename
                 id
@@ -3662,14 +3955,12 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
-                  owner
                 }
                 comments {
                   __typename
                   nextToken
                 }
               }
-              owner
             }
             nextToken
           }
@@ -3678,189 +3969,54 @@ export class APIService {
     )
   ) as Observable<OnDeletePostSubscription>;
 
-  OnCreateUserListener: Observable<OnCreateUserSubscription> = API.graphql(
-    graphqlOperation(
-      `subscription OnCreateUser($owner: String) {
-        onCreateUser(owner: $owner) {
-          __typename
-          id
-          name
-          phone
-          accountNumber
-          createdAt
-          updatedAt
-          owner
-          posts {
-            __typename
-            items {
-              __typename
-              id
-              title
-              userID
-              content
-              createdAt
-              updatedAt
-              user {
-                __typename
-                id
-                name
-                phone
-                accountNumber
-                createdAt
-                updatedAt
-                owner
-                posts {
-                  __typename
-                  nextToken
-                }
-              }
-              comments {
-                __typename
-                items {
-                  __typename
-                  id
-                  postID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
-            }
-            nextToken
-          }
-        }
-      }`
-    )
-  ) as Observable<OnCreateUserSubscription>;
-
-  OnUpdateUserListener: Observable<OnUpdateUserSubscription> = API.graphql(
-    graphqlOperation(
-      `subscription OnUpdateUser($owner: String) {
-        onUpdateUser(owner: $owner) {
-          __typename
-          id
-          name
-          phone
-          accountNumber
-          createdAt
-          updatedAt
-          owner
-          posts {
-            __typename
-            items {
-              __typename
-              id
-              title
-              userID
-              content
-              createdAt
-              updatedAt
-              user {
-                __typename
-                id
-                name
-                phone
-                accountNumber
-                createdAt
-                updatedAt
-                owner
-                posts {
-                  __typename
-                  nextToken
-                }
-              }
-              comments {
-                __typename
-                items {
-                  __typename
-                  id
-                  postID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
-            }
-            nextToken
-          }
-        }
-      }`
-    )
-  ) as Observable<OnUpdateUserSubscription>;
-
-  OnDeleteUserListener: Observable<OnDeleteUserSubscription> = API.graphql(
-    graphqlOperation(
-      `subscription OnDeleteUser($owner: String) {
-        onDeleteUser(owner: $owner) {
-          __typename
-          id
-          name
-          phone
-          accountNumber
-          createdAt
-          updatedAt
-          owner
-          posts {
-            __typename
-            items {
-              __typename
-              id
-              title
-              userID
-              content
-              createdAt
-              updatedAt
-              user {
-                __typename
-                id
-                name
-                phone
-                accountNumber
-                createdAt
-                updatedAt
-                owner
-                posts {
-                  __typename
-                  nextToken
-                }
-              }
-              comments {
-                __typename
-                items {
-                  __typename
-                  id
-                  postID
-                  content
-                  createdAt
-                  updatedAt
-                  owner
-                }
-                nextToken
-              }
-            }
-            nextToken
-          }
-        }
-      }`
-    )
-  ) as Observable<OnDeleteUserSubscription>;
-
   OnCreateCommentListener: Observable<
     OnCreateCommentSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnCreateComment($owner: String) {
-        onCreateComment(owner: $owner) {
+      `subscription OnCreateComment {
+        onCreateComment {
           __typename
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
           post {
             __typename
             id
@@ -3877,7 +4033,6 @@ export class APIService {
               accountNumber
               createdAt
               updatedAt
-              owner
               posts {
                 __typename
                 items {
@@ -3897,10 +4052,20 @@ export class APIService {
               items {
                 __typename
                 id
+                userID
                 postID
                 content
                 createdAt
                 updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
                 post {
                   __typename
                   id
@@ -3910,12 +4075,10 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
-                owner
               }
               nextToken
             }
           }
-          owner
         }
       }`
     )
@@ -3925,14 +4088,50 @@ export class APIService {
     OnUpdateCommentSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnUpdateComment($owner: String) {
-        onUpdateComment(owner: $owner) {
+      `subscription OnUpdateComment {
+        onUpdateComment {
           __typename
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
           post {
             __typename
             id
@@ -3949,7 +4148,6 @@ export class APIService {
               accountNumber
               createdAt
               updatedAt
-              owner
               posts {
                 __typename
                 items {
@@ -3969,10 +4167,20 @@ export class APIService {
               items {
                 __typename
                 id
+                userID
                 postID
                 content
                 createdAt
                 updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
                 post {
                   __typename
                   id
@@ -3982,12 +4190,10 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
-                owner
               }
               nextToken
             }
           }
-          owner
         }
       }`
     )
@@ -3997,14 +4203,50 @@ export class APIService {
     OnDeleteCommentSubscription
   > = API.graphql(
     graphqlOperation(
-      `subscription OnDeleteComment($owner: String) {
-        onDeleteComment(owner: $owner) {
+      `subscription OnDeleteComment {
+        onDeleteComment {
           __typename
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
           post {
             __typename
             id
@@ -4021,7 +4263,6 @@ export class APIService {
               accountNumber
               createdAt
               updatedAt
-              owner
               posts {
                 __typename
                 items {
@@ -4041,10 +4282,20 @@ export class APIService {
               items {
                 __typename
                 id
+                userID
                 postID
                 content
                 createdAt
                 updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
                 post {
                   __typename
                   id
@@ -4054,12 +4305,10 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
-                owner
               }
               nextToken
             }
           }
-          owner
         }
       }`
     )

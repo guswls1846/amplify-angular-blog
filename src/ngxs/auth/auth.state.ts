@@ -4,10 +4,11 @@ import { Injectable } from "@angular/core";
 import { ImmutableSelector, ImmutableContext } from "@ngxs-labs/immer-adapter";
 import { Login, Logout, SocialLogin, SetUser, CreateUser } from "./auth.action";
 import { tap } from "rxjs/operators";
-import { Auth } from "aws-amplify";
+import Amplify, { Auth } from "aws-amplify";
 import { Hub, ICredentials } from "@aws-amplify/core";
 import { APIService } from "src/app/API.service";
 import { from } from "rxjs";
+import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api-graphql";
 @State<AuthStateModel>({
   name: "auth",
   defaults: {
@@ -46,26 +47,16 @@ export class AuthState {
     }
   }
 
-  constructor(private store: Store, private apiService: APIService) {
-    Hub.listen("auth", ({ payload: { event, data } }) => {
-      console.log(data, event);
-      // console.log(event);
-      switch (event) {
-        case "signIn":
-          this.store.dispatch(new SetUser(data));
-          break;
-        case "oAuthSignOut":
-        case "signOut":
-          this.store.dispatch(new SetUser(null));
-          break;
-        case "signIn_failure":
-        case "cognitoHostedUI_failure":
-          console.log("Sign in failure", data);
-          break;
-      }
+  constructor(private store: Store, private apiService: APIService) {}
+  authModeHandler(authMode) {
+    return new Promise((resolve, reject) => {
+      resolve(
+        Amplify.configure({
+          aws_appsync_authenticationType: authMode
+        })
+      );
     });
   }
-
   @Action(Login)
   @ImmutableContext()
   login(ctx: StateContext<AuthStateModel>, action: Login) {

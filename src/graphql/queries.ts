@@ -16,7 +16,6 @@ export const listUsers = /* GraphQL */ `
         accountNumber
         createdAt
         updatedAt
-        owner
         posts {
           items {
             id
@@ -32,7 +31,6 @@ export const listUsers = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
-              owner
             }
             comments {
               nextToken
@@ -54,7 +52,6 @@ export const getUser = /* GraphQL */ `
       accountNumber
       createdAt
       updatedAt
-      owner
       posts {
         items {
           id
@@ -70,7 +67,6 @@ export const getUser = /* GraphQL */ `
             accountNumber
             createdAt
             updatedAt
-            owner
             posts {
               nextToken
             }
@@ -78,11 +74,11 @@ export const getUser = /* GraphQL */ `
           comments {
             items {
               id
+              userID
               postID
               content
               createdAt
               updatedAt
-              owner
             }
             nextToken
           }
@@ -113,7 +109,6 @@ export const listPosts = /* GraphQL */ `
           accountNumber
           createdAt
           updatedAt
-          owner
           posts {
             items {
               id
@@ -129,10 +124,19 @@ export const listPosts = /* GraphQL */ `
         comments {
           items {
             id
+            userID
             postID
             content
             createdAt
             updatedAt
+            commentor {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
             post {
               id
               title
@@ -141,7 +145,6 @@ export const listPosts = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            owner
           }
           nextToken
         }
@@ -166,7 +169,6 @@ export const getPost = /* GraphQL */ `
         accountNumber
         createdAt
         updatedAt
-        owner
         posts {
           items {
             id
@@ -182,7 +184,6 @@ export const getPost = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
-              owner
             }
             comments {
               nextToken
@@ -194,10 +195,22 @@ export const getPost = /* GraphQL */ `
       comments {
         items {
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
           post {
             id
             title
@@ -212,13 +225,11 @@ export const getPost = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
-              owner
             }
             comments {
               nextToken
             }
           }
-          owner
         }
         nextToken
       }
@@ -229,10 +240,41 @@ export const getComment = /* GraphQL */ `
   query GetComment($id: ID!) {
     getComment(id: $id) {
       id
+      userID
       postID
       content
       createdAt
       updatedAt
+      commentor {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            comments {
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }
       post {
         id
         title
@@ -247,7 +289,6 @@ export const getComment = /* GraphQL */ `
           accountNumber
           createdAt
           updatedAt
-          owner
           posts {
             items {
               id
@@ -263,10 +304,19 @@ export const getComment = /* GraphQL */ `
         comments {
           items {
             id
+            userID
             postID
             content
             createdAt
             updatedAt
+            commentor {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
             post {
               id
               title
@@ -275,12 +325,10 @@ export const getComment = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            owner
           }
           nextToken
         }
       }
-      owner
     }
   }
 `;
@@ -293,10 +341,30 @@ export const listComments = /* GraphQL */ `
     listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
+        userID
         postID
         content
         createdAt
         updatedAt
+        commentor {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            items {
+              id
+              title
+              userID
+              content
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+        }
         post {
           id
           title
@@ -311,7 +379,6 @@ export const listComments = /* GraphQL */ `
             accountNumber
             createdAt
             updatedAt
-            owner
             posts {
               nextToken
             }
@@ -319,16 +386,15 @@ export const listComments = /* GraphQL */ `
           comments {
             items {
               id
+              userID
               postID
               content
               createdAt
               updatedAt
-              owner
             }
             nextToken
           }
         }
-        owner
       }
       nextToken
     }

@@ -11,7 +11,7 @@
     <h3 class="post-content" [innerHTML]="(post$ | async)?.content"></h3>
 
     <p style="color: grey; text-align: center" class="post-meta">
-      <i>Posted by </i>
+      <i>작성자 </i>
       <i><a href="#" style="color: grey; text-decoration: none" [textContent]="(post$ | async)?.userID"></a></i>
     </p>
   </div>
@@ -26,4 +26,5 @@
   ></a>
 </div>
 
+<app-comment-write></app-comment-write>
 <app-comment-list></app-comment-list>

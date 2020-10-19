@@ -16,7 +16,7 @@ export class PreviewPostComponent implements OnInit {
   ngOnInit() {}
 
   onMovePostDetail(): void {
-    console.log(this.post.id);
+    // console.log(this.post.id);
     this.store.dispatch(new Navigate(["post", this.post.id]));
     // this.router.navigateByUrl("/post/" + this.post.id);
   }

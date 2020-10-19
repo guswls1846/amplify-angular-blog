@@ -12,7 +12,6 @@ query ListUsers(
       accountNumber
       createdAt
       updatedAt
-      owner
       posts {
         items {
           id
@@ -28,7 +27,6 @@ query ListUsers(
             accountNumber
             createdAt
             updatedAt
-            owner
           }
           comments {
             nextToken
@@ -48,7 +46,6 @@ query GetUser($id: ID!) {
     accountNumber
     createdAt
     updatedAt
-    owner
     posts {
       items {
         id
@@ -64,7 +61,6 @@ query GetUser($id: ID!) {
           accountNumber
           createdAt
           updatedAt
-          owner
           posts {
             nextToken
           }
@@ -72,11 +68,11 @@ query GetUser($id: ID!) {
         comments {
           items {
             id
+            userID
             postID
             content
             createdAt
             updatedAt
-            owner
           }
           nextToken
         }
@@ -105,7 +101,6 @@ query ListPosts(
         accountNumber
         createdAt
         updatedAt
-        owner
         posts {
           items {
             id
@@ -121,10 +116,19 @@ query ListPosts(
       comments {
         items {
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
           post {
             id
             title
@@ -133,7 +137,6 @@ query ListPosts(
             createdAt
             updatedAt
           }
-          owner
         }
         nextToken
       }
@@ -156,7 +159,6 @@ query GetPost($id: ID!) {
       accountNumber
       createdAt
       updatedAt
-      owner
       posts {
         items {
           id
@@ -172,7 +174,6 @@ query GetPost($id: ID!) {
             accountNumber
             createdAt
             updatedAt
-            owner
           }
           comments {
             nextToken
@@ -184,10 +185,22 @@ query GetPost($id: ID!) {
     comments {
       items {
         id
+        userID
         postID
         content
         createdAt
         updatedAt
+        commentor {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
         post {
           id
           title
@@ -202,13 +215,11 @@ query GetPost($id: ID!) {
             accountNumber
             createdAt
             updatedAt
-            owner
           }
           comments {
             nextToken
           }
         }
-        owner
       }
       nextToken
     }
@@ -217,10 +228,41 @@ query GetPost($id: ID!) {
 query GetComment($id: ID!) {
   getComment(id: $id) {
     id
+    userID
     postID
     content
     createdAt
     updatedAt
+    commentor {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
     post {
       id
       title
@@ -235,7 +277,6 @@ query GetComment($id: ID!) {
         accountNumber
         createdAt
         updatedAt
-        owner
         posts {
           items {
             id
@@ -251,10 +292,19 @@ query GetComment($id: ID!) {
       comments {
         items {
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
           post {
             id
             title
@@ -263,12 +313,10 @@ query GetComment($id: ID!) {
             createdAt
             updatedAt
           }
-          owner
         }
         nextToken
       }
     }
-    owner
   }
 }
 query ListComments(
@@ -279,10 +327,30 @@ query ListComments(
   listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      userID
       postID
       content
       createdAt
       updatedAt
+      commentor {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }
       post {
         id
         title
@@ -297,7 +365,6 @@ query ListComments(
           accountNumber
           createdAt
           updatedAt
-          owner
           posts {
             nextToken
           }
@@ -305,16 +372,15 @@ query ListComments(
         comments {
           items {
             id
+            userID
             postID
             content
             createdAt
             updatedAt
-            owner
           }
           nextToken
         }
       }
-      owner
     }
     nextToken
   }

@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   @Select(PostsState.listPosts) posts$: Observable<ListPostsQuery["items"]>;
   ngOnInit() {
     this.getPosts();
+
     this.actions.pipe(ofActionSuccessful(ListPosts), takeUntil(this.unSubscribe)).subscribe(result => {
       this.loading = false;
     });

@@ -1,11 +1,11 @@
 <div class="row">
   <div class="col-lg-8 col-md-10 mx-auto">
-    <div class="post-preview" style="border-bottom: 1px solid #d8d8d8">
+    <div class="post-preview" style="border-bottom: 1px solid #d8d8d8" *ngFor="let comment of comments$ | async">
       <div class="post-content" style="display: flex;justify-content: space-between">
-        작성자 <button>x</button>
-        <!-- {comment.commentor} -->
+        {{ comment?.commentor?.id }}
+        <button *ngIf="currentUser !== null && comment?.commentor?.id === currentUser">x</button>
       </div>
-      <span class="post-content">내용</span>
+      <span class="post-content">{{ comment?.content }}</span>
     </div>
   </div>
 </div>

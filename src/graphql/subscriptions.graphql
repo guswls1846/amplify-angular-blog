@@ -1,218 +1,128 @@
 # this is an auto generated file. This will be overwritten
-subscription OnCreatePostPublic {
-  onCreatePostPublic {
+subscription OnCreateUser {
+  onCreateUser {
     id
-    title
-    userID
-    content
+    name
+    phone
+    accountNumber
     createdAt
     updatedAt
-    user {
-      id
-      name
-      phone
-      accountNumber
-      createdAt
-      updatedAt
-      owner
-      posts {
-        items {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          comments {
-            nextToken
-          }
-        }
-        nextToken
-      }
-    }
-    comments {
+    posts {
       items {
         id
-        postID
+        title
+        userID
         content
         createdAt
         updatedAt
-        post {
+        user {
           id
-          title
-          userID
-          content
+          name
+          phone
+          accountNumber
           createdAt
           updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          comments {
+          posts {
             nextToken
           }
         }
-        owner
+        comments {
+          items {
+            id
+            userID
+            postID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
       }
       nextToken
     }
   }
 }
-subscription OnUpdatePostPublic {
-  onUpdatePostPublic {
+subscription OnUpdateUser {
+  onUpdateUser {
     id
-    title
-    userID
-    content
+    name
+    phone
+    accountNumber
     createdAt
     updatedAt
-    user {
-      id
-      name
-      phone
-      accountNumber
-      createdAt
-      updatedAt
-      owner
-      posts {
-        items {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          comments {
-            nextToken
-          }
-        }
-        nextToken
-      }
-    }
-    comments {
+    posts {
       items {
         id
-        postID
+        title
+        userID
         content
         createdAt
         updatedAt
-        post {
+        user {
           id
-          title
-          userID
-          content
+          name
+          phone
+          accountNumber
           createdAt
           updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          comments {
+          posts {
             nextToken
           }
         }
-        owner
+        comments {
+          items {
+            id
+            userID
+            postID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
       }
       nextToken
     }
   }
 }
-subscription OnDeletePostPublic {
-  onDeletePostPublic {
+subscription OnDeleteUser {
+  onDeleteUser {
     id
-    title
-    userID
-    content
+    name
+    phone
+    accountNumber
     createdAt
     updatedAt
-    user {
-      id
-      name
-      phone
-      accountNumber
-      createdAt
-      updatedAt
-      owner
-      posts {
-        items {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          comments {
-            nextToken
-          }
-        }
-        nextToken
-      }
-    }
-    comments {
+    posts {
       items {
         id
-        postID
+        title
+        userID
         content
         createdAt
         updatedAt
-        post {
+        user {
           id
-          title
-          userID
-          content
+          name
+          phone
+          accountNumber
           createdAt
           updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-          }
-          comments {
+          posts {
             nextToken
           }
         }
-        owner
+        comments {
+          items {
+            id
+            userID
+            postID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
       }
       nextToken
     }
@@ -233,7 +143,6 @@ subscription OnCreatePost {
       accountNumber
       createdAt
       updatedAt
-      owner
       posts {
         items {
           id
@@ -249,7 +158,6 @@ subscription OnCreatePost {
             accountNumber
             createdAt
             updatedAt
-            owner
           }
           comments {
             nextToken
@@ -261,10 +169,22 @@ subscription OnCreatePost {
     comments {
       items {
         id
+        userID
         postID
         content
         createdAt
         updatedAt
+        commentor {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
         post {
           id
           title
@@ -279,13 +199,11 @@ subscription OnCreatePost {
             accountNumber
             createdAt
             updatedAt
-            owner
           }
           comments {
             nextToken
           }
         }
-        owner
       }
       nextToken
     }
@@ -306,7 +224,6 @@ subscription OnUpdatePost {
       accountNumber
       createdAt
       updatedAt
-      owner
       posts {
         items {
           id
@@ -322,7 +239,6 @@ subscription OnUpdatePost {
             accountNumber
             createdAt
             updatedAt
-            owner
           }
           comments {
             nextToken
@@ -334,10 +250,22 @@ subscription OnUpdatePost {
     comments {
       items {
         id
+        userID
         postID
         content
         createdAt
         updatedAt
+        commentor {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
         post {
           id
           title
@@ -352,13 +280,11 @@ subscription OnUpdatePost {
             accountNumber
             createdAt
             updatedAt
-            owner
           }
           comments {
             nextToken
           }
         }
-        owner
       }
       nextToken
     }
@@ -379,7 +305,6 @@ subscription OnDeletePost {
       accountNumber
       createdAt
       updatedAt
-      owner
       posts {
         items {
           id
@@ -395,7 +320,6 @@ subscription OnDeletePost {
             accountNumber
             createdAt
             updatedAt
-            owner
           }
           comments {
             nextToken
@@ -407,10 +331,22 @@ subscription OnDeletePost {
     comments {
       items {
         id
+        userID
         postID
         content
         createdAt
         updatedAt
+        commentor {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
         post {
           id
           title
@@ -425,160 +361,54 @@ subscription OnDeletePost {
             accountNumber
             createdAt
             updatedAt
-            owner
           }
           comments {
             nextToken
           }
         }
-        owner
       }
       nextToken
     }
   }
 }
-subscription OnCreateUser($owner: String) {
-  onCreateUser(owner: $owner) {
+subscription OnCreateComment {
+  onCreateComment {
     id
-    name
-    phone
-    accountNumber
-    createdAt
-    updatedAt
-    owner
-    posts {
-      items {
-        id
-        title
-        userID
-        content
-        createdAt
-        updatedAt
-        user {
-          id
-          name
-          phone
-          accountNumber
-          createdAt
-          updatedAt
-          owner
-          posts {
-            nextToken
-          }
-        }
-        comments {
-          items {
-            id
-            postID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-      }
-      nextToken
-    }
-  }
-}
-subscription OnUpdateUser($owner: String) {
-  onUpdateUser(owner: $owner) {
-    id
-    name
-    phone
-    accountNumber
-    createdAt
-    updatedAt
-    owner
-    posts {
-      items {
-        id
-        title
-        userID
-        content
-        createdAt
-        updatedAt
-        user {
-          id
-          name
-          phone
-          accountNumber
-          createdAt
-          updatedAt
-          owner
-          posts {
-            nextToken
-          }
-        }
-        comments {
-          items {
-            id
-            postID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-      }
-      nextToken
-    }
-  }
-}
-subscription OnDeleteUser($owner: String) {
-  onDeleteUser(owner: $owner) {
-    id
-    name
-    phone
-    accountNumber
-    createdAt
-    updatedAt
-    owner
-    posts {
-      items {
-        id
-        title
-        userID
-        content
-        createdAt
-        updatedAt
-        user {
-          id
-          name
-          phone
-          accountNumber
-          createdAt
-          updatedAt
-          owner
-          posts {
-            nextToken
-          }
-        }
-        comments {
-          items {
-            id
-            postID
-            content
-            createdAt
-            updatedAt
-            owner
-          }
-          nextToken
-        }
-      }
-      nextToken
-    }
-  }
-}
-subscription OnCreateComment($owner: String) {
-  onCreateComment(owner: $owner) {
-    id
+    userID
     postID
     content
     createdAt
     updatedAt
+    commentor {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
     post {
       id
       title
@@ -593,7 +423,6 @@ subscription OnCreateComment($owner: String) {
         accountNumber
         createdAt
         updatedAt
-        owner
         posts {
           items {
             id
@@ -609,10 +438,19 @@ subscription OnCreateComment($owner: String) {
       comments {
         items {
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
           post {
             id
             title
@@ -621,21 +459,50 @@ subscription OnCreateComment($owner: String) {
             createdAt
             updatedAt
           }
-          owner
         }
         nextToken
       }
     }
-    owner
   }
 }
-subscription OnUpdateComment($owner: String) {
-  onUpdateComment(owner: $owner) {
+subscription OnUpdateComment {
+  onUpdateComment {
     id
+    userID
     postID
     content
     createdAt
     updatedAt
+    commentor {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
     post {
       id
       title
@@ -650,7 +517,6 @@ subscription OnUpdateComment($owner: String) {
         accountNumber
         createdAt
         updatedAt
-        owner
         posts {
           items {
             id
@@ -666,10 +532,19 @@ subscription OnUpdateComment($owner: String) {
       comments {
         items {
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
           post {
             id
             title
@@ -678,21 +553,50 @@ subscription OnUpdateComment($owner: String) {
             createdAt
             updatedAt
           }
-          owner
         }
         nextToken
       }
     }
-    owner
   }
 }
-subscription OnDeleteComment($owner: String) {
-  onDeleteComment(owner: $owner) {
+subscription OnDeleteComment {
+  onDeleteComment {
     id
+    userID
     postID
     content
     createdAt
     updatedAt
+    commentor {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
     post {
       id
       title
@@ -707,7 +611,6 @@ subscription OnDeleteComment($owner: String) {
         accountNumber
         createdAt
         updatedAt
-        owner
         posts {
           items {
             id
@@ -723,10 +626,19 @@ subscription OnDeleteComment($owner: String) {
       comments {
         items {
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
           post {
             id
             title
@@ -735,11 +647,9 @@ subscription OnDeleteComment($owner: String) {
             createdAt
             updatedAt
           }
-          owner
         }
         nextToken
       }
     }
-    owner
   }
 }

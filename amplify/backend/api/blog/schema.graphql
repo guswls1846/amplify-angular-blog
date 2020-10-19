@@ -1,4 +1,4 @@
-type User @model @aws_iam @aws_cognito_user_pools @auth(rules: [{ allow: owner, operations: [create, read, update, delete] }, { allow: public, provider: iam, operations: [read] }]) {
+type User @model @aws_iam @aws_cognito_user_pools @auth(rules: [{ allow: owner }, { allow: private, operations: [read] }, { allow: public, provider: iam, operations: [read] }]) {
   id: ID!
   name: String
   phone: String
@@ -7,18 +7,10 @@ type User @model @aws_iam @aws_cognito_user_pools @auth(rules: [{ allow: owner, 
 }
 
 type Post
-  @model(subscriptions: { level: public })
+  @model
   @aws_iam
   @aws_cognito_user_pools
-  @auth(
-    rules: [
-      { allow: public, provider: iam, operations: [read] }
-      { allow: private, operations: [read, create, update, delete] }
-      # { allow: owner, operations: [create, read, update, delete] }
-      # { allow: public, provider: iam, operations: [read, create, update] }
-      # { allow: groups, groups: ["user"], operations: [create, read, update] }
-    ]
-  )
+  @auth(rules: [{ allow: owner }, { allow: private, operations: [read] }, { allow: public, provider: iam, operations: [read] }])
   @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   title: String!
@@ -32,16 +24,18 @@ type Comment
   @model
   @aws_iam
   @aws_cognito_user_pools
-  @auth(rules: [{ allow: owner, operations: [create, read, update, delete] }, { allow: public, provider: iam, operations: [read] }])
+  @auth(rules: [{ allow: owner }, { allow: private, operations: [read] }, { allow: public, provider: iam, operations: [read] }])
   @key(name: "byPost", fields: ["postID", "content"]) {
   id: ID!
+  userID: ID!
+  commentor: User @connection(fields: ["userID"])
   postID: ID!
   post: Post @connection(fields: ["postID"])
   content: String!
 }
 
-type Subscription {
-  onCreatePostPublic: Post @aws_subscribe(mutations: ["createPost"]) @aws_iam @aws_cognito_user_pools
-  onUpdatePostPublic: Post @aws_subscribe(mutations: ["updatePost"]) @aws_iam @aws_cognito_user_pools
-  onDeletePostPublic: Post @aws_subscribe(mutations: ["deletePost"]) @aws_iam @aws_cognito_user_pools
-}
+# type Subscription {
+#   onCreatePostPublic: Post @aws_subscribe(mutations: ["createPost"]) @aws_iam @aws_cognito_user_pools
+#   onUpdatePostPublic: Post @aws_subscribe(mutations: ["updatePost"]) @aws_iam @aws_cognito_user_pools
+#   onDeletePostPublic: Post @aws_subscribe(mutations: ["deletePost"]) @aws_iam @aws_cognito_user_pools
+# }

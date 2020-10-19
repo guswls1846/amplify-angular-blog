@@ -2,7 +2,7 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AppRoutingModule } from "./app-routing.module";
-import { Http, HttpModule } from "@angular/http";
+import { HttpModule } from "@angular/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppComponent } from "./app.component";
@@ -27,7 +27,6 @@ import { NgxsStoragePluginModule, StorageOption } from "@ngxs/storage-plugin";
 import { CustomRouterStateSerializer } from "src/ngxs/router/router-state-custom";
 import { StateModule } from "src/ngxs/state.module";
 import { environment } from "src/environments/environment";
-import { CommentListComponent } from "./component/comment-list/comment-list.component";
 
 @NgModule({
   declarations: [
@@ -36,15 +35,13 @@ import { CommentListComponent } from "./component/comment-list/comment-list.comp
     AboutComponent,
     ContactComponent,
     PastPostsComponent,
-    ViewPostComponent,
     NavbarComponent,
     FooterComponent,
     MastheadComponent,
     PreviewPostComponent,
     AuthorPostComponent,
     LoadingComponent,
-    LoginComponent,
-    CommentListComponent
+    LoginComponent
   ],
   entryComponents: [LoginComponent],
   imports: [

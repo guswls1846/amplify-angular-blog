@@ -1,28 +1,29 @@
 {
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-blog-dev-04800-authRole",
-            "UnauthRoleArn": "arn:aws:iam::733166154213:role/amplify-blog-dev-04800-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::733166154213:role/amplify-blog-dev-04800-authRole",
-            "Region": "ap-northeast-2",
-            "DeploymentBucketName": "amplify-blog-dev-04800-deployment",
-            "UnauthRoleName": "amplify-blog-dev-04800-unauthRole",
-            "StackName": "amplify-blog-dev-04800",
-            "StackId": "arn:aws:cloudformation:ap-northeast-2:733166154213:stack/amplify-blog-dev-04800/510d7ec0-07eb-11eb-bde0-062e9340990a",
-            "AmplifyAppId": "d3espfgi49cxgm"
-        },
-        "categories": {
-            "function": {
-                "blogb9264958PostConfirmation": {
-                    "GROUP": "user"
-                }
-            },
-            "auth": {
-                "blogb9264958": {
-                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\",\"client_id\":\"414776279076-ned6clkvsv8kvth6itc3jq4o7r2ndnua.apps.googleusercontent.com\",\"client_secret\":\"VHj48amRme4Oeup4kSraIRmL\"}]",
-                    "googleClientId": "414776279076-ned6clkvsv8kvth6itc3jq4o7r2ndnua.apps.googleusercontent.com"
-                }
-            }
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-blog-dev-04800-authRole",
+      "UnauthRoleArn": "arn:aws:iam::733166154213:role/amplify-blog-dev-04800-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::733166154213:role/amplify-blog-dev-04800-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-blog-dev-04800-deployment",
+      "UnauthRoleName": "amplify-blog-dev-04800-unauthRole",
+      "StackName": "amplify-blog-dev-04800",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:733166154213:stack/amplify-blog-dev-04800/510d7ec0-07eb-11eb-bde0-062e9340990a",
+      "AmplifyAppId": "d3espfgi49cxgm"
+    },
+    "categories": {
+      "function": {
+        "blogb9264958PostConfirmation": {
+          "GROUP": "user"
         }
+      },
+      "auth": {
+        "blogb9264958": {
+          "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\",\"client_id\":\"414776279076-ned6clkvsv8kvth6itc3jq4o7r2ndnua.apps.googleusercontent.com\",\"client_secret\":\"VHj48amRme4Oeup4kSraIRmL\"}]",
+          "googleClientId": "414776279076-ned6clkvsv8kvth6itc3jq4o7r2ndnua.apps.googleusercontent.com"
+        },
+        "userPoolGroups": {}
+      }
     }
+  }
 }

@@ -2,225 +2,135 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const onCreatePostPublic = /* GraphQL */ `
-  subscription OnCreatePostPublic {
-    onCreatePostPublic {
+export const onCreateUser = /* GraphQL */ `
+  subscription OnCreateUser {
+    onCreateUser {
       id
-      title
-      userID
-      content
+      name
+      phone
+      accountNumber
       createdAt
       updatedAt
-      user {
-        id
-        name
-        phone
-        accountNumber
-        createdAt
-        updatedAt
-        owner
-        posts {
-          items {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            user {
-              id
-              name
-              phone
-              accountNumber
-              createdAt
-              updatedAt
-              owner
-            }
-            comments {
-              nextToken
-            }
-          }
-          nextToken
-        }
-      }
-      comments {
+      posts {
         items {
           id
-          postID
+          title
+          userID
           content
           createdAt
           updatedAt
-          post {
+          user {
             id
-            title
-            userID
-            content
+            name
+            phone
+            accountNumber
             createdAt
             updatedAt
-            user {
-              id
-              name
-              phone
-              accountNumber
-              createdAt
-              updatedAt
-              owner
-            }
-            comments {
+            posts {
               nextToken
             }
           }
-          owner
+          comments {
+            items {
+              id
+              userID
+              postID
+              content
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
         }
         nextToken
       }
     }
   }
 `;
-export const onUpdatePostPublic = /* GraphQL */ `
-  subscription OnUpdatePostPublic {
-    onUpdatePostPublic {
+export const onUpdateUser = /* GraphQL */ `
+  subscription OnUpdateUser {
+    onUpdateUser {
       id
-      title
-      userID
-      content
+      name
+      phone
+      accountNumber
       createdAt
       updatedAt
-      user {
-        id
-        name
-        phone
-        accountNumber
-        createdAt
-        updatedAt
-        owner
-        posts {
-          items {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            user {
-              id
-              name
-              phone
-              accountNumber
-              createdAt
-              updatedAt
-              owner
-            }
-            comments {
-              nextToken
-            }
-          }
-          nextToken
-        }
-      }
-      comments {
+      posts {
         items {
           id
-          postID
+          title
+          userID
           content
           createdAt
           updatedAt
-          post {
+          user {
             id
-            title
-            userID
-            content
+            name
+            phone
+            accountNumber
             createdAt
             updatedAt
-            user {
-              id
-              name
-              phone
-              accountNumber
-              createdAt
-              updatedAt
-              owner
-            }
-            comments {
+            posts {
               nextToken
             }
           }
-          owner
+          comments {
+            items {
+              id
+              userID
+              postID
+              content
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
         }
         nextToken
       }
     }
   }
 `;
-export const onDeletePostPublic = /* GraphQL */ `
-  subscription OnDeletePostPublic {
-    onDeletePostPublic {
+export const onDeleteUser = /* GraphQL */ `
+  subscription OnDeleteUser {
+    onDeleteUser {
       id
-      title
-      userID
-      content
+      name
+      phone
+      accountNumber
       createdAt
       updatedAt
-      user {
-        id
-        name
-        phone
-        accountNumber
-        createdAt
-        updatedAt
-        owner
-        posts {
-          items {
-            id
-            title
-            userID
-            content
-            createdAt
-            updatedAt
-            user {
-              id
-              name
-              phone
-              accountNumber
-              createdAt
-              updatedAt
-              owner
-            }
-            comments {
-              nextToken
-            }
-          }
-          nextToken
-        }
-      }
-      comments {
+      posts {
         items {
           id
-          postID
+          title
+          userID
           content
           createdAt
           updatedAt
-          post {
+          user {
             id
-            title
-            userID
-            content
+            name
+            phone
+            accountNumber
             createdAt
             updatedAt
-            user {
-              id
-              name
-              phone
-              accountNumber
-              createdAt
-              updatedAt
-              owner
-            }
-            comments {
+            posts {
               nextToken
             }
           }
-          owner
+          comments {
+            items {
+              id
+              userID
+              postID
+              content
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
         }
         nextToken
       }
@@ -243,7 +153,6 @@ export const onCreatePost = /* GraphQL */ `
         accountNumber
         createdAt
         updatedAt
-        owner
         posts {
           items {
             id
@@ -259,7 +168,6 @@ export const onCreatePost = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
-              owner
             }
             comments {
               nextToken
@@ -271,10 +179,22 @@ export const onCreatePost = /* GraphQL */ `
       comments {
         items {
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
           post {
             id
             title
@@ -289,13 +209,11 @@ export const onCreatePost = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
-              owner
             }
             comments {
               nextToken
             }
           }
-          owner
         }
         nextToken
       }
@@ -318,7 +236,6 @@ export const onUpdatePost = /* GraphQL */ `
         accountNumber
         createdAt
         updatedAt
-        owner
         posts {
           items {
             id
@@ -334,7 +251,6 @@ export const onUpdatePost = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
-              owner
             }
             comments {
               nextToken
@@ -346,10 +262,22 @@ export const onUpdatePost = /* GraphQL */ `
       comments {
         items {
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
           post {
             id
             title
@@ -364,13 +292,11 @@ export const onUpdatePost = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
-              owner
             }
             comments {
               nextToken
             }
           }
-          owner
         }
         nextToken
       }
@@ -393,7 +319,6 @@ export const onDeletePost = /* GraphQL */ `
         accountNumber
         createdAt
         updatedAt
-        owner
         posts {
           items {
             id
@@ -409,7 +334,6 @@ export const onDeletePost = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
-              owner
             }
             comments {
               nextToken
@@ -421,10 +345,22 @@ export const onDeletePost = /* GraphQL */ `
       comments {
         items {
           id
+          userID
           postID
           content
           createdAt
           updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
           post {
             id
             title
@@ -439,153 +375,10 @@ export const onDeletePost = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
-              owner
             }
             comments {
               nextToken
             }
-          }
-          owner
-        }
-        nextToken
-      }
-    }
-  }
-`;
-export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($owner: String) {
-    onCreateUser(owner: $owner) {
-      id
-      name
-      phone
-      accountNumber
-      createdAt
-      updatedAt
-      owner
-      posts {
-        items {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-            posts {
-              nextToken
-            }
-          }
-          comments {
-            items {
-              id
-              postID
-              content
-              createdAt
-              updatedAt
-              owner
-            }
-            nextToken
-          }
-        }
-        nextToken
-      }
-    }
-  }
-`;
-export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($owner: String) {
-    onUpdateUser(owner: $owner) {
-      id
-      name
-      phone
-      accountNumber
-      createdAt
-      updatedAt
-      owner
-      posts {
-        items {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-            posts {
-              nextToken
-            }
-          }
-          comments {
-            items {
-              id
-              postID
-              content
-              createdAt
-              updatedAt
-              owner
-            }
-            nextToken
-          }
-        }
-        nextToken
-      }
-    }
-  }
-`;
-export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($owner: String) {
-    onDeleteUser(owner: $owner) {
-      id
-      name
-      phone
-      accountNumber
-      createdAt
-      updatedAt
-      owner
-      posts {
-        items {
-          id
-          title
-          userID
-          content
-          createdAt
-          updatedAt
-          user {
-            id
-            name
-            phone
-            accountNumber
-            createdAt
-            updatedAt
-            owner
-            posts {
-              nextToken
-            }
-          }
-          comments {
-            items {
-              id
-              postID
-              content
-              createdAt
-              updatedAt
-              owner
-            }
-            nextToken
           }
         }
         nextToken
@@ -594,13 +387,44 @@ export const onDeleteUser = /* GraphQL */ `
   }
 `;
 export const onCreateComment = /* GraphQL */ `
-  subscription OnCreateComment($owner: String) {
-    onCreateComment(owner: $owner) {
+  subscription OnCreateComment {
+    onCreateComment {
       id
+      userID
       postID
       content
       createdAt
       updatedAt
+      commentor {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            comments {
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }
       post {
         id
         title
@@ -615,7 +439,6 @@ export const onCreateComment = /* GraphQL */ `
           accountNumber
           createdAt
           updatedAt
-          owner
           posts {
             items {
               id
@@ -631,10 +454,19 @@ export const onCreateComment = /* GraphQL */ `
         comments {
           items {
             id
+            userID
             postID
             content
             createdAt
             updatedAt
+            commentor {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
             post {
               id
               title
@@ -643,23 +475,52 @@ export const onCreateComment = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            owner
           }
           nextToken
         }
       }
-      owner
     }
   }
 `;
 export const onUpdateComment = /* GraphQL */ `
-  subscription OnUpdateComment($owner: String) {
-    onUpdateComment(owner: $owner) {
+  subscription OnUpdateComment {
+    onUpdateComment {
       id
+      userID
       postID
       content
       createdAt
       updatedAt
+      commentor {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            comments {
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }
       post {
         id
         title
@@ -674,7 +535,6 @@ export const onUpdateComment = /* GraphQL */ `
           accountNumber
           createdAt
           updatedAt
-          owner
           posts {
             items {
               id
@@ -690,10 +550,19 @@ export const onUpdateComment = /* GraphQL */ `
         comments {
           items {
             id
+            userID
             postID
             content
             createdAt
             updatedAt
+            commentor {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
             post {
               id
               title
@@ -702,23 +571,52 @@ export const onUpdateComment = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            owner
           }
           nextToken
         }
       }
-      owner
     }
   }
 `;
 export const onDeleteComment = /* GraphQL */ `
-  subscription OnDeleteComment($owner: String) {
-    onDeleteComment(owner: $owner) {
+  subscription OnDeleteComment {
+    onDeleteComment {
       id
+      userID
       postID
       content
       createdAt
       updatedAt
+      commentor {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            comments {
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }
       post {
         id
         title
@@ -733,7 +631,6 @@ export const onDeleteComment = /* GraphQL */ `
           accountNumber
           createdAt
           updatedAt
-          owner
           posts {
             items {
               id
@@ -749,10 +646,19 @@ export const onDeleteComment = /* GraphQL */ `
         comments {
           items {
             id
+            userID
             postID
             content
             createdAt
             updatedAt
+            commentor {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
             post {
               id
               title
@@ -761,12 +667,10 @@ export const onDeleteComment = /* GraphQL */ `
               createdAt
               updatedAt
             }
-            owner
           }
           nextToken
         }
       }
-      owner
     }
   }
 `;
