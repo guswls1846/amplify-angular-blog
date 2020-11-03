@@ -1,30 +1,46 @@
-<div class="row" *ngIf="loading">
-  <div class="col-12 text-center">
-    <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-    <span class="sr-only">Loading...</span>
+<div *ngIf="(post$ | async)?.show">
+  <div class="row" *ngIf="loading">
+    <div class="col-12 text-center">
+      <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div class="row" *ngIf="!loading">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <h1 [textContent]="(post$ | async)?.title"></h1>
+
+      <div class="post-content" [innerHTML]="(post$ | async)?.content | safeHtml"></div>
+
+      <p style="color: grey; text-align: center" (click)="onlike()">
+        <i mat-button class="report_button" style="font-size: 14px;">좋아요 {{ (postLike$ | async)?.items.length }}</i>
+      </p>
+
+      <p style="color: grey; text-align: center" class="post-meta">
+        <i>작성자 </i>
+        <i><a href="#" style="color: grey; text-decoration: none" [textContent]="(post$ | async)?.userID"></a></i>
+      </p>
+
+      <div style="text-align: right;">
+        <a mat-button (click)="onPostReport()" class="report_button">신고하기</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix text-center mx-auto" *ngIf="currentUser !== null && (post$ | async)?.userID === currentUser">
+    <a (click)="onEditPost()" class="btn btn-light pointer" style="margin-right: 14px;"> 수정 </a>
+    <a (click)="onDeletePost()" class="btn btn-light pointer"> 삭제 </a>
+  </div>
+
+  <div *ngIf="!loading">
+    <app-comment-write></app-comment-write>
+    <app-comment-list></app-comment-list>
   </div>
 </div>
-<div class="row" *ngIf="!loading">
-  <div class="col-lg-8 col-md-10 mx-auto">
-    <h1 [textContent]="(post$ | async)?.title"></h1>
 
-    <h3 class="post-content" [innerHTML]="(post$ | async)?.content"></h3>
+<div *ngIf="!(post$ | async)?.show" class="noti_wrap">
+  <p>
+    신고가 접수되어 관리자가 글을 가렸습니다.
+  </p>
 
-    <p style="color: grey; text-align: center" class="post-meta">
-      <i>작성자 </i>
-      <i><a href="#" style="color: grey; text-decoration: none" [textContent]="(post$ | async)?.userID"></a></i>
-    </p>
-  </div>
-  <!-- Pager -->
+  <button routerLink="/contact" class="btn btn-light pointer">문의하기</button>
 </div>
-
-<!-- Delete Button -->
-<div class="clearfix text-center mx-auto">
-  <a (click)="deletePost()" class="btn btn-light pointer">
-    Delete Post
-    <i class="" aria-hidden="true"></i
-  ></a>
-</div>
-
-<app-comment-write></app-comment-write>
-<app-comment-list></app-comment-list>

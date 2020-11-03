@@ -13,6 +13,8 @@ subscription OnCreateUser {
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -25,6 +27,26 @@ subscription OnCreateUser {
           posts {
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
         comments {
           items {
@@ -56,6 +78,8 @@ subscription OnUpdateUser {
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -68,6 +92,26 @@ subscription OnUpdateUser {
           posts {
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
         comments {
           items {
@@ -99,6 +143,8 @@ subscription OnDeleteUser {
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -111,6 +157,26 @@ subscription OnDeleteUser {
           posts {
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
         comments {
           items {
@@ -134,6 +200,8 @@ subscription OnCreatePost {
     title
     userID
     content
+    category
+    show
     createdAt
     updatedAt
     user {
@@ -149,6 +217,8 @@ subscription OnCreatePost {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -159,12 +229,87 @@ subscription OnCreatePost {
             createdAt
             updatedAt
           }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
           comments {
             nextToken
           }
         }
         nextToken
       }
+    }
+    likes {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+      }
+      nextToken
+    }
+    reports {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+        post {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+      }
+      nextToken
     }
     comments {
       items {
@@ -190,6 +335,8 @@ subscription OnCreatePost {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -199,6 +346,12 @@ subscription OnCreatePost {
             accountNumber
             createdAt
             updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
           }
           comments {
             nextToken
@@ -215,6 +368,8 @@ subscription OnUpdatePost {
     title
     userID
     content
+    category
+    show
     createdAt
     updatedAt
     user {
@@ -230,6 +385,8 @@ subscription OnUpdatePost {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -240,12 +397,87 @@ subscription OnUpdatePost {
             createdAt
             updatedAt
           }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
           comments {
             nextToken
           }
         }
         nextToken
       }
+    }
+    likes {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+      }
+      nextToken
+    }
+    reports {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+        post {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+      }
+      nextToken
     }
     comments {
       items {
@@ -271,6 +503,8 @@ subscription OnUpdatePost {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -280,6 +514,12 @@ subscription OnUpdatePost {
             accountNumber
             createdAt
             updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
           }
           comments {
             nextToken
@@ -296,6 +536,8 @@ subscription OnDeletePost {
     title
     userID
     content
+    category
+    show
     createdAt
     updatedAt
     user {
@@ -311,6 +553,8 @@ subscription OnDeletePost {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -321,12 +565,87 @@ subscription OnDeletePost {
             createdAt
             updatedAt
           }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
           comments {
             nextToken
           }
         }
         nextToken
       }
+    }
+    likes {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+      }
+      nextToken
+    }
+    reports {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+        post {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+      }
+      nextToken
     }
     comments {
       items {
@@ -352,6 +671,8 @@ subscription OnDeletePost {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -362,12 +683,618 @@ subscription OnDeletePost {
             createdAt
             updatedAt
           }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
           comments {
             nextToken
           }
         }
       }
       nextToken
+    }
+  }
+}
+subscription OnCreatePostLike {
+  onCreatePostLike {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+  }
+}
+subscription OnUpdatePostLike {
+  onUpdatePostLike {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+  }
+}
+subscription OnDeletePostLike {
+  onDeletePostLike {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+  }
+}
+subscription OnCreatePostReport {
+  onCreatePostReport {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+    post {
+      id
+      title
+      userID
+      content
+      category
+      show
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      comments {
+        items {
+          id
+          userID
+          postID
+          content
+          createdAt
+          updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+    }
+  }
+}
+subscription OnUpdatePostReport {
+  onUpdatePostReport {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+    post {
+      id
+      title
+      userID
+      content
+      category
+      show
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      comments {
+        items {
+          id
+          userID
+          postID
+          content
+          createdAt
+          updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+    }
+  }
+}
+subscription OnDeletePostReport {
+  onDeletePostReport {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+    post {
+      id
+      title
+      userID
+      content
+      category
+      show
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      comments {
+        items {
+          id
+          userID
+          postID
+          content
+          createdAt
+          updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
     }
   }
 }
@@ -392,6 +1319,8 @@ subscription OnCreateComment {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -401,6 +1330,12 @@ subscription OnCreateComment {
             accountNumber
             createdAt
             updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
           }
           comments {
             nextToken
@@ -414,6 +1349,8 @@ subscription OnCreateComment {
       title
       userID
       content
+      category
+      show
       createdAt
       updatedAt
       user {
@@ -429,11 +1366,59 @@ subscription OnCreateComment {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
           nextToken
         }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
       }
       comments {
         items {
@@ -456,6 +1441,8 @@ subscription OnCreateComment {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
@@ -486,6 +1473,8 @@ subscription OnUpdateComment {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -495,6 +1484,12 @@ subscription OnUpdateComment {
             accountNumber
             createdAt
             updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
           }
           comments {
             nextToken
@@ -508,6 +1503,8 @@ subscription OnUpdateComment {
       title
       userID
       content
+      category
+      show
       createdAt
       updatedAt
       user {
@@ -523,11 +1520,59 @@ subscription OnUpdateComment {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
           nextToken
         }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
       }
       comments {
         items {
@@ -550,6 +1595,8 @@ subscription OnUpdateComment {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
@@ -580,6 +1627,8 @@ subscription OnDeleteComment {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -589,6 +1638,12 @@ subscription OnDeleteComment {
             accountNumber
             createdAt
             updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
           }
           comments {
             nextToken
@@ -602,6 +1657,8 @@ subscription OnDeleteComment {
       title
       userID
       content
+      category
+      show
       createdAt
       updatedAt
       user {
@@ -617,11 +1674,59 @@ subscription OnDeleteComment {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
           nextToken
         }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
       }
       comments {
         items {
@@ -644,6 +1749,8 @@ subscription OnDeleteComment {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }

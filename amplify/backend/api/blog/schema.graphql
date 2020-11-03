@@ -10,7 +10,7 @@ type Post
   @model
   @aws_iam
   @aws_cognito_user_pools
-  @auth(rules: [{ allow: owner }, { allow: private, operations: [read] }, { allow: public, provider: iam, operations: [read] }])
+  @auth(rules: [{ allow: owner }, { allow: private, operations: [read] }, { allow: public, provider: iam, operations: [read] }, { allow: groups, groups: ["admin"] }])
   @key(name: "byUser", fields: ["userID"]) {
   id: ID!
   title: String!
@@ -18,6 +18,42 @@ type Post
   content: String
   user: User @connection(fields: ["userID"])
   comments: [Comment] @connection(keyName: "byPost", fields: ["id"])
+  likes: [PostLike!] @connection(keyName: "byPost", fields: ["id"]) # 좋아요
+  reports: [PostReport!] @connection(keyName: "byPost", fields: ["id"]) # 신고하기
+  category: CategoryType
+  show: Boolean
+}
+
+enum CategoryType {
+  ANGULAR
+  REACT
+  AWS
+  WEB_PROGRAMING
+}
+
+type PostLike
+  @model
+  @aws_iam
+  @aws_cognito_user_pools
+  @auth(rules: [{ allow: owner }, { allow: private, operations: [read] }, { allow: public, provider: iam, operations: [read] }])
+  @key(name: "byPost", fields: ["postID"]) {
+  id: ID!
+  postID: ID!
+  userID: ID!
+  user: User @connection(fields: ["userID"])
+}
+
+type PostReport
+  @model
+  @aws_iam
+  @aws_cognito_user_pools
+  @auth(rules: [{ allow: owner }, { allow: private, operations: [read] }, { allow: public, provider: iam, operations: [read] }])
+  @key(name: "byPost", fields: ["postID"]) {
+  id: ID!
+  postID: ID!
+  userID: ID!
+  user: User @connection(fields: ["userID"])
+  post: Post @connection(fields: ["postID"])
 }
 
 type Comment

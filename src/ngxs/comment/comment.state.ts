@@ -5,7 +5,7 @@ import { tap } from "rxjs/operators";
 import { APIService } from "src/app/API.service";
 import { from } from "rxjs";
 import { CommentStateModel } from "./comment.model";
-import { WriteComment, ListComment } from "./comment.action";
+import { WriteComment, ListComment, RemoveComment } from "./comment.action";
 @State<CommentStateModel>({
   name: "comment",
   defaults: {
@@ -29,11 +29,10 @@ export class CommentState {
     return from(this.apiService.CreateComment(action.params)).pipe(
       tap(result => {
         console.log(result);
-        // ctx.setState((state: PostsStateModel) => {
-        //   state.posts = result;
-        //   state.nextToken = result.nextToken;
-        //   return state;
-        // });
+        ctx.setState((state: CommentStateModel) => {
+          state.comments.push(result);
+          return state;
+        });
       })
     );
   }
@@ -43,10 +42,26 @@ export class CommentState {
   listComment(ctx: StateContext<CommentStateModel>, action: ListComment) {
     return from(this.apiService.ListComments(action.params)).pipe(
       tap(result => {
-        console.log(result);
         ctx.setState((state: CommentStateModel) => {
           state.comments = result.items;
           state.nextToken = result.nextToken;
+          return state;
+        });
+      })
+    );
+  }
+
+  @Action(RemoveComment)
+  @ImmutableContext()
+  removeComment(ctx: StateContext<CommentStateModel>, action: RemoveComment) {
+    return from(this.apiService.DeleteComment(action.params)).pipe(
+      tap(result => {
+        console.log(result);
+        ctx.setState((state: CommentStateModel) => {
+          const index = state.comments.findIndex(comment => {
+            return comment.id === action.params.id;
+          });
+          state.comments.splice(index, 1);
           return state;
         });
       })

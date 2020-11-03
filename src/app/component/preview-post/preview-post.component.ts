@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Router } from "@angular/router";
-import { BlogPost } from "../../models/blog-post";
+
 import { Store } from "@ngxs/store";
 import { Navigate } from "@ngxs/router-plugin";
+import { GetPostQuery } from "src/app/API.service";
 
 @Component({
   selector: "app-preview-post",
@@ -10,7 +11,7 @@ import { Navigate } from "@ngxs/router-plugin";
   styleUrls: ["./preview-post.component.css"]
 })
 export class PreviewPostComponent implements OnInit {
-  @Input() post: any;
+  @Input() post: GetPostQuery;
 
   constructor(private store: Store, private router: Router) {}
   ngOnInit() {}

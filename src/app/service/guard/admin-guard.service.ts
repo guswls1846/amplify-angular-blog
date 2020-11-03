@@ -9,17 +9,17 @@ import { AuthState } from "src/ngxs/auth/auth.state";
 @Injectable({
   providedIn: "root"
 })
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
   constructor(private store: Store) {}
 
   canActivate(): boolean {
-    const isAuthenticated = this.store.selectSnapshot(AuthState.isAuthenticated);
+    const isAdmin = this.store.selectSnapshot(AuthState.isAdmin);
 
-    if (isAuthenticated) {
-      return isAuthenticated;
+    if (isAdmin) {
+      return isAdmin;
     } else {
-      alert("로그인이 필요합니다.");
       this.store.dispatch(new Navigate(["/home"]));
+      alert("관리자만 접근 가능합니다.");
     }
   }
 }

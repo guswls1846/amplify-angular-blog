@@ -3,7 +3,7 @@
     <div class="post-preview" style="border-bottom: 1px solid #d8d8d8" *ngFor="let comment of comments$ | async">
       <div class="post-content" style="display: flex;justify-content: space-between">
         {{ comment?.commentor?.id }}
-        <button *ngIf="currentUser !== null && comment?.commentor?.id === currentUser">x</button>
+        <button *ngIf="currentUser !== null && comment?.commentor?.id === currentUser" (click)="onRemoveComment(comment?.id)">x</button>
       </div>
       <span class="post-content">{{ comment?.content }}</span>
     </div>

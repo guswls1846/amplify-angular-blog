@@ -17,6 +17,8 @@ export const onCreateUser = /* GraphQL */ `
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -29,6 +31,26 @@ export const onCreateUser = /* GraphQL */ `
             posts {
               nextToken
             }
+          }
+          likes {
+            items {
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          reports {
+            items {
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+            }
+            nextToken
           }
           comments {
             items {
@@ -62,6 +84,8 @@ export const onUpdateUser = /* GraphQL */ `
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -74,6 +98,26 @@ export const onUpdateUser = /* GraphQL */ `
             posts {
               nextToken
             }
+          }
+          likes {
+            items {
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          reports {
+            items {
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+            }
+            nextToken
           }
           comments {
             items {
@@ -107,6 +151,8 @@ export const onDeleteUser = /* GraphQL */ `
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -119,6 +165,26 @@ export const onDeleteUser = /* GraphQL */ `
             posts {
               nextToken
             }
+          }
+          likes {
+            items {
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          reports {
+            items {
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+            }
+            nextToken
           }
           comments {
             items {
@@ -144,6 +210,8 @@ export const onCreatePost = /* GraphQL */ `
       title
       userID
       content
+      category
+      show
       createdAt
       updatedAt
       user {
@@ -159,6 +227,8 @@ export const onCreatePost = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -169,12 +239,87 @@ export const onCreatePost = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
             comments {
               nextToken
             }
           }
           nextToken
         }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
+            comments {
+              nextToken
+            }
+          }
+        }
+        nextToken
       }
       comments {
         items {
@@ -200,6 +345,8 @@ export const onCreatePost = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -209,6 +356,12 @@ export const onCreatePost = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
             }
             comments {
               nextToken
@@ -227,6 +380,8 @@ export const onUpdatePost = /* GraphQL */ `
       title
       userID
       content
+      category
+      show
       createdAt
       updatedAt
       user {
@@ -242,6 +397,8 @@ export const onUpdatePost = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -252,12 +409,87 @@ export const onUpdatePost = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
             comments {
               nextToken
             }
           }
           nextToken
         }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
+            comments {
+              nextToken
+            }
+          }
+        }
+        nextToken
       }
       comments {
         items {
@@ -283,6 +515,8 @@ export const onUpdatePost = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -292,6 +526,12 @@ export const onUpdatePost = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
             }
             comments {
               nextToken
@@ -310,6 +550,8 @@ export const onDeletePost = /* GraphQL */ `
       title
       userID
       content
+      category
+      show
       createdAt
       updatedAt
       user {
@@ -325,6 +567,8 @@ export const onDeletePost = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -335,12 +579,87 @@ export const onDeletePost = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
             comments {
               nextToken
             }
           }
           nextToken
         }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
+            comments {
+              nextToken
+            }
+          }
+        }
+        nextToken
       }
       comments {
         items {
@@ -366,6 +685,8 @@ export const onDeletePost = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -376,12 +697,630 @@ export const onDeletePost = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
             comments {
               nextToken
             }
           }
         }
         nextToken
+      }
+    }
+  }
+`;
+export const onCreatePostLike = /* GraphQL */ `
+  subscription OnCreatePostLike {
+    onCreatePostLike {
+      id
+      postID
+      userID
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
+            comments {
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const onUpdatePostLike = /* GraphQL */ `
+  subscription OnUpdatePostLike {
+    onUpdatePostLike {
+      id
+      postID
+      userID
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
+            comments {
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const onDeletePostLike = /* GraphQL */ `
+  subscription OnDeletePostLike {
+    onDeletePostLike {
+      id
+      postID
+      userID
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
+            comments {
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const onCreatePostReport = /* GraphQL */ `
+  subscription OnCreatePostReport {
+    onCreatePostReport {
+      id
+      postID
+      userID
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
+            comments {
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }
+      post {
+        id
+        title
+        userID
+        content
+        category
+        show
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            items {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        comments {
+          items {
+            id
+            userID
+            postID
+            content
+            createdAt
+            updatedAt
+            commentor {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const onUpdatePostReport = /* GraphQL */ `
+  subscription OnUpdatePostReport {
+    onUpdatePostReport {
+      id
+      postID
+      userID
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
+            comments {
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }
+      post {
+        id
+        title
+        userID
+        content
+        category
+        show
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            items {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        comments {
+          items {
+            id
+            userID
+            postID
+            content
+            createdAt
+            updatedAt
+            commentor {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const onDeletePostReport = /* GraphQL */ `
+  subscription OnDeletePostReport {
+    onDeletePostReport {
+      id
+      postID
+      userID
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
+            comments {
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }
+      post {
+        id
+        title
+        userID
+        content
+        category
+        show
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            items {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        comments {
+          items {
+            id
+            userID
+            postID
+            content
+            createdAt
+            updatedAt
+            commentor {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
       }
     }
   }
@@ -408,6 +1347,8 @@ export const onCreateComment = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -417,6 +1358,12 @@ export const onCreateComment = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
             }
             comments {
               nextToken
@@ -430,6 +1377,8 @@ export const onCreateComment = /* GraphQL */ `
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -445,11 +1394,59 @@ export const onCreateComment = /* GraphQL */ `
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
             }
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
         }
         comments {
           items {
@@ -472,6 +1469,8 @@ export const onCreateComment = /* GraphQL */ `
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
             }
@@ -504,6 +1503,8 @@ export const onUpdateComment = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -513,6 +1514,12 @@ export const onUpdateComment = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
             }
             comments {
               nextToken
@@ -526,6 +1533,8 @@ export const onUpdateComment = /* GraphQL */ `
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -541,11 +1550,59 @@ export const onUpdateComment = /* GraphQL */ `
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
             }
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
         }
         comments {
           items {
@@ -568,6 +1625,8 @@ export const onUpdateComment = /* GraphQL */ `
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
             }
@@ -600,6 +1659,8 @@ export const onDeleteComment = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -609,6 +1670,12 @@ export const onDeleteComment = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
             }
             comments {
               nextToken
@@ -622,6 +1689,8 @@ export const onDeleteComment = /* GraphQL */ `
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -637,11 +1706,59 @@ export const onDeleteComment = /* GraphQL */ `
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
             }
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
         }
         comments {
           items {
@@ -664,6 +1781,8 @@ export const onDeleteComment = /* GraphQL */ `
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
             }

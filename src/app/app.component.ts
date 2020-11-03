@@ -14,7 +14,7 @@ import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api-graphql";
 export class AppComponent {
   title = "angular-blog-new";
 
-  constructor(private actions: Actions, private router: Router, private store: Store) {}
+  constructor(private actions: Actions, private router: Router) {}
 
   ngOnInit() {
     this.actions.pipe(ofActionDispatched(Logout)).subscribe(() => {

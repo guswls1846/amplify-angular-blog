@@ -1,0 +1,24 @@
+.navbar-nav-colum {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+@media only screen and (min-width: 992px) {
+  #mainNav .navbar-nav-colum > li.nav-item > a {
+    padding: 10px 20px;
+    color: #fff;
+  }
+}
+
+#mainNav .navbar-nav-colum > li.nav-item > a {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+#mainNav .navbar-nav-colum > li.nav-item > a {
+  margin-top: 12px;
+}

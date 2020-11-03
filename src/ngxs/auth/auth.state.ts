@@ -47,6 +47,16 @@ export class AuthState {
     }
   }
 
+  @Selector()
+  @ImmutableSelector()
+  static isAdmin(state: AuthStateModel): boolean {
+    if (state.group == "admin") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   constructor(private store: Store, private apiService: APIService) {}
   authModeHandler(authMode) {
     return new Promise((resolve, reject) => {
@@ -63,14 +73,14 @@ export class AuthState {
     Auth.signIn(action.payload).then(result => {
       console.log(result);
 
-      const token = result.signInUserSession.accessToken.jwtToken;
-      const group = result.signInUserSession.accessToken.payload["cognito:groups"];
-      ctx.setState((state: AuthStateModel) => {
-        state.token = token;
-        state.username = result.username;
-        state.group = group;
-        return state;
-      });
+      // const token = result.signInUserSession.accessToken.jwtToken;
+      // const group = result.signInUserSession.accessToken.payload["cognito:groups"];
+      // ctx.setState((state: AuthStateModel) => {
+      //   state.token = token;
+      //   state.username = result.username;
+      //   state.group = group;
+      //   return state;
+      // });
     });
   }
 

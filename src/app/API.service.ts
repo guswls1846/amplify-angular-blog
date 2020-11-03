@@ -60,6 +60,13 @@ export type ModelSizeInput = {
   between?: Array<number | null> | null;
 };
 
+export enum CategoryType {
+  ANGULAR = "ANGULAR",
+  REACT = "REACT",
+  AWS = "AWS",
+  WEB_PROGRAMING = "WEB_PROGRAMING"
+}
+
 export type UpdateUserInput = {
   id: string;
   name?: string | null;
@@ -76,12 +83,16 @@ export type CreatePostInput = {
   title: string;
   userID: string;
   content?: string | null;
+  category?: CategoryType | null;
+  show?: boolean | null;
 };
 
 export type ModelPostConditionInput = {
   title?: ModelStringInput | null;
   userID?: ModelIDInput | null;
   content?: ModelStringInput | null;
+  category?: ModelCategoryTypeInput | null;
+  show?: ModelBooleanInput | null;
   and?: Array<ModelPostConditionInput | null> | null;
   or?: Array<ModelPostConditionInput | null> | null;
   not?: ModelPostConditionInput | null;
@@ -103,14 +114,76 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null;
 };
 
+export type ModelCategoryTypeInput = {
+  eq?: CategoryType | null;
+  ne?: CategoryType | null;
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null;
+  eq?: boolean | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+};
+
 export type UpdatePostInput = {
   id: string;
   title?: string | null;
   userID?: string | null;
   content?: string | null;
+  category?: CategoryType | null;
+  show?: boolean | null;
 };
 
 export type DeletePostInput = {
+  id?: string | null;
+};
+
+export type CreatePostLikeInput = {
+  id?: string | null;
+  postID: string;
+  userID: string;
+};
+
+export type ModelPostLikeConditionInput = {
+  postID?: ModelIDInput | null;
+  userID?: ModelIDInput | null;
+  and?: Array<ModelPostLikeConditionInput | null> | null;
+  or?: Array<ModelPostLikeConditionInput | null> | null;
+  not?: ModelPostLikeConditionInput | null;
+};
+
+export type UpdatePostLikeInput = {
+  id: string;
+  postID?: string | null;
+  userID?: string | null;
+};
+
+export type DeletePostLikeInput = {
+  id?: string | null;
+};
+
+export type CreatePostReportInput = {
+  id?: string | null;
+  postID: string;
+  userID: string;
+};
+
+export type ModelPostReportConditionInput = {
+  postID?: ModelIDInput | null;
+  userID?: ModelIDInput | null;
+  and?: Array<ModelPostReportConditionInput | null> | null;
+  or?: Array<ModelPostReportConditionInput | null> | null;
+  not?: ModelPostReportConditionInput | null;
+};
+
+export type UpdatePostReportInput = {
+  id: string;
+  postID?: string | null;
+  userID?: string | null;
+};
+
+export type DeletePostReportInput = {
   id?: string | null;
 };
 
@@ -156,9 +229,29 @@ export type ModelPostFilterInput = {
   title?: ModelStringInput | null;
   userID?: ModelIDInput | null;
   content?: ModelStringInput | null;
+  category?: ModelCategoryTypeInput | null;
+  show?: ModelBooleanInput | null;
   and?: Array<ModelPostFilterInput | null> | null;
   or?: Array<ModelPostFilterInput | null> | null;
   not?: ModelPostFilterInput | null;
+};
+
+export type ModelPostLikeFilterInput = {
+  id?: ModelIDInput | null;
+  postID?: ModelIDInput | null;
+  userID?: ModelIDInput | null;
+  and?: Array<ModelPostLikeFilterInput | null> | null;
+  or?: Array<ModelPostLikeFilterInput | null> | null;
+  not?: ModelPostLikeFilterInput | null;
+};
+
+export type ModelPostReportFilterInput = {
+  id?: ModelIDInput | null;
+  postID?: ModelIDInput | null;
+  userID?: ModelIDInput | null;
+  and?: Array<ModelPostReportFilterInput | null> | null;
+  or?: Array<ModelPostReportFilterInput | null> | null;
+  not?: ModelPostReportFilterInput | null;
 };
 
 export type ModelCommentFilterInput = {
@@ -187,6 +280,8 @@ export type CreateUserMutation = {
       title: string;
       userID: string;
       content: string | null;
+      category: CategoryType | null;
+      show: boolean | null;
       createdAt: string;
       updatedAt: string;
       user: {
@@ -201,6 +296,30 @@ export type CreateUserMutation = {
           __typename: "ModelPostConnection";
           nextToken: string | null;
         } | null;
+      } | null;
+      likes: {
+        __typename: "ModelPostLikeConnection";
+        items: Array<{
+          __typename: "PostLike";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+      reports: {
+        __typename: "ModelPostReportConnection";
+        items: Array<{
+          __typename: "PostReport";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
       } | null;
       comments: {
         __typename: "ModelCommentConnection";
@@ -236,6 +355,8 @@ export type UpdateUserMutation = {
       title: string;
       userID: string;
       content: string | null;
+      category: CategoryType | null;
+      show: boolean | null;
       createdAt: string;
       updatedAt: string;
       user: {
@@ -250,6 +371,30 @@ export type UpdateUserMutation = {
           __typename: "ModelPostConnection";
           nextToken: string | null;
         } | null;
+      } | null;
+      likes: {
+        __typename: "ModelPostLikeConnection";
+        items: Array<{
+          __typename: "PostLike";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+      reports: {
+        __typename: "ModelPostReportConnection";
+        items: Array<{
+          __typename: "PostReport";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
       } | null;
       comments: {
         __typename: "ModelCommentConnection";
@@ -285,6 +430,8 @@ export type DeleteUserMutation = {
       title: string;
       userID: string;
       content: string | null;
+      category: CategoryType | null;
+      show: boolean | null;
       createdAt: string;
       updatedAt: string;
       user: {
@@ -299,6 +446,30 @@ export type DeleteUserMutation = {
           __typename: "ModelPostConnection";
           nextToken: string | null;
         } | null;
+      } | null;
+      likes: {
+        __typename: "ModelPostLikeConnection";
+        items: Array<{
+          __typename: "PostLike";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+      reports: {
+        __typename: "ModelPostReportConnection";
+        items: Array<{
+          __typename: "PostReport";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
       } | null;
       comments: {
         __typename: "ModelCommentConnection";
@@ -324,6 +495,8 @@ export type CreatePostMutation = {
   title: string;
   userID: string;
   content: string | null;
+  category: CategoryType | null;
+  show: boolean | null;
   createdAt: string;
   updatedAt: string;
   user: {
@@ -342,6 +515,8 @@ export type CreatePostMutation = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -353,6 +528,14 @@ export type CreatePostMutation = {
           createdAt: string;
           updatedAt: string;
         } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
@@ -360,6 +543,88 @@ export type CreatePostMutation = {
       } | null> | null;
       nextToken: string | null;
     } | null;
+  } | null;
+  likes: {
+    __typename: "ModelPostLikeConnection";
+    items: Array<{
+      __typename: "PostLike";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  reports: {
+    __typename: "ModelPostReportConnection";
+    items: Array<{
+      __typename: "PostReport";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
   } | null;
   comments: {
     __typename: "ModelCommentConnection";
@@ -390,6 +655,8 @@ export type CreatePostMutation = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -400,6 +667,14 @@ export type CreatePostMutation = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -417,6 +692,8 @@ export type UpdatePostMutation = {
   title: string;
   userID: string;
   content: string | null;
+  category: CategoryType | null;
+  show: boolean | null;
   createdAt: string;
   updatedAt: string;
   user: {
@@ -435,6 +712,8 @@ export type UpdatePostMutation = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -446,6 +725,14 @@ export type UpdatePostMutation = {
           createdAt: string;
           updatedAt: string;
         } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
@@ -453,6 +740,88 @@ export type UpdatePostMutation = {
       } | null> | null;
       nextToken: string | null;
     } | null;
+  } | null;
+  likes: {
+    __typename: "ModelPostLikeConnection";
+    items: Array<{
+      __typename: "PostLike";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  reports: {
+    __typename: "ModelPostReportConnection";
+    items: Array<{
+      __typename: "PostReport";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
   } | null;
   comments: {
     __typename: "ModelCommentConnection";
@@ -483,6 +852,8 @@ export type UpdatePostMutation = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -493,6 +864,14 @@ export type UpdatePostMutation = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -510,6 +889,8 @@ export type DeletePostMutation = {
   title: string;
   userID: string;
   content: string | null;
+  category: CategoryType | null;
+  show: boolean | null;
   createdAt: string;
   updatedAt: string;
   user: {
@@ -528,6 +909,8 @@ export type DeletePostMutation = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -539,6 +922,14 @@ export type DeletePostMutation = {
           createdAt: string;
           updatedAt: string;
         } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
@@ -546,6 +937,88 @@ export type DeletePostMutation = {
       } | null> | null;
       nextToken: string | null;
     } | null;
+  } | null;
+  likes: {
+    __typename: "ModelPostLikeConnection";
+    items: Array<{
+      __typename: "PostLike";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  reports: {
+    __typename: "ModelPostReportConnection";
+    items: Array<{
+      __typename: "PostReport";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
   } | null;
   comments: {
     __typename: "ModelCommentConnection";
@@ -576,6 +1049,8 @@ export type DeletePostMutation = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -587,6 +1062,14 @@ export type DeletePostMutation = {
           createdAt: string;
           updatedAt: string;
         } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
@@ -594,6 +1077,693 @@ export type DeletePostMutation = {
       } | null;
     } | null> | null;
     nextToken: string | null;
+  } | null;
+};
+
+export type CreatePostLikeMutation = {
+  __typename: "PostLike";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type UpdatePostLikeMutation = {
+  __typename: "PostLike";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type DeletePostLikeMutation = {
+  __typename: "PostLike";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type CreatePostReportMutation = {
+  __typename: "PostReport";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+  post: {
+    __typename: "Post";
+    id: string;
+    title: string;
+    userID: string;
+    content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    comments: {
+      __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        userID: string;
+        postID: string;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type UpdatePostReportMutation = {
+  __typename: "PostReport";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+  post: {
+    __typename: "Post";
+    id: string;
+    title: string;
+    userID: string;
+    content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    comments: {
+      __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        userID: string;
+        postID: string;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type DeletePostReportMutation = {
+  __typename: "PostReport";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+  post: {
+    __typename: "Post";
+    id: string;
+    title: string;
+    userID: string;
+    content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    comments: {
+      __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        userID: string;
+        postID: string;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
   } | null;
 };
 
@@ -621,6 +1791,8 @@ export type CreateCommentMutation = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -631,6 +1803,14 @@ export type CreateCommentMutation = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -646,6 +1826,8 @@ export type CreateCommentMutation = {
     title: string;
     userID: string;
     content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
     createdAt: string;
     updatedAt: string;
     user: {
@@ -664,11 +1846,66 @@ export type CreateCommentMutation = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
       } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
@@ -695,6 +1932,8 @@ export type CreateCommentMutation = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null;
@@ -728,6 +1967,8 @@ export type UpdateCommentMutation = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -738,6 +1979,14 @@ export type UpdateCommentMutation = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -753,6 +2002,8 @@ export type UpdateCommentMutation = {
     title: string;
     userID: string;
     content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
     createdAt: string;
     updatedAt: string;
     user: {
@@ -771,11 +2022,66 @@ export type UpdateCommentMutation = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
       } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
@@ -802,6 +2108,8 @@ export type UpdateCommentMutation = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null;
@@ -835,6 +2143,8 @@ export type DeleteCommentMutation = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -845,6 +2155,14 @@ export type DeleteCommentMutation = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -860,6 +2178,8 @@ export type DeleteCommentMutation = {
     title: string;
     userID: string;
     content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
     createdAt: string;
     updatedAt: string;
     user: {
@@ -878,11 +2198,66 @@ export type DeleteCommentMutation = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
       } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
@@ -909,6 +2284,8 @@ export type DeleteCommentMutation = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null;
@@ -936,6 +2313,8 @@ export type ListUsersQuery = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -946,6 +2325,14 @@ export type ListUsersQuery = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -974,6 +2361,8 @@ export type GetUserQuery = {
       title: string;
       userID: string;
       content: string | null;
+      category: CategoryType | null;
+      show: boolean | null;
       createdAt: string;
       updatedAt: string;
       user: {
@@ -988,6 +2377,30 @@ export type GetUserQuery = {
           __typename: "ModelPostConnection";
           nextToken: string | null;
         } | null;
+      } | null;
+      likes: {
+        __typename: "ModelPostLikeConnection";
+        items: Array<{
+          __typename: "PostLike";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+      reports: {
+        __typename: "ModelPostReportConnection";
+        items: Array<{
+          __typename: "PostReport";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
       } | null;
       comments: {
         __typename: "ModelCommentConnection";
@@ -1015,6 +2428,8 @@ export type ListPostsQuery = {
     title: string;
     userID: string;
     content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
     createdAt: string;
     updatedAt: string;
     user: {
@@ -1033,11 +2448,66 @@ export type ListPostsQuery = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
       } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
@@ -1064,6 +2534,8 @@ export type ListPostsQuery = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null;
@@ -1080,6 +2552,8 @@ export type GetPostQuery = {
   title: string;
   userID: string;
   content: string | null;
+  category: CategoryType | null;
+  show: boolean | null;
   createdAt: string;
   updatedAt: string;
   user: {
@@ -1098,6 +2572,8 @@ export type GetPostQuery = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -1109,6 +2585,14 @@ export type GetPostQuery = {
           createdAt: string;
           updatedAt: string;
         } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
@@ -1116,6 +2600,88 @@ export type GetPostQuery = {
       } | null> | null;
       nextToken: string | null;
     } | null;
+  } | null;
+  likes: {
+    __typename: "ModelPostLikeConnection";
+    items: Array<{
+      __typename: "PostLike";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  reports: {
+    __typename: "ModelPostReportConnection";
+    items: Array<{
+      __typename: "PostReport";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
   } | null;
   comments: {
     __typename: "ModelCommentConnection";
@@ -1146,6 +2712,8 @@ export type GetPostQuery = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -1157,6 +2725,14 @@ export type GetPostQuery = {
           createdAt: string;
           updatedAt: string;
         } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
@@ -1167,15 +2743,14 @@ export type GetPostQuery = {
   } | null;
 };
 
-export type GetCommentQuery = {
-  __typename: "Comment";
+export type GetPostLikeQuery = {
+  __typename: "PostLike";
   id: string;
-  userID: string;
   postID: string;
-  content: string;
+  userID: string;
   createdAt: string;
   updatedAt: string;
-  commentor: {
+  user: {
     __typename: "User";
     id: string;
     name: string | null;
@@ -1191,6 +2766,8 @@ export type GetCommentQuery = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -1202,6 +2779,14 @@ export type GetCommentQuery = {
           createdAt: string;
           updatedAt: string;
         } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
@@ -1210,12 +2795,15 @@ export type GetCommentQuery = {
       nextToken: string | null;
     } | null;
   } | null;
-  post: {
-    __typename: "Post";
+};
+
+export type ListPostLikesQuery = {
+  __typename: "ModelPostLikeConnection";
+  items: Array<{
+    __typename: "PostLike";
     id: string;
-    title: string;
+    postID: string;
     userID: string;
-    content: string | null;
     createdAt: string;
     updatedAt: string;
     user: {
@@ -1234,11 +2822,156 @@ export type GetCommentQuery = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
       } | null;
+    } | null;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type GetPostReportQuery = {
+  __typename: "PostReport";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+  post: {
+    __typename: "Post";
+    id: string;
+    title: string;
+    userID: string;
+    content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
@@ -1265,6 +2998,282 @@ export type GetCommentQuery = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type ListPostReportsQuery = {
+  __typename: "ModelPostReportConnection";
+  items: Array<{
+    __typename: "PostReport";
+    id: string;
+    postID: string;
+    userID: string;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    post: {
+      __typename: "Post";
+      id: string;
+      title: string;
+      userID: string;
+      content: string | null;
+      category: CategoryType | null;
+      show: boolean | null;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+      likes: {
+        __typename: "ModelPostLikeConnection";
+        items: Array<{
+          __typename: "PostLike";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+      reports: {
+        __typename: "ModelPostReportConnection";
+        items: Array<{
+          __typename: "PostReport";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+      comments: {
+        __typename: "ModelCommentConnection";
+        items: Array<{
+          __typename: "Comment";
+          id: string;
+          userID: string;
+          postID: string;
+          content: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+  } | null> | null;
+  nextToken: string | null;
+};
+
+export type GetCommentQuery = {
+  __typename: "Comment";
+  id: string;
+  userID: string;
+  postID: string;
+  content: string;
+  createdAt: string;
+  updatedAt: string;
+  commentor: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+  post: {
+    __typename: "Post";
+    id: string;
+    title: string;
+    userID: string;
+    content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    comments: {
+      __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        userID: string;
+        postID: string;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null;
@@ -1300,6 +3309,8 @@ export type ListCommentsQuery = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null> | null;
@@ -1312,6 +3323,8 @@ export type ListCommentsQuery = {
       title: string;
       userID: string;
       content: string | null;
+      category: CategoryType | null;
+      show: boolean | null;
       createdAt: string;
       updatedAt: string;
       user: {
@@ -1326,6 +3339,30 @@ export type ListCommentsQuery = {
           __typename: "ModelPostConnection";
           nextToken: string | null;
         } | null;
+      } | null;
+      likes: {
+        __typename: "ModelPostLikeConnection";
+        items: Array<{
+          __typename: "PostLike";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+      reports: {
+        __typename: "ModelPostReportConnection";
+        items: Array<{
+          __typename: "PostReport";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
       } | null;
       comments: {
         __typename: "ModelCommentConnection";
@@ -1361,6 +3398,8 @@ export type OnCreateUserSubscription = {
       title: string;
       userID: string;
       content: string | null;
+      category: CategoryType | null;
+      show: boolean | null;
       createdAt: string;
       updatedAt: string;
       user: {
@@ -1375,6 +3414,30 @@ export type OnCreateUserSubscription = {
           __typename: "ModelPostConnection";
           nextToken: string | null;
         } | null;
+      } | null;
+      likes: {
+        __typename: "ModelPostLikeConnection";
+        items: Array<{
+          __typename: "PostLike";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+      reports: {
+        __typename: "ModelPostReportConnection";
+        items: Array<{
+          __typename: "PostReport";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
       } | null;
       comments: {
         __typename: "ModelCommentConnection";
@@ -1410,6 +3473,8 @@ export type OnUpdateUserSubscription = {
       title: string;
       userID: string;
       content: string | null;
+      category: CategoryType | null;
+      show: boolean | null;
       createdAt: string;
       updatedAt: string;
       user: {
@@ -1424,6 +3489,30 @@ export type OnUpdateUserSubscription = {
           __typename: "ModelPostConnection";
           nextToken: string | null;
         } | null;
+      } | null;
+      likes: {
+        __typename: "ModelPostLikeConnection";
+        items: Array<{
+          __typename: "PostLike";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+      reports: {
+        __typename: "ModelPostReportConnection";
+        items: Array<{
+          __typename: "PostReport";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
       } | null;
       comments: {
         __typename: "ModelCommentConnection";
@@ -1459,6 +3548,8 @@ export type OnDeleteUserSubscription = {
       title: string;
       userID: string;
       content: string | null;
+      category: CategoryType | null;
+      show: boolean | null;
       createdAt: string;
       updatedAt: string;
       user: {
@@ -1473,6 +3564,30 @@ export type OnDeleteUserSubscription = {
           __typename: "ModelPostConnection";
           nextToken: string | null;
         } | null;
+      } | null;
+      likes: {
+        __typename: "ModelPostLikeConnection";
+        items: Array<{
+          __typename: "PostLike";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+      reports: {
+        __typename: "ModelPostReportConnection";
+        items: Array<{
+          __typename: "PostReport";
+          id: string;
+          postID: string;
+          userID: string;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
       } | null;
       comments: {
         __typename: "ModelCommentConnection";
@@ -1498,6 +3613,8 @@ export type OnCreatePostSubscription = {
   title: string;
   userID: string;
   content: string | null;
+  category: CategoryType | null;
+  show: boolean | null;
   createdAt: string;
   updatedAt: string;
   user: {
@@ -1516,6 +3633,8 @@ export type OnCreatePostSubscription = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -1527,6 +3646,14 @@ export type OnCreatePostSubscription = {
           createdAt: string;
           updatedAt: string;
         } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
@@ -1534,6 +3661,88 @@ export type OnCreatePostSubscription = {
       } | null> | null;
       nextToken: string | null;
     } | null;
+  } | null;
+  likes: {
+    __typename: "ModelPostLikeConnection";
+    items: Array<{
+      __typename: "PostLike";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  reports: {
+    __typename: "ModelPostReportConnection";
+    items: Array<{
+      __typename: "PostReport";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
   } | null;
   comments: {
     __typename: "ModelCommentConnection";
@@ -1564,6 +3773,8 @@ export type OnCreatePostSubscription = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -1574,6 +3785,14 @@ export type OnCreatePostSubscription = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -1591,6 +3810,8 @@ export type OnUpdatePostSubscription = {
   title: string;
   userID: string;
   content: string | null;
+  category: CategoryType | null;
+  show: boolean | null;
   createdAt: string;
   updatedAt: string;
   user: {
@@ -1609,6 +3830,8 @@ export type OnUpdatePostSubscription = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -1620,6 +3843,14 @@ export type OnUpdatePostSubscription = {
           createdAt: string;
           updatedAt: string;
         } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
@@ -1627,6 +3858,88 @@ export type OnUpdatePostSubscription = {
       } | null> | null;
       nextToken: string | null;
     } | null;
+  } | null;
+  likes: {
+    __typename: "ModelPostLikeConnection";
+    items: Array<{
+      __typename: "PostLike";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  reports: {
+    __typename: "ModelPostReportConnection";
+    items: Array<{
+      __typename: "PostReport";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
   } | null;
   comments: {
     __typename: "ModelCommentConnection";
@@ -1657,6 +3970,8 @@ export type OnUpdatePostSubscription = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -1667,6 +3982,14 @@ export type OnUpdatePostSubscription = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -1684,6 +4007,8 @@ export type OnDeletePostSubscription = {
   title: string;
   userID: string;
   content: string | null;
+  category: CategoryType | null;
+  show: boolean | null;
   createdAt: string;
   updatedAt: string;
   user: {
@@ -1702,6 +4027,8 @@ export type OnDeletePostSubscription = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -1713,6 +4040,14 @@ export type OnDeletePostSubscription = {
           createdAt: string;
           updatedAt: string;
         } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
@@ -1720,6 +4055,88 @@ export type OnDeletePostSubscription = {
       } | null> | null;
       nextToken: string | null;
     } | null;
+  } | null;
+  likes: {
+    __typename: "ModelPostLikeConnection";
+    items: Array<{
+      __typename: "PostLike";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
+  } | null;
+  reports: {
+    __typename: "ModelPostReportConnection";
+    items: Array<{
+      __typename: "PostReport";
+      id: string;
+      postID: string;
+      userID: string;
+      createdAt: string;
+      updatedAt: string;
+      user: {
+        __typename: "User";
+        id: string;
+        name: string | null;
+        phone: string | null;
+        accountNumber: string | null;
+        createdAt: string;
+        updatedAt: string;
+        posts: {
+          __typename: "ModelPostConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+      post: {
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null;
+    } | null> | null;
+    nextToken: string | null;
   } | null;
   comments: {
     __typename: "ModelCommentConnection";
@@ -1750,6 +4167,8 @@ export type OnDeletePostSubscription = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -1761,6 +4180,14 @@ export type OnDeletePostSubscription = {
           createdAt: string;
           updatedAt: string;
         } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
         comments: {
           __typename: "ModelCommentConnection";
           nextToken: string | null;
@@ -1768,6 +4195,693 @@ export type OnDeletePostSubscription = {
       } | null;
     } | null> | null;
     nextToken: string | null;
+  } | null;
+};
+
+export type OnCreatePostLikeSubscription = {
+  __typename: "PostLike";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type OnUpdatePostLikeSubscription = {
+  __typename: "PostLike";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type OnDeletePostLikeSubscription = {
+  __typename: "PostLike";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type OnCreatePostReportSubscription = {
+  __typename: "PostReport";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+  post: {
+    __typename: "Post";
+    id: string;
+    title: string;
+    userID: string;
+    content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    comments: {
+      __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        userID: string;
+        postID: string;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type OnUpdatePostReportSubscription = {
+  __typename: "PostReport";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+  post: {
+    __typename: "Post";
+    id: string;
+    title: string;
+    userID: string;
+    content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    comments: {
+      __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        userID: string;
+        postID: string;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+};
+
+export type OnDeletePostReportSubscription = {
+  __typename: "PostReport";
+  id: string;
+  postID: string;
+  userID: string;
+  createdAt: string;
+  updatedAt: string;
+  user: {
+    __typename: "User";
+    id: string;
+    name: string | null;
+    phone: string | null;
+    accountNumber: string | null;
+    createdAt: string;
+    updatedAt: string;
+    posts: {
+      __typename: "ModelPostConnection";
+      items: Array<{
+        __typename: "Post";
+        id: string;
+        title: string;
+        userID: string;
+        content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
+        } | null;
+        comments: {
+          __typename: "ModelCommentConnection";
+          nextToken: string | null;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null;
+  post: {
+    __typename: "Post";
+    id: string;
+    title: string;
+    userID: string;
+    content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
+    createdAt: string;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    comments: {
+      __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        userID: string;
+        postID: string;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
   } | null;
 };
 
@@ -1795,6 +4909,8 @@ export type OnCreateCommentSubscription = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -1805,6 +4921,14 @@ export type OnCreateCommentSubscription = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -1820,6 +4944,8 @@ export type OnCreateCommentSubscription = {
     title: string;
     userID: string;
     content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
     createdAt: string;
     updatedAt: string;
     user: {
@@ -1838,11 +4964,66 @@ export type OnCreateCommentSubscription = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
       } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
@@ -1869,6 +5050,8 @@ export type OnCreateCommentSubscription = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null;
@@ -1902,6 +5085,8 @@ export type OnUpdateCommentSubscription = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -1912,6 +5097,14 @@ export type OnUpdateCommentSubscription = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -1927,6 +5120,8 @@ export type OnUpdateCommentSubscription = {
     title: string;
     userID: string;
     content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
     createdAt: string;
     updatedAt: string;
     user: {
@@ -1945,11 +5140,66 @@ export type OnUpdateCommentSubscription = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
       } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
@@ -1976,6 +5226,8 @@ export type OnUpdateCommentSubscription = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null;
@@ -2009,6 +5261,8 @@ export type OnDeleteCommentSubscription = {
         title: string;
         userID: string;
         content: string | null;
+        category: CategoryType | null;
+        show: boolean | null;
         createdAt: string;
         updatedAt: string;
         user: {
@@ -2019,6 +5273,14 @@ export type OnDeleteCommentSubscription = {
           accountNumber: string | null;
           createdAt: string;
           updatedAt: string;
+        } | null;
+        likes: {
+          __typename: "ModelPostLikeConnection";
+          nextToken: string | null;
+        } | null;
+        reports: {
+          __typename: "ModelPostReportConnection";
+          nextToken: string | null;
         } | null;
         comments: {
           __typename: "ModelCommentConnection";
@@ -2034,6 +5296,8 @@ export type OnDeleteCommentSubscription = {
     title: string;
     userID: string;
     content: string | null;
+    category: CategoryType | null;
+    show: boolean | null;
     createdAt: string;
     updatedAt: string;
     user: {
@@ -2052,11 +5316,66 @@ export type OnDeleteCommentSubscription = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
       } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
     } | null;
     comments: {
       __typename: "ModelCommentConnection";
@@ -2083,6 +5402,8 @@ export type OnDeleteCommentSubscription = {
           title: string;
           userID: string;
           content: string | null;
+          category: CategoryType | null;
+          show: boolean | null;
           createdAt: string;
           updatedAt: string;
         } | null;
@@ -2117,6 +5438,8 @@ export class APIService {
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
               user {
@@ -2131,6 +5454,30 @@ export class APIService {
                   __typename
                   nextToken
                 }
+              }
+              likes {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+              reports {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
               }
               comments {
                 __typename
@@ -2182,6 +5529,8 @@ export class APIService {
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
               user {
@@ -2196,6 +5545,30 @@ export class APIService {
                   __typename
                   nextToken
                 }
+              }
+              likes {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+              reports {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
               }
               comments {
                 __typename
@@ -2247,6 +5620,8 @@ export class APIService {
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
               user {
@@ -2261,6 +5636,30 @@ export class APIService {
                   __typename
                   nextToken
                 }
+              }
+              likes {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+              reports {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
               }
               comments {
                 __typename
@@ -2302,6 +5701,8 @@ export class APIService {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -2320,6 +5721,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -2331,6 +5734,14 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
                 comments {
                   __typename
                   nextToken
@@ -2338,6 +5749,88 @@ export class APIService {
               }
               nextToken
             }
+          }
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
+          }
+          reports {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
           }
           comments {
             __typename
@@ -2368,6 +5861,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -2378,6 +5873,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -2411,6 +5914,8 @@ export class APIService {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -2429,6 +5934,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -2440,6 +5947,14 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
                 comments {
                   __typename
                   nextToken
@@ -2447,6 +5962,88 @@ export class APIService {
               }
               nextToken
             }
+          }
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
+          }
+          reports {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
           }
           comments {
             __typename
@@ -2477,6 +6074,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -2487,6 +6086,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -2520,6 +6127,8 @@ export class APIService {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -2538,6 +6147,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -2549,6 +6160,14 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
                 comments {
                   __typename
                   nextToken
@@ -2556,6 +6175,88 @@ export class APIService {
               }
               nextToken
             }
+          }
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
+          }
+          reports {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
           }
           comments {
             __typename
@@ -2586,6 +6287,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -2596,6 +6299,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -2617,6 +6328,789 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <DeletePostMutation>response.data.deletePost;
+  }
+  async CreatePostLike(
+    input: CreatePostLikeInput,
+    condition?: ModelPostLikeConditionInput
+  ): Promise<CreatePostLikeMutation> {
+    const statement = `mutation CreatePostLike($input: CreatePostLikeInput!, $condition: ModelPostLikeConditionInput) {
+        createPostLike(input: $input, condition: $condition) {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreatePostLikeMutation>response.data.createPostLike;
+  }
+  async UpdatePostLike(
+    input: UpdatePostLikeInput,
+    condition?: ModelPostLikeConditionInput
+  ): Promise<UpdatePostLikeMutation> {
+    const statement = `mutation UpdatePostLike($input: UpdatePostLikeInput!, $condition: ModelPostLikeConditionInput) {
+        updatePostLike(input: $input, condition: $condition) {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdatePostLikeMutation>response.data.updatePostLike;
+  }
+  async DeletePostLike(
+    input: DeletePostLikeInput,
+    condition?: ModelPostLikeConditionInput
+  ): Promise<DeletePostLikeMutation> {
+    const statement = `mutation DeletePostLike($input: DeletePostLikeInput!, $condition: ModelPostLikeConditionInput) {
+        deletePostLike(input: $input, condition: $condition) {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeletePostLikeMutation>response.data.deletePostLike;
+  }
+  async CreatePostReport(
+    input: CreatePostReportInput,
+    condition?: ModelPostReportConditionInput
+  ): Promise<CreatePostReportMutation> {
+    const statement = `mutation CreatePostReport($input: CreatePostReportInput!, $condition: ModelPostReportConditionInput) {
+        createPostReport(input: $input, condition: $condition) {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          post {
+            __typename
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              __typename
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            comments {
+              __typename
+              items {
+                __typename
+                id
+                userID
+                postID
+                content
+                createdAt
+                updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <CreatePostReportMutation>response.data.createPostReport;
+  }
+  async UpdatePostReport(
+    input: UpdatePostReportInput,
+    condition?: ModelPostReportConditionInput
+  ): Promise<UpdatePostReportMutation> {
+    const statement = `mutation UpdatePostReport($input: UpdatePostReportInput!, $condition: ModelPostReportConditionInput) {
+        updatePostReport(input: $input, condition: $condition) {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          post {
+            __typename
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              __typename
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            comments {
+              __typename
+              items {
+                __typename
+                id
+                userID
+                postID
+                content
+                createdAt
+                updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <UpdatePostReportMutation>response.data.updatePostReport;
+  }
+  async DeletePostReport(
+    input: DeletePostReportInput,
+    condition?: ModelPostReportConditionInput
+  ): Promise<DeletePostReportMutation> {
+    const statement = `mutation DeletePostReport($input: DeletePostReportInput!, $condition: ModelPostReportConditionInput) {
+        deletePostReport(input: $input, condition: $condition) {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          post {
+            __typename
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              __typename
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            comments {
+              __typename
+              items {
+                __typename
+                id
+                userID
+                postID
+                content
+                createdAt
+                updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      input
+    };
+    if (condition) {
+      gqlAPIServiceArguments.condition = condition;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <DeletePostReportMutation>response.data.deletePostReport;
   }
   async CreateComment(
     input: CreateCommentInput,
@@ -2647,6 +7141,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -2657,6 +7153,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -2672,6 +7176,8 @@ export class APIService {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -2690,11 +7196,66 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
                 nextToken
               }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
             }
             comments {
               __typename
@@ -2721,6 +7282,8 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
@@ -2770,6 +7333,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -2780,6 +7345,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -2795,6 +7368,8 @@ export class APIService {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -2813,11 +7388,66 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
                 nextToken
               }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
             }
             comments {
               __typename
@@ -2844,6 +7474,8 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
@@ -2893,6 +7525,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -2903,6 +7537,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -2918,6 +7560,8 @@ export class APIService {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -2936,11 +7580,66 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
                 nextToken
               }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
             }
             comments {
               __typename
@@ -2967,6 +7666,8 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
@@ -3011,6 +7712,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -3021,6 +7724,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -3066,6 +7777,8 @@ export class APIService {
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
               user {
@@ -3080,6 +7793,30 @@ export class APIService {
                   __typename
                   nextToken
                 }
+              }
+              likes {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+              reports {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
               }
               comments {
                 __typename
@@ -3121,6 +7858,8 @@ export class APIService {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -3139,11 +7878,66 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
                 nextToken
               }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
             }
             comments {
               __typename
@@ -3170,6 +7964,8 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
@@ -3203,6 +7999,8 @@ export class APIService {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -3221,6 +8019,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -3232,6 +8032,14 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
                 comments {
                   __typename
                   nextToken
@@ -3239,6 +8047,88 @@ export class APIService {
               }
               nextToken
             }
+          }
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
+          }
+          reports {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
           }
           comments {
             __typename
@@ -3269,6 +8159,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -3279,6 +8171,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -3297,6 +8197,432 @@ export class APIService {
       graphqlOperation(statement, gqlAPIServiceArguments)
     )) as any;
     return <GetPostQuery>response.data.getPost;
+  }
+  async GetPostLike(id: string): Promise<GetPostLikeQuery> {
+    const statement = `query GetPostLike($id: ID!) {
+        getPostLike(id: $id) {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetPostLikeQuery>response.data.getPostLike;
+  }
+  async ListPostLikes(
+    filter?: ModelPostLikeFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListPostLikesQuery> {
+    const statement = `query ListPostLikes($filter: ModelPostLikeFilterInput, $limit: Int, $nextToken: String) {
+        listPostLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              __typename
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+            }
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListPostLikesQuery>response.data.listPostLikes;
+  }
+  async GetPostReport(id: string): Promise<GetPostReportQuery> {
+    const statement = `query GetPostReport($id: ID!) {
+        getPostReport(id: $id) {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          post {
+            __typename
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              __typename
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            comments {
+              __typename
+              items {
+                __typename
+                id
+                userID
+                postID
+                content
+                createdAt
+                updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {
+      id
+    };
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <GetPostReportQuery>response.data.getPostReport;
+  }
+  async ListPostReports(
+    filter?: ModelPostReportFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<ListPostReportsQuery> {
+    const statement = `query ListPostReports($filter: ModelPostReportFilterInput, $limit: Int, $nextToken: String) {
+        listPostReports(filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              __typename
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+            }
+            post {
+              __typename
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+              likes {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+              reports {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+              comments {
+                __typename
+                items {
+                  __typename
+                  id
+                  userID
+                  postID
+                  content
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+            }
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(
+      graphqlOperation(statement, gqlAPIServiceArguments)
+    )) as any;
+    return <ListPostReportsQuery>response.data.listPostReports;
   }
   async GetComment(id: string): Promise<GetCommentQuery> {
     const statement = `query GetComment($id: ID!) {
@@ -3324,6 +8650,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -3334,6 +8662,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -3349,6 +8685,8 @@ export class APIService {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -3367,11 +8705,66 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
                 nextToken
               }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
             }
             comments {
               __typename
@@ -3398,6 +8791,8 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
@@ -3447,6 +8842,8 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
@@ -3459,6 +8856,8 @@ export class APIService {
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
               user {
@@ -3473,6 +8872,30 @@ export class APIService {
                   __typename
                   nextToken
                 }
+              }
+              likes {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+              reports {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
               }
               comments {
                 __typename
@@ -3526,6 +8949,8 @@ export class APIService {
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
               user {
@@ -3540,6 +8965,30 @@ export class APIService {
                   __typename
                   nextToken
                 }
+              }
+              likes {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+              reports {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
               }
               comments {
                 __typename
@@ -3581,6 +9030,8 @@ export class APIService {
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
               user {
@@ -3595,6 +9046,30 @@ export class APIService {
                   __typename
                   nextToken
                 }
+              }
+              likes {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+              reports {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
               }
               comments {
                 __typename
@@ -3636,6 +9111,8 @@ export class APIService {
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
               user {
@@ -3650,6 +9127,30 @@ export class APIService {
                   __typename
                   nextToken
                 }
+              }
+              likes {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+              reports {
+                __typename
+                items {
+                  __typename
+                  id
+                  postID
+                  userID
+                  createdAt
+                  updatedAt
+                }
+                nextToken
               }
               comments {
                 __typename
@@ -3681,6 +9182,8 @@ export class APIService {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -3699,6 +9202,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -3710,6 +9215,14 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
                 comments {
                   __typename
                   nextToken
@@ -3717,6 +9230,88 @@ export class APIService {
               }
               nextToken
             }
+          }
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
+          }
+          reports {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
           }
           comments {
             __typename
@@ -3747,6 +9342,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -3757,6 +9354,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -3780,6 +9385,8 @@ export class APIService {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -3798,6 +9405,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -3809,6 +9418,14 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
                 comments {
                   __typename
                   nextToken
@@ -3816,6 +9433,88 @@ export class APIService {
               }
               nextToken
             }
+          }
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
+          }
+          reports {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
           }
           comments {
             __typename
@@ -3846,6 +9545,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -3856,6 +9557,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -3879,6 +9588,8 @@ export class APIService {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -3897,6 +9608,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -3908,6 +9621,14 @@ export class APIService {
                   createdAt
                   updatedAt
                 }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
                 comments {
                   __typename
                   nextToken
@@ -3915,6 +9636,88 @@ export class APIService {
               }
               nextToken
             }
+          }
+          likes {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
+          }
+          reports {
+            __typename
+            items {
+              __typename
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+              user {
+                __typename
+                id
+                name
+                phone
+                accountNumber
+                createdAt
+                updatedAt
+                posts {
+                  __typename
+                  nextToken
+                }
+              }
+              post {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+            }
+            nextToken
           }
           comments {
             __typename
@@ -3945,6 +9748,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -3955,6 +9760,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -3968,6 +9781,741 @@ export class APIService {
       }`
     )
   ) as Observable<OnDeletePostSubscription>;
+
+  OnCreatePostLikeListener: Observable<
+    OnCreatePostLikeSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreatePostLike {
+        onCreatePostLike {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`
+    )
+  ) as Observable<OnCreatePostLikeSubscription>;
+
+  OnUpdatePostLikeListener: Observable<
+    OnUpdatePostLikeSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdatePostLike {
+        onUpdatePostLike {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`
+    )
+  ) as Observable<OnUpdatePostLikeSubscription>;
+
+  OnDeletePostLikeListener: Observable<
+    OnDeletePostLikeSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeletePostLike {
+        onDeletePostLike {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`
+    )
+  ) as Observable<OnDeletePostLikeSubscription>;
+
+  OnCreatePostReportListener: Observable<
+    OnCreatePostReportSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnCreatePostReport {
+        onCreatePostReport {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          post {
+            __typename
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              __typename
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            comments {
+              __typename
+              items {
+                __typename
+                id
+                userID
+                postID
+                content
+                createdAt
+                updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`
+    )
+  ) as Observable<OnCreatePostReportSubscription>;
+
+  OnUpdatePostReportListener: Observable<
+    OnUpdatePostReportSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnUpdatePostReport {
+        onUpdatePostReport {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          post {
+            __typename
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              __typename
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            comments {
+              __typename
+              items {
+                __typename
+                id
+                userID
+                postID
+                content
+                createdAt
+                updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`
+    )
+  ) as Observable<OnUpdatePostReportSubscription>;
+
+  OnDeletePostReportListener: Observable<
+    OnDeletePostReportSubscription
+  > = API.graphql(
+    graphqlOperation(
+      `subscription OnDeletePostReport {
+        onDeletePostReport {
+          __typename
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            __typename
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              __typename
+              items {
+                __typename
+                id
+                title
+                userID
+                content
+                category
+                show
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
+                }
+                comments {
+                  __typename
+                  nextToken
+                }
+              }
+              nextToken
+            }
+          }
+          post {
+            __typename
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              __typename
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            comments {
+              __typename
+              items {
+                __typename
+                id
+                userID
+                postID
+                content
+                createdAt
+                updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+          }
+        }
+      }`
+    )
+  ) as Observable<OnDeletePostReportSubscription>;
 
   OnCreateCommentListener: Observable<
     OnCreateCommentSubscription
@@ -3998,6 +10546,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -4008,6 +10558,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -4023,6 +10581,8 @@ export class APIService {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -4041,11 +10601,66 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
                 nextToken
               }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
             }
             comments {
               __typename
@@ -4072,6 +10687,8 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
@@ -4113,6 +10730,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -4123,6 +10742,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -4138,6 +10765,8 @@ export class APIService {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -4156,11 +10785,66 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
                 nextToken
               }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
             }
             comments {
               __typename
@@ -4187,6 +10871,8 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
@@ -4228,6 +10914,8 @@ export class APIService {
                 title
                 userID
                 content
+                category
+                show
                 createdAt
                 updatedAt
                 user {
@@ -4238,6 +10926,14 @@ export class APIService {
                   accountNumber
                   createdAt
                   updatedAt
+                }
+                likes {
+                  __typename
+                  nextToken
+                }
+                reports {
+                  __typename
+                  nextToken
                 }
                 comments {
                   __typename
@@ -4253,6 +10949,8 @@ export class APIService {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -4271,11 +10969,66 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }
                 nextToken
               }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
             }
             comments {
               __typename
@@ -4302,6 +11055,8 @@ export class APIService {
                   title
                   userID
                   content
+                  category
+                  show
                   createdAt
                   updatedAt
                 }

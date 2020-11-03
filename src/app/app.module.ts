@@ -27,6 +27,8 @@ import { NgxsStoragePluginModule, StorageOption } from "@ngxs/storage-plugin";
 import { CustomRouterStateSerializer } from "src/ngxs/router/router-state-custom";
 import { StateModule } from "src/ngxs/state.module";
 import { environment } from "src/environments/environment";
+import { SafeHtmlPipe } from "./pipe/safe-html.pipe";
+import { PipeModule } from "./pipe/pipe.module";
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { environment } from "src/environments/environment";
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+
     NgxsModule.forRoot([...StateModule.Modules], {
       developmentMode: !environment.production,
       selectorOptions: {

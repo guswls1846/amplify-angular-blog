@@ -18,6 +18,8 @@ query ListUsers(
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -27,6 +29,12 @@ query ListUsers(
             accountNumber
             createdAt
             updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
           }
           comments {
             nextToken
@@ -52,6 +60,8 @@ query GetUser($id: ID!) {
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -64,6 +74,26 @@ query GetUser($id: ID!) {
           posts {
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
         comments {
           items {
@@ -92,6 +122,8 @@ query ListPosts(
       title
       userID
       content
+      category
+      show
       createdAt
       updatedAt
       user {
@@ -107,11 +139,59 @@ query ListPosts(
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
           nextToken
         }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
       }
       comments {
         items {
@@ -134,6 +214,8 @@ query ListPosts(
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
@@ -150,6 +232,8 @@ query GetPost($id: ID!) {
     title
     userID
     content
+    category
+    show
     createdAt
     updatedAt
     user {
@@ -165,6 +249,8 @@ query GetPost($id: ID!) {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -175,12 +261,87 @@ query GetPost($id: ID!) {
             createdAt
             updatedAt
           }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
           comments {
             nextToken
           }
         }
         nextToken
       }
+    }
+    likes {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+      }
+      nextToken
+    }
+    reports {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+        post {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+      }
+      nextToken
     }
     comments {
       items {
@@ -206,6 +367,8 @@ query GetPost($id: ID!) {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -216,6 +379,12 @@ query GetPost($id: ID!) {
             createdAt
             updatedAt
           }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
           comments {
             nextToken
           }
@@ -223,6 +392,332 @@ query GetPost($id: ID!) {
       }
       nextToken
     }
+  }
+}
+query GetPostLike($id: ID!) {
+  getPostLike(id: $id) {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+  }
+}
+query ListPostLikes(
+  $filter: ModelPostLikeFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPostLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      postID
+      userID
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }
+    }
+    nextToken
+  }
+}
+query GetPostReport($id: ID!) {
+  getPostReport(id: $id) {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+    post {
+      id
+      title
+      userID
+      content
+      category
+      show
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      comments {
+        items {
+          id
+          userID
+          postID
+          content
+          createdAt
+          updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+    }
+  }
+}
+query ListPostReports(
+  $filter: ModelPostReportFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listPostReports(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      postID
+      userID
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }
+      post {
+        id
+        title
+        userID
+        content
+        category
+        show
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        comments {
+          items {
+            id
+            userID
+            postID
+            content
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }
+    }
+    nextToken
   }
 }
 query GetComment($id: ID!) {
@@ -246,6 +741,8 @@ query GetComment($id: ID!) {
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -255,6 +752,12 @@ query GetComment($id: ID!) {
             accountNumber
             createdAt
             updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
           }
           comments {
             nextToken
@@ -268,6 +771,8 @@ query GetComment($id: ID!) {
       title
       userID
       content
+      category
+      show
       createdAt
       updatedAt
       user {
@@ -283,11 +788,59 @@ query GetComment($id: ID!) {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
           nextToken
         }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
       }
       comments {
         items {
@@ -310,6 +863,8 @@ query GetComment($id: ID!) {
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
@@ -345,6 +900,8 @@ query ListComments(
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
@@ -356,6 +913,8 @@ query ListComments(
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -368,6 +927,26 @@ query ListComments(
           posts {
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
         comments {
           items {

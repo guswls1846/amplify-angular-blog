@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from "@angular/core";
 import { Store, Select } from "@ngxs/store";
 
-import { ListComment } from "src/ngxs/comment/comment.action";
+import { ListComment, RemoveComment } from "src/ngxs/comment/comment.action";
 import { ModelCommentFilterInput, ListCommentsQuery } from "src/app/API.service";
 import { ActivatedRoute } from "@angular/router";
 import { CommentState } from "src/ngxs/comment/comment.state";
@@ -29,5 +29,9 @@ export class CommentListComponent implements OnInit {
       postID: { eq: this.postID }
     };
     this.store.dispatch(new ListComment(param));
+  }
+
+  onRemoveComment(commentID) {
+    this.store.dispatch(new RemoveComment({ id: commentID }));
   }
 }

@@ -22,6 +22,8 @@ export const listUsers = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -31,6 +33,12 @@ export const listUsers = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
             }
             comments {
               nextToken
@@ -58,6 +66,8 @@ export const getUser = /* GraphQL */ `
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -70,6 +80,26 @@ export const getUser = /* GraphQL */ `
             posts {
               nextToken
             }
+          }
+          likes {
+            items {
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          reports {
+            items {
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+            }
+            nextToken
           }
           comments {
             items {
@@ -100,6 +130,8 @@ export const listPosts = /* GraphQL */ `
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -115,11 +147,59 @@ export const listPosts = /* GraphQL */ `
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
             }
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
         }
         comments {
           items {
@@ -142,6 +222,8 @@ export const listPosts = /* GraphQL */ `
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
             }
@@ -160,6 +242,8 @@ export const getPost = /* GraphQL */ `
       title
       userID
       content
+      category
+      show
       createdAt
       updatedAt
       user {
@@ -175,6 +259,8 @@ export const getPost = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -185,12 +271,87 @@ export const getPost = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
             comments {
               nextToken
             }
           }
           nextToken
         }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
+            comments {
+              nextToken
+            }
+          }
+        }
+        nextToken
       }
       comments {
         items {
@@ -216,6 +377,8 @@ export const getPost = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -226,6 +389,12 @@ export const getPost = /* GraphQL */ `
               createdAt
               updatedAt
             }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
             comments {
               nextToken
             }
@@ -233,6 +402,340 @@ export const getPost = /* GraphQL */ `
         }
         nextToken
       }
+    }
+  }
+`;
+export const getPostLike = /* GraphQL */ `
+  query GetPostLike($id: ID!) {
+    getPostLike(id: $id) {
+      id
+      postID
+      userID
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
+            comments {
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const listPostLikes = /* GraphQL */ `
+  query ListPostLikes(
+    $filter: ModelPostLikeFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPostLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            items {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+        }
+      }
+      nextToken
+    }
+  }
+`;
+export const getPostReport = /* GraphQL */ `
+  query GetPostReport($id: ID!) {
+    getPostReport(id: $id) {
+      id
+      postID
+      userID
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
+            }
+            comments {
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }
+      post {
+        id
+        title
+        userID
+        content
+        category
+        show
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            items {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        comments {
+          items {
+            id
+            userID
+            postID
+            content
+            createdAt
+            updatedAt
+            commentor {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+      }
+    }
+  }
+`;
+export const listPostReports = /* GraphQL */ `
+  query ListPostReports(
+    $filter: ModelPostReportFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPostReports(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            items {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+        }
+        post {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+            posts {
+              nextToken
+            }
+          }
+          likes {
+            items {
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          reports {
+            items {
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          comments {
+            items {
+              id
+              userID
+              postID
+              content
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+        }
+      }
+      nextToken
     }
   }
 `;
@@ -258,6 +761,8 @@ export const getComment = /* GraphQL */ `
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
             user {
@@ -267,6 +772,12 @@ export const getComment = /* GraphQL */ `
               accountNumber
               createdAt
               updatedAt
+            }
+            likes {
+              nextToken
+            }
+            reports {
+              nextToken
             }
             comments {
               nextToken
@@ -280,6 +791,8 @@ export const getComment = /* GraphQL */ `
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -295,11 +808,59 @@ export const getComment = /* GraphQL */ `
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
             }
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
         }
         comments {
           items {
@@ -322,6 +883,8 @@ export const getComment = /* GraphQL */ `
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
             }
@@ -359,6 +922,8 @@ export const listComments = /* GraphQL */ `
               title
               userID
               content
+              category
+              show
               createdAt
               updatedAt
             }
@@ -370,6 +935,8 @@ export const listComments = /* GraphQL */ `
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -382,6 +949,26 @@ export const listComments = /* GraphQL */ `
             posts {
               nextToken
             }
+          }
+          likes {
+            items {
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+          reports {
+            items {
+              id
+              postID
+              userID
+              createdAt
+              updatedAt
+            }
+            nextToken
           }
           comments {
             items {

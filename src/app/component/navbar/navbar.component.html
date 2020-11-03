@@ -9,7 +9,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
   <div class="container">
-    <a class="navbar-brand pointer" routerLink="home">Angular Blog</a>
+    <a class="navbar-brand pointer" routerLink="home" style="align-self: flex-start;">Angular Blog</a>
     <button
       class="navbar-toggler navbar-toggler-right"
       type="button"
@@ -22,19 +22,27 @@
       Menu
       <i class="fa fa-bars"></i>
     </button>
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
+    <div class="collapse navbar-collapse" id="navbarResponsive" style=" justify-content: flex-end;">
+      <ul class="navbar-nav" style=" justify-content: flex-end;">
         <li class="nav-item">
           <a class="nav-link pointer" routerLink="home">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link pointer" routerLink="about">About</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link pointer" routerLink="posts">Posts</a>
+        <li class="nav-item" style="width: 83px; margin-left: 0!important;" (mouseenter)="onMouseHover()" (mouseleave)="onMouseLeave()">
+          <a class="nav-link pointer" [routerLink]="['posts', '']">Posts</a>
+          <ul class="navbar-nav-colum ml-auto" *ngIf="isShowCategory">
+            <li class="nav-item" *ngFor="let cate of category">
+              <a class="nav-link pointer" [routerLink]="['posts', cate]">{{ cate }}</a>
+            </li>
+          </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link pointer" routerLink="contact">Contact</a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin$ | async">
+          <a class="nav-link pointer" routerLink="admin">AdminPage</a>
         </li>
         <li class="nav-item">
           <a class="nav-link pointer" (click)="openDialog()" *ngIf="!(isLogin$ | async)">Login</a>

@@ -1,0 +1,9 @@
+.report_button {
+  cursor: pointer;
+  color: gray;
+  font-size: 12px;
+}
+
+.noti_wrap {
+  text-align: center;
+}

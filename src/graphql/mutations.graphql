@@ -16,6 +16,8 @@ mutation CreateUser(
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -28,6 +30,26 @@ mutation CreateUser(
           posts {
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
         comments {
           items {
@@ -62,6 +84,8 @@ mutation UpdateUser(
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -74,6 +98,26 @@ mutation UpdateUser(
           posts {
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
         comments {
           items {
@@ -108,6 +152,8 @@ mutation DeleteUser(
         title
         userID
         content
+        category
+        show
         createdAt
         updatedAt
         user {
@@ -120,6 +166,26 @@ mutation DeleteUser(
           posts {
             nextToken
           }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+          }
+          nextToken
         }
         comments {
           items {
@@ -146,6 +212,8 @@ mutation CreatePost(
     title
     userID
     content
+    category
+    show
     createdAt
     updatedAt
     user {
@@ -161,6 +229,8 @@ mutation CreatePost(
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -171,12 +241,87 @@ mutation CreatePost(
             createdAt
             updatedAt
           }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
           comments {
             nextToken
           }
         }
         nextToken
       }
+    }
+    likes {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+      }
+      nextToken
+    }
+    reports {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+        post {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+      }
+      nextToken
     }
     comments {
       items {
@@ -202,6 +347,8 @@ mutation CreatePost(
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -211,6 +358,12 @@ mutation CreatePost(
             accountNumber
             createdAt
             updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
           }
           comments {
             nextToken
@@ -230,6 +383,8 @@ mutation UpdatePost(
     title
     userID
     content
+    category
+    show
     createdAt
     updatedAt
     user {
@@ -245,6 +400,8 @@ mutation UpdatePost(
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -255,12 +412,87 @@ mutation UpdatePost(
             createdAt
             updatedAt
           }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
           comments {
             nextToken
           }
         }
         nextToken
       }
+    }
+    likes {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+      }
+      nextToken
+    }
+    reports {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+        post {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+      }
+      nextToken
     }
     comments {
       items {
@@ -286,6 +518,8 @@ mutation UpdatePost(
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -295,6 +529,12 @@ mutation UpdatePost(
             accountNumber
             createdAt
             updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
           }
           comments {
             nextToken
@@ -314,6 +554,8 @@ mutation DeletePost(
     title
     userID
     content
+    category
+    show
     createdAt
     updatedAt
     user {
@@ -329,6 +571,8 @@ mutation DeletePost(
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -339,12 +583,87 @@ mutation DeletePost(
             createdAt
             updatedAt
           }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
           comments {
             nextToken
           }
         }
         nextToken
       }
+    }
+    likes {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+      }
+      nextToken
+    }
+    reports {
+      items {
+        id
+        postID
+        userID
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            nextToken
+          }
+        }
+        post {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+      }
+      nextToken
     }
     comments {
       items {
@@ -370,6 +689,8 @@ mutation DeletePost(
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -380,12 +701,636 @@ mutation DeletePost(
             createdAt
             updatedAt
           }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
           comments {
             nextToken
           }
         }
       }
       nextToken
+    }
+  }
+}
+mutation CreatePostLike(
+  $input: CreatePostLikeInput!
+  $condition: ModelPostLikeConditionInput
+) {
+  createPostLike(input: $input, condition: $condition) {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+  }
+}
+mutation UpdatePostLike(
+  $input: UpdatePostLikeInput!
+  $condition: ModelPostLikeConditionInput
+) {
+  updatePostLike(input: $input, condition: $condition) {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+  }
+}
+mutation DeletePostLike(
+  $input: DeletePostLikeInput!
+  $condition: ModelPostLikeConditionInput
+) {
+  deletePostLike(input: $input, condition: $condition) {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+  }
+}
+mutation CreatePostReport(
+  $input: CreatePostReportInput!
+  $condition: ModelPostReportConditionInput
+) {
+  createPostReport(input: $input, condition: $condition) {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+    post {
+      id
+      title
+      userID
+      content
+      category
+      show
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      comments {
+        items {
+          id
+          userID
+          postID
+          content
+          createdAt
+          updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+    }
+  }
+}
+mutation UpdatePostReport(
+  $input: UpdatePostReportInput!
+  $condition: ModelPostReportConditionInput
+) {
+  updatePostReport(input: $input, condition: $condition) {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+    post {
+      id
+      title
+      userID
+      content
+      category
+      show
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      comments {
+        items {
+          id
+          userID
+          postID
+          content
+          createdAt
+          updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+    }
+  }
+}
+mutation DeletePostReport(
+  $input: DeletePostReportInput!
+  $condition: ModelPostReportConditionInput
+) {
+  deletePostReport(input: $input, condition: $condition) {
+    id
+    postID
+    userID
+    createdAt
+    updatedAt
+    user {
+      id
+      name
+      phone
+      accountNumber
+      createdAt
+      updatedAt
+      posts {
+        items {
+          id
+          title
+          userID
+          content
+          category
+          show
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
+          }
+          comments {
+            nextToken
+          }
+        }
+        nextToken
+      }
+    }
+    post {
+      id
+      title
+      userID
+      content
+      category
+      show
+      createdAt
+      updatedAt
+      user {
+        id
+        name
+        phone
+        accountNumber
+        createdAt
+        updatedAt
+        posts {
+          items {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+          nextToken
+        }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      comments {
+        items {
+          id
+          userID
+          postID
+          content
+          createdAt
+          updatedAt
+          commentor {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
     }
   }
 }
@@ -413,6 +1358,8 @@ mutation CreateComment(
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -422,6 +1369,12 @@ mutation CreateComment(
             accountNumber
             createdAt
             updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
           }
           comments {
             nextToken
@@ -435,6 +1388,8 @@ mutation CreateComment(
       title
       userID
       content
+      category
+      show
       createdAt
       updatedAt
       user {
@@ -450,11 +1405,59 @@ mutation CreateComment(
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
           nextToken
         }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
       }
       comments {
         items {
@@ -477,6 +1480,8 @@ mutation CreateComment(
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
@@ -510,6 +1515,8 @@ mutation UpdateComment(
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -519,6 +1526,12 @@ mutation UpdateComment(
             accountNumber
             createdAt
             updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
           }
           comments {
             nextToken
@@ -532,6 +1545,8 @@ mutation UpdateComment(
       title
       userID
       content
+      category
+      show
       createdAt
       updatedAt
       user {
@@ -547,11 +1562,59 @@ mutation UpdateComment(
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
           nextToken
         }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
       }
       comments {
         items {
@@ -574,6 +1637,8 @@ mutation UpdateComment(
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
@@ -607,6 +1672,8 @@ mutation DeleteComment(
           title
           userID
           content
+          category
+          show
           createdAt
           updatedAt
           user {
@@ -616,6 +1683,12 @@ mutation DeleteComment(
             accountNumber
             createdAt
             updatedAt
+          }
+          likes {
+            nextToken
+          }
+          reports {
+            nextToken
           }
           comments {
             nextToken
@@ -629,6 +1702,8 @@ mutation DeleteComment(
       title
       userID
       content
+      category
+      show
       createdAt
       updatedAt
       user {
@@ -644,11 +1719,59 @@ mutation DeleteComment(
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
           nextToken
         }
+      }
+      likes {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
+      }
+      reports {
+        items {
+          id
+          postID
+          userID
+          createdAt
+          updatedAt
+          user {
+            id
+            name
+            phone
+            accountNumber
+            createdAt
+            updatedAt
+          }
+          post {
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+          }
+        }
+        nextToken
       }
       comments {
         items {
@@ -671,6 +1794,8 @@ mutation DeleteComment(
             title
             userID
             content
+            category
+            show
             createdAt
             updatedAt
           }
