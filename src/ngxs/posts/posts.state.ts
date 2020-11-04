@@ -2,12 +2,25 @@ import { State, Selector, Action, StateContext, Store } from "@ngxs/store";
 import { Injectable } from "@angular/core";
 import { ImmutableSelector, ImmutableContext } from "@ngxs-labs/immer-adapter";
 
-import { tap, takeUntil, distinct, debounceTime, throttleTime, delay } from "rxjs/operators";
+import { tap, takeUntil, distinct, debounceTime, throttleTime, delay, distinctUntilChanged } from "rxjs/operators";
 import { API, graphqlOperation, Auth } from "aws-amplify";
 
 import { APIService, OnCreatePostSubscription, GetPostQuery, ListPostLikesQuery, ListPostReportsQuery } from "src/app/API.service";
 import { from, Subject, of } from "rxjs";
-import { ListPosts, CreatPostsListener, GetPost, DeletePost, UpdatePost, CreateLikePost, ListPostLike, DeleteLikePost, CreateReportPost, ListPostReport, ChangePostShow } from "./posts.action";
+import {
+  ListPosts,
+  CreatPostsListener,
+  GetPost,
+  DeletePost,
+  UpdatePost,
+  CreateLikePost,
+  ListPostLike,
+  DeleteLikePost,
+  CreateReportPost,
+  ListPostReport,
+  ChangePostShow,
+  SearchPosts
+} from "./posts.action";
 import { PostsStateModel } from "./posts.model";
 
 import * as subscriptions from "../../graphql/subscriptions";
@@ -19,6 +32,7 @@ import { onCreatePost } from "../../graphql/subscriptions";
     post: null,
     postLike: null,
     reports: null,
+    searchPost: null,
     nextToken: null
   }
 })
@@ -31,7 +45,13 @@ export class PostsState {
   @Selector()
   @ImmutableSelector()
   static listPosts(state: PostsStateModel) {
-    return state.posts.items;
+    return state.posts?.items;
+  }
+
+  @Selector()
+  @ImmutableSelector()
+  static searchPosts(state: PostsStateModel) {
+    return state.searchPost?.items;
   }
 
   @Selector()
@@ -66,12 +86,29 @@ export class PostsState {
     );
   }
 
+  @Action(SearchPosts)
+  @ImmutableContext()
+  searchPosts(ctx: StateContext<PostsStateModel>, action: SearchPosts) {
+    return from(this.apiService.ListPosts(action.params.filter, action.params.limit, action.params.nextToken)).pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      tap(result => {
+        console.log(result);
+        ctx.setState((state: PostsStateModel) => {
+          state.searchPost = result;
+          state.nextToken = result.nextToken;
+          return state;
+        });
+      })
+    );
+  }
+
   @Action(GetPost)
   @ImmutableContext()
   getPost(ctx: StateContext<PostsStateModel>, action: GetPost) {
     return from(this.apiService.GetPost(action.postID)).pipe(
       tap(result => {
-        console.log(result);
+        // console.log(result);
         ctx.setState((state: PostsStateModel) => {
           state.post = result;
           return state;
@@ -83,11 +120,7 @@ export class PostsState {
   @Action(CreatPostsListener)
   @ImmutableContext()
   postsListener(ctx: StateContext<PostsStateModel>, action: CreatPostsListener) {
-    // console.log("tlfgod");
-
     from(API.graphql({ ...graphqlOperation(onCreatePost), authMode: action.authMode })).subscribe((result: any) => {
-      // console.log(result);
-
       ctx.setState((state: PostsStateModel) => {
         state.posts.items.push(result.value.data.onCreatePost);
         return state;

@@ -7,3 +7,10 @@
 .noti_wrap {
   text-align: center;
 }
+
+.pdf_down_btn {
+  margin-top: 15px;
+}
+.pdf_down_btn input {
+  padding: 15px 21px;
+}

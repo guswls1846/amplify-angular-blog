@@ -9,8 +9,20 @@ import { MatTableModule } from "@angular/material/table";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { MatMenuTrigger, MatMenuModule } from "@angular/material/menu";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
-
-const modules = [MatCardModule, MatInputModule, MatButtonModule, MatButtonToggleModule, MatDialogModule, MatIconModule, MatSelectModule, MatTableModule, MatGridListModule, MatMenuModule];
+import { MatAutocompleteModule } from "@angular/material/autocomplete";
+const modules = [
+  MatAutocompleteModule,
+  MatCardModule,
+  MatInputModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatDialogModule,
+  MatIconModule,
+  MatSelectModule,
+  MatTableModule,
+  MatGridListModule,
+  MatMenuModule
+];
 
 @NgModule({
   imports: modules,

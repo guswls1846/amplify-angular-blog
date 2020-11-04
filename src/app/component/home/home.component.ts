@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   }
 
   getPosts() {
-    let params = { filter: null, limit: null, nextToken: null };
+    let params = { filter: { show: { eq: true } }, limit: null, nextToken: null };
     this.store.dispatch(new ListPosts(params));
   }
 }

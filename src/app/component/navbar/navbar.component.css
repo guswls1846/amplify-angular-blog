@@ -22,3 +22,7 @@
 #mainNav .navbar-nav-colum > li.nav-item > a {
   margin-top: 12px;
 }
+
+mat-form-field {
+  width: 20rem;
+}

@@ -5,6 +5,7 @@ export interface PostsStateModel {
   post: GetPostQuery;
   postLike: ListPostLikesQuery;
   reports: ListPostReportsQuery;
+  searchPost: ListPostsQuery;
   nextToken: string;
 }
 

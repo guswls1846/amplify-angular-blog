@@ -6,6 +6,11 @@ export class ListPosts {
   constructor(public params?: ListPostsParams) {}
 }
 
+export class SearchPosts {
+  static readonly type = "[Posts] Search Posts";
+  constructor(public params?: ListPostsParams) {}
+}
+
 export class CreatPostsListener {
   static readonly type = "[Posts] Creat PostsListener";
   constructor(public authMode?: GRAPHQL_AUTH_MODE) {}

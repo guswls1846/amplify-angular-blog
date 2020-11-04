@@ -18,10 +18,6 @@
     <ng-container matColumnDef="숨기기">
       <mat-header-cell *matHeaderCellDef style="padding: 0 16px;"></mat-header-cell>
       <mat-cell *matCellDef="let element">
-        <!-- <mat-button-toggle-group [disabled]="disabled" [appearance]="appearance" (change)="onPostHide($event, element.postID)">
-          <mat-button-toggle value="1">숨김</mat-button-toggle>
-          <mat-button-toggle value="2">해제</mat-button-toggle>
-        </mat-button-toggle-group> -->
         <button mat-button *ngIf="element.post.show === true" (click)="onPostHide(element.postID)" class="report_button">숨김</button>
         <button mat-button *ngIf="element.post.show === false" (click)="onPostShow(element.postID)" class="report_button">해제</button>
       </mat-cell>

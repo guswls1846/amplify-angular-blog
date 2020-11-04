@@ -59,9 +59,9 @@ export class PastPostsComponent implements OnInit {
   getPosts() {
     let params: ListPostsParams;
     if (this.cate != null) {
-      params = { filter: { category: { eq: this.cate } }, limit: null, nextToken: null };
+      params = { filter: { category: { eq: this.cate }, show: { eq: true } }, limit: null, nextToken: null };
     } else {
-      params = { filter: null, limit: null, nextToken: null };
+      params = { filter: { show: { eq: true } }, limit: null, nextToken: null };
     }
 
     this.store.dispatch(new ListPosts(params));

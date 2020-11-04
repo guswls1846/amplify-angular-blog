@@ -10,7 +10,7 @@ import { HomeComponent } from "./component/home/home.component";
 import { AboutComponent } from "./component/about/about.component";
 import { ContactComponent } from "./component/contact/contact.component";
 import { PastPostsComponent } from "./component/past-posts/past-posts.component";
-import { ViewPostComponent } from "./component/view-post/view-post.component";
+
 import { NavbarComponent } from "./component/navbar/navbar.component";
 import { FooterComponent } from "./component/footer/footer.component";
 import { MastheadComponent } from "./component/masthead/masthead.component";
@@ -27,9 +27,7 @@ import { NgxsStoragePluginModule, StorageOption } from "@ngxs/storage-plugin";
 import { CustomRouterStateSerializer } from "src/ngxs/router/router-state-custom";
 import { StateModule } from "src/ngxs/state.module";
 import { environment } from "src/environments/environment";
-import { SafeHtmlPipe } from "./pipe/safe-html.pipe";
-import { PipeModule } from "./pipe/pipe.module";
-
+import { NgMatSearchBarModule } from "ng-mat-search-bar";
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +53,7 @@ import { PipeModule } from "./pipe/pipe.module";
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-
+    NgMatSearchBarModule,
     NgxsModule.forRoot([...StateModule.Modules], {
       developmentMode: !environment.production,
       selectorOptions: {

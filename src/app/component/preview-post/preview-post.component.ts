@@ -5,6 +5,9 @@ import { Store } from "@ngxs/store";
 import { Navigate } from "@ngxs/router-plugin";
 import { GetPostQuery } from "src/app/API.service";
 
+// export interface testInterface {
+//   test1: string;
+// }
 @Component({
   selector: "app-preview-post",
   templateUrl: "./preview-post.component.html",

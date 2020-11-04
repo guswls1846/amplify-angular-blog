@@ -7,9 +7,9 @@
   </div>
   <div class="row" *ngIf="!loading">
     <div class="col-lg-8 col-md-10 mx-auto">
-      <h1 [textContent]="(post$ | async)?.title"></h1>
+      <h1 [textContent]="(post$ | async)?.title" #title></h1>
 
-      <div class="post-content" [innerHTML]="(post$ | async)?.content | safeHtml"></div>
+      <div class="post-content" [innerHTML]="(post$ | async)?.content | safeHtml" #content></div>
 
       <p style="color: grey; text-align: center" (click)="onlike()">
         <i mat-button class="report_button" style="font-size: 14px;">좋아요 {{ (postLike$ | async)?.items.length }}</i>
@@ -29,6 +29,10 @@
   <div class="clearfix text-center mx-auto" *ngIf="currentUser !== null && (post$ | async)?.userID === currentUser">
     <a (click)="onEditPost()" class="btn btn-light pointer" style="margin-right: 14px;"> 수정 </a>
     <a (click)="onDeletePost()" class="btn btn-light pointer"> 삭제 </a>
+  </div>
+
+  <div class="clearfix text-center mx-auto pdf_down_btn" *ngIf="currentUser !== null && (post$ | async)?.userID === currentUser">
+    <input type="button" value="Download PDF" class="btn btn-light" (click)="onSavePDF()" />
   </div>
 
   <div *ngIf="!loading">

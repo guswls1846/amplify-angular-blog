@@ -1,0 +1,42 @@
+<div class="example-container mat-elevation-z8 ">
+  <mat-table #table [dataSource]="posts$ | async" class="">
+    <ng-container matColumnDef="제목">
+      <mat-header-cell *matHeaderCellDef> 제목 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.title }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="좋아요">
+      <mat-header-cell *matHeaderCellDef> 좋아요 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.likes.items.length }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="댓글">
+      <mat-header-cell *matHeaderCellDef> 댓글 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.comments?.items.length }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="신고">
+      <mat-header-cell *matHeaderCellDef> 신고 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.reports?.items.length }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="카테고리">
+      <mat-header-cell *matHeaderCellDef> 카테고리 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.category }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="숨겨짐">
+      <mat-header-cell *matHeaderCellDef> 보기 여부 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.show ? "O" : "X" }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns" class="element-row" (click)="onDetailPost(row.id)"> </mat-row>
+  </mat-table>
+</div>
+
+<ng-template #tpl let-element>
+  <div class="mat-row detail-row" [@detailExpand] style="overflow: hidden">
+    <div class="post-content" [innerHTML]="element.post.content | safeHtml"></div>
+  </div>
+</ng-template>
