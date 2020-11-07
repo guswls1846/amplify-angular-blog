@@ -128,6 +128,8 @@ export class AuthorPostComponent implements OnInit {
 
     this.processing = this.submitted = true;
     let content = this.editor.getHtml();
+    console.log(content);
+
     let params = {
       id: this.post.postID,
       title: this.post.title,

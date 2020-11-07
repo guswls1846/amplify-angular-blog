@@ -35,6 +35,10 @@
     <input type="button" value="Download PDF" class="btn btn-light" (click)="onSavePDF()" />
   </div>
 
+  <div class="clearfix text-center mx-auto pdf_down_btn" *ngIf="currentUser !== null">
+    <input type="button" value="후원하기" class="btn btn-light" (click)="onsupport()" />
+  </div>
+
   <div *ngIf="!loading">
     <app-comment-write></app-comment-write>
     <app-comment-list></app-comment-list>

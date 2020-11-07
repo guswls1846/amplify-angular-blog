@@ -9,6 +9,10 @@ export class SafeHtmlPipe implements PipeTransform {
 
   public transform(html: string) {
     if (!!html) {
+      // let t = Math.floor(Math.random() * 100 + 1);
+      // let imgCORS = html.replace(/jpeg"/g, `jpeg?x-request=xhr" crossorigin="anonymous"`);
+      // console.log(imgCORS);
+
       return this.sanitizer.bypassSecurityTrustHtml(html);
     }
   }

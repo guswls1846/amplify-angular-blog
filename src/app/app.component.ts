@@ -1,17 +1,16 @@
 import { Component } from "@angular/core";
-import { Actions, ofActionDispatched, Store } from "@ngxs/store";
+import { Actions, ofActionDispatched } from "@ngxs/store";
 import { Router } from "@angular/router";
-import { Logout, SetUser } from "src/ngxs/auth/auth.action";
-import Amplify, { Hub } from "aws-amplify";
-import { CreatPostsListener } from "src/ngxs/posts/posts.action";
-import { AuthState } from "src/ngxs/auth/auth.state";
-import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api-graphql";
+import { Logout } from "src/ngxs/auth/auth.action";
+
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent {
+  isScroll = false;
+  scrollTop = 0;
   title = "angular-blog-new";
 
   constructor(private actions: Actions, private router: Router) {}
@@ -20,5 +19,12 @@ export class AppComponent {
     this.actions.pipe(ofActionDispatched(Logout)).subscribe(() => {
       this.router.navigate(["/home"]);
     });
+  }
+
+  onScroll(event) {
+    console.log(event.target.scrollTop);
+
+    this.isScroll = this.scrollTop < event.target.scrollTop;
+    this.scrollTop = event.target.scrollTop;
   }
 }

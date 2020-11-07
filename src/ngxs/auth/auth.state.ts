@@ -6,7 +6,7 @@ import { Login, Logout, SocialLogin, SetUser, CreateUser } from "./auth.action";
 import { tap } from "rxjs/operators";
 import Amplify, { Auth } from "aws-amplify";
 import { Hub, ICredentials } from "@aws-amplify/core";
-import { APIService } from "src/app/API.service";
+import { APIService, GetUserQuery } from "src/app/API.service";
 import { from } from "rxjs";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api-graphql";
 @State<AuthStateModel>({
@@ -14,7 +14,8 @@ import { GRAPHQL_AUTH_MODE } from "@aws-amplify/api-graphql";
   defaults: {
     token: null,
     username: null,
-    group: null
+    group: null,
+    userInfo: null
   }
 })
 @Injectable()
@@ -23,6 +24,12 @@ export class AuthState {
   @ImmutableSelector()
   static username(state: AuthStateModel): string | null {
     return state.username;
+  }
+
+  @Selector()
+  @ImmutableSelector()
+  static userInfo(state: AuthStateModel): GetUserQuery {
+    return state.userInfo;
   }
 
   @Selector()
@@ -71,8 +78,7 @@ export class AuthState {
   @ImmutableContext()
   login(ctx: StateContext<AuthStateModel>, action: Login) {
     Auth.signIn(action.payload).then(result => {
-      console.log(result);
-
+      // console.log(result);
       // const token = result.signInUserSession.accessToken.jwtToken;
       // const group = result.signInUserSession.accessToken.payload["cognito:groups"];
       // ctx.setState((state: AuthStateModel) => {
@@ -101,6 +107,7 @@ export class AuthState {
           state.token = null;
           state.username = null;
           state.group = null;
+          state.userInfo = null;
           return state;
         });
       })
@@ -134,6 +141,11 @@ export class AuthState {
         tap(result => {
           if (!result) {
             ctx.dispatch(new CreateUser({ id: id }));
+          } else {
+            ctx.setState((state: AuthStateModel) => {
+              state.userInfo = result;
+              return state;
+            });
           }
         })
       );

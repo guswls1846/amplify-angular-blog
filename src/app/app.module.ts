@@ -66,7 +66,7 @@ import { NgMatSearchBarModule } from "ng-mat-search-bar";
     }),
     NgxsStoragePluginModule.forRoot({
       storage: StorageOption.LocalStorage,
-      key: ["auth.token", "auth.username", "auth.group"]
+      key: ["auth.token", "auth.username", "auth.group", "auth.userInfo"]
     }),
     NgxsRouterPluginModule.forRoot()
     // environment.plugins,

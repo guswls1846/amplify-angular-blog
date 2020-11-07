@@ -62,6 +62,12 @@ export class PostsState {
 
   @Selector()
   @ImmutableSelector()
+  static getPosterInfo(state: PostsStateModel) {
+    return state.post?.user;
+  }
+
+  @Selector()
+  @ImmutableSelector()
   static listPostLike(state: PostsStateModel): ListPostLikesQuery {
     return state.postLike;
   }

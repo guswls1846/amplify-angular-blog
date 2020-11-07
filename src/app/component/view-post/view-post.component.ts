@@ -12,6 +12,7 @@ import { jsPDF } from "jspdf";
 import { Navigate } from "@ngxs/router-plugin";
 import { DomSanitizer } from "@angular/platform-browser";
 import html2canvas from "html2canvas";
+
 @Component({
   selector: "app-view-post",
   templateUrl: "./view-post.component.html",
@@ -23,11 +24,14 @@ export class ViewPostComponent implements OnInit {
   comments: any;
   htmlContent: any;
   currentUser: string = this.store.selectSnapshot(AuthState.username);
+
+  PosterInfo;
   private unSubscribe = new Subject();
 
   @ViewChild("title") title: ElementRef;
   @ViewChild("content") content: ElementRef;
   @Select(AuthState.isAuthenticated) isLogin$: Observable<boolean>;
+
   @Select(PostsState.getPost) post$: Observable<GetPostQuery>;
   @Select(PostsState.listPostLike) postLike$: Observable<ListPostLikesQuery>;
 
@@ -40,6 +44,10 @@ export class ViewPostComponent implements OnInit {
 
     this.actions.pipe(ofActionSuccessful(GetPost), takeUntil(this.unSubscribe)).subscribe(result => {
       this.loading = false;
+    });
+
+    this.post$.pipe(takeUntil(this.unSubscribe)).subscribe(data => {
+      this.PosterInfo = data;
     });
 
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -114,27 +122,28 @@ export class ViewPostComponent implements OnInit {
   onSavePDF() {
     let content = this.content.nativeElement;
     let title = this.title.nativeElement;
-    let doc = new jsPDF("p", "mm", "a4");
-    console.log(content);
+    // console.log(content.innerHTML);
 
-    html2canvas(content, { logging: true, allowTaint: false, useCORS: true }).then(canvas => {
+    html2canvas(content, {
+      logging: true,
+
+      useCORS: true
+
+      // allowTaint: false
+    }).then(canvas => {
       let imgWidth = 208;
       let imgHeight = (canvas.height * imgWidth) / canvas.width;
+
       const contentDataURL = canvas.toDataURL("image/png");
+      // console.log(contentDataURL);
       let pdf = new jsPDF("p", "mm", "a4");
-      let position = 0;
+      let position = 5;
       pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);
-      // doc.output("dataurlnewwindow");
-      pdf.save(title.innerHTML);
+      pdf.save(title.innerText);
     });
-    // doc.addFileToVFS('')
-    // doc.html(content, {
-    //   callback: data => {
-    //     // console.log(data);
-    //     // doc.save("obrz.pdf");
-    //     doc.output("dataurlnewwindow");
-    //   }
-    // });
-    //doc.output("dataurlnewwindow");
+  }
+
+  onsupport() {
+    this.store.dispatch(new Navigate(["support", this.PosterInfo.userID]));
   }
 }

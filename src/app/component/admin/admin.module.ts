@@ -7,6 +7,7 @@ import { MaterialModule } from "src/app/material.module";
 
 import { PipeModule } from "src/app/pipe/pipe.module";
 import { DirectiveModule } from "src/app/directive/directive.module";
+import { SupportListComponent } from './support-list/support-list.component';
 
 const routes: Routes = [
   {
@@ -16,7 +17,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [ReportPostListComponent, AdminComponent],
+  declarations: [ReportPostListComponent, AdminComponent, SupportListComponent],
   imports: [CommonModule, RouterModule.forChild(routes), MaterialModule, PipeModule, DirectiveModule]
 })
 export class AdminModule {}

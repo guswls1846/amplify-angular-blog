@@ -7,6 +7,12 @@
 }
 
 @media only screen and (min-width: 992px) {
+  #mainNav {
+    position: fixed;
+  }
+  #mainNav.scroll {
+    background: rgba(0, 0, 0, 0.3);
+  }
   #mainNav .navbar-nav-colum > li.nav-item > a {
     padding: 10px 20px;
     color: #fff;

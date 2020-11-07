@@ -1,0 +1,41 @@
+<div class="example-container mat-elevation-z8">
+  <div class="example-loading-shade" *ngIf="isLoadingResults">
+    <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+  </div>
+
+  <mat-table #table [dataSource]="supportList?.list">
+    <ng-container matColumnDef="supporter">
+      <mat-header-cell *matHeaderCellDef> 후원자 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.buyer_name }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="supporterEmail">
+      <mat-header-cell *matHeaderCellDef> 후원자 이메일 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.buyer_email }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="receiver">
+      <mat-header-cell *matHeaderCellDef> 받은이 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.name }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="amount">
+      <mat-header-cell *matHeaderCellDef> 후원 금액 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.amount }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="pay_method">
+      <mat-header-cell *matHeaderCellDef> 결제 방법 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.pay_method }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> 결제 상태 </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.status }} </mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns" class="element-row"> </mat-row>
+  </mat-table>
+
+  <mat-paginator [length]="supportList?.total" [pageSize]="limit"></mat-paginator>
+</div>

@@ -5,12 +5,13 @@ import { AboutComponent } from "./about/about.component";
 import { ContactComponent } from "./contact/contact.component";
 import { AuthorPostComponent } from "./author-post/author-post.component";
 import { Components } from "./components.component";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AdminGuard } from "../service/guard/admin-guard.service";
 
 import { LayoutModule } from "@angular/cdk/layout";
 import { AuthGuard } from "../service/guard/auth-canActivate.service";
 import { CdkDetailRowDirective } from "../directive/cdk-detail-row.directive";
+import { SupportComponent } from "./support/support.component";
 
 const routes: Routes = [
   {
@@ -26,14 +27,15 @@ const routes: Routes = [
       { path: "contact", component: ContactComponent },
       { path: "posts/:category", loadChildren: () => import("./past-posts/past-posts.module").then(m => m.PastPostsModule) },
       { path: "post/:id", loadChildren: () => import("./view-post/view-post.module").then(m => m.ViewPostModule) },
-      { path: "author-post/:mode", component: AuthorPostComponent, canActivate: [AuthGuard] }
+      { path: "author-post/:mode", component: AuthorPostComponent, canActivate: [AuthGuard] },
+      { path: "support/:userID", loadChildren: () => import("./support/support.module").then(m => m.SupportModule) }
     ]
   }
 ];
 
 @NgModule({
-  declarations: [Components],
-  imports: [CommonModule, FormsModule, RouterModule.forChild(routes), LayoutModule],
+  declarations: [Components, SupportComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes), LayoutModule],
   exports: [RouterModule]
 })
 export class ComponentsModule {}

@@ -7,9 +7,12 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
 import { MatGridListModule } from "@angular/material/grid-list";
-import { MatMenuTrigger, MatMenuModule } from "@angular/material/menu";
+import { MatMenuModule } from "@angular/material/menu";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
 import { MatAutocompleteModule } from "@angular/material/autocomplete";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatSortModule } from "@angular/material/sort";
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 const modules = [
   MatAutocompleteModule,
   MatCardModule,
@@ -21,7 +24,10 @@ const modules = [
   MatSelectModule,
   MatTableModule,
   MatGridListModule,
-  MatMenuModule
+  MatMenuModule,
+  MatProgressSpinnerModule,
+  MatSortModule,
+  MatPaginatorModule
 ];
 
 @NgModule({
