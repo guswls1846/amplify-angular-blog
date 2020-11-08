@@ -5,7 +5,7 @@ import { ImmutableSelector, ImmutableContext } from "@ngxs-labs/immer-adapter";
 import { tap, takeUntil, distinct, debounceTime, throttleTime, delay, distinctUntilChanged } from "rxjs/operators";
 import { API, graphqlOperation, Auth } from "aws-amplify";
 
-import { APIService, OnCreatePostSubscription, GetPostQuery, ListPostLikesQuery, ListPostReportsQuery } from "src/app/API.service";
+import { APIService, OnCreatePostSubscription, GetPostQuery, ListPostLikesQuery, ListPostReportsQuery, ModelSortDirection } from "src/app/API.service";
 import { from, Subject, of } from "rxjs";
 import {
   ListPosts,
@@ -19,7 +19,8 @@ import {
   CreateReportPost,
   ListPostReport,
   ChangePostShow,
-  SearchPosts
+  SearchPosts,
+  ListPostsByPopular
 } from "./posts.action";
 import { PostsStateModel } from "./posts.model";
 
@@ -77,12 +78,32 @@ export class PostsState {
     return state.reports?.items;
   }
 
+  @Selector()
+  @ImmutableSelector()
+  static listPostsByPopular(state: PostsStateModel) {
+    state.posts.items.sort((a, b) => {
+      if (a.likes.items.length < b.likes.items.length) {
+        return -1;
+      }
+      if (a.likes.items.length > b.likes.items.length) {
+        return 1;
+      }
+      return 0;
+      // return a.likes.items.length - b.likes.items.length;
+    });
+
+    return state.posts?.items;
+  }
+
   @Action(ListPosts)
   @ImmutableContext()
   listPosts(ctx: StateContext<PostsStateModel>, action: ListPosts) {
-    return from(this.apiService.ListPosts(action.params.filter, action.params.limit, action.params.nextToken)).pipe(
+    if (!action.params.show) {
+      action.params.show = "true";
+    }
+    return from(this.apiService.PostByDate(action.params.show, null, ModelSortDirection.DESC, action.params.filter, action.params.limit, action.params.nextToken)).pipe(
       tap(result => {
-        // console.log(result);
+        console.log(result);
         ctx.setState((state: PostsStateModel) => {
           state.posts = result;
           state.nextToken = result.nextToken;
@@ -91,6 +112,21 @@ export class PostsState {
       })
     );
   }
+
+  // @Action(ListPostsByPopular)
+  // @ImmutableContext()
+  // listPostsByPopular(ctx: StateContext<PostsStateModel>) {
+  //   let test = ctx.getState().posts;
+  //   test.items.sort(function(a, b) {
+  //     if (a.likes.items.length < b.likes.items.length) {
+  //       return -1;
+  //     }
+  //     if (a.likes.items.length > b.likes.items.length) {
+  //       return 1;
+  //     }
+  //     return 0;
+  //   });
+  // }
 
   @Action(SearchPosts)
   @ImmutableContext()
@@ -128,7 +164,7 @@ export class PostsState {
   postsListener(ctx: StateContext<PostsStateModel>, action: CreatPostsListener) {
     from(API.graphql({ ...graphqlOperation(onCreatePost), authMode: action.authMode })).subscribe((result: any) => {
       ctx.setState((state: PostsStateModel) => {
-        state.posts.items.push(result.value.data.onCreatePost);
+        state.posts.items.unshift(result.value.data.onCreatePost);
         return state;
       });
     });

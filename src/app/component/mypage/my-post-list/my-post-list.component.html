@@ -27,7 +27,7 @@
 
     <ng-container matColumnDef="숨겨짐">
       <mat-header-cell *matHeaderCellDef> 보기 여부 </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{ element?.show ? "O" : "X" }} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{ element?.show == "true" ? "O" : "X" }} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>

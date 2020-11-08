@@ -1,8 +1,6 @@
 import { Component, OnInit, HostListener } from "@angular/core";
-
 import { MatDialog } from "@angular/material/dialog";
 import { LoginComponent } from "../login/login.component";
-
 import { Store, Select } from "@ngxs/store";
 import { Logout } from "src/ngxs/auth/auth.action";
 import { AuthState } from "src/ngxs/auth/auth.state";
@@ -35,7 +33,7 @@ export class NavbarComponent implements OnInit {
   onSearchValueChanged(searchValue) {
     if (!!searchValue) {
       let params: ListPostsParams;
-      params = { filter: { or: [{ title: { contains: searchValue } }, { userID: { contains: searchValue } }], show: { eq: true } }, limit: null, nextToken: null };
+      params = { filter: { or: [{ title: { contains: searchValue } }, { userID: { contains: searchValue } }], show: { eq: "true" } }, limit: null, nextToken: null };
       this.store.dispatch(new SearchPosts(params));
     }
   }

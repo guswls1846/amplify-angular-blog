@@ -5,7 +5,7 @@ import { Store, Select, Actions, ofActionSuccessful } from "@ngxs/store";
 
 import { Observable, Subject } from "rxjs";
 
-import { ListPosts } from "src/ngxs/posts/posts.action";
+import { ListPosts, ListPostsByPopular } from "src/ngxs/posts/posts.action";
 import { PostsState } from "src/ngxs/posts/posts.state";
 import { takeUntil } from "rxjs/operators";
 
@@ -16,7 +16,7 @@ import { takeUntil } from "rxjs/operators";
 })
 export class HomeComponent implements OnInit {
   loading: boolean = true;
-
+  selectedSort: string = "createAt";
   private unSubscribe = new Subject();
 
   constructor(private actions: Actions, private store: Store) {}
@@ -36,7 +36,18 @@ export class HomeComponent implements OnInit {
   }
 
   getPosts() {
-    let params = { filter: { show: { eq: true } }, limit: null, nextToken: null };
+    let params = { show: "true", filter: null, limit: null, nextToken: null };
     this.store.dispatch(new ListPosts(params));
+  }
+
+  onSort(e) {
+    if (e === "createAt") {
+      let params = { show: "true", filter: null, limit: null, nextToken: null };
+      this.store.dispatch(new ListPosts(params));
+    } else {
+      this.store.select(PostsState.listPostsByPopular).subscribe(data => {
+        console.log(data);
+      });
+    }
   }
 }

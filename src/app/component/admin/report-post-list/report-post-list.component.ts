@@ -40,7 +40,7 @@ export class ReportPostListComponent implements OnInit {
   onPostHide(postID) {
     let params = {
       id: postID,
-      show: false
+      show: "false"
     };
     this.store.dispatch(new ChangePostShow(params));
   }
@@ -48,7 +48,7 @@ export class ReportPostListComponent implements OnInit {
   onPostShow(postID) {
     let params = {
       id: postID,
-      show: true
+      show: "true"
     };
     this.store.dispatch(new ChangePostShow(params));
   }

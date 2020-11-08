@@ -11,7 +11,8 @@ type Post
   @aws_iam
   @aws_cognito_user_pools
   @auth(rules: [{ allow: owner }, { allow: private, operations: [read] }, { allow: public, provider: iam, operations: [read] }, { allow: groups, groups: ["admin"] }])
-  @key(name: "byUser", fields: ["userID"]) {
+  @key(name: "byUser", fields: ["userID"])
+  @key(name: "postByDate", fields: ["show", "createdAt"], queryField: "postByDate") {
   id: ID!
   title: String!
   userID: ID!
@@ -21,7 +22,8 @@ type Post
   likes: [PostLike!] @connection(keyName: "byPost", fields: ["id"]) # 좋아요
   reports: [PostReport!] @connection(keyName: "byPost", fields: ["id"]) # 신고하기
   category: CategoryType
-  show: Boolean
+  show: String
+  createdAt: AWSDateTime
 }
 
 enum CategoryType {

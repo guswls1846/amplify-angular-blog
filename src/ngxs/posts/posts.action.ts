@@ -5,6 +5,9 @@ export class ListPosts {
   static readonly type = "[Posts] List Posts";
   constructor(public params?: ListPostsParams) {}
 }
+export class ListPostsByPopular {
+  static readonly type = "[Posts] List Posts By popular";
+}
 
 export class SearchPosts {
   static readonly type = "[Posts] Search Posts";

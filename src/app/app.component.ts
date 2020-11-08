@@ -1,7 +1,9 @@
 import { Component } from "@angular/core";
-import { Actions, ofActionDispatched } from "@ngxs/store";
+import { Actions, ofActionDispatched, Store } from "@ngxs/store";
 import { Router } from "@angular/router";
 import { Logout } from "src/ngxs/auth/auth.action";
+import { APIService, CategoryType } from "./API.service";
+import { AuthState } from "src/ngxs/auth/auth.state";
 
 @Component({
   selector: "app-root",
@@ -13,7 +15,7 @@ export class AppComponent {
   scrollTop = 0;
   title = "angular-blog-new";
 
-  constructor(private actions: Actions, private router: Router) {}
+  constructor(private actions: Actions, private router: Router, private apiService: APIService, private store: Store) {}
 
   ngOnInit() {
     this.actions.pipe(ofActionDispatched(Logout)).subscribe(() => {
@@ -26,5 +28,12 @@ export class AppComponent {
 
     this.isScroll = this.scrollTop < event.target.scrollTop;
     this.scrollTop = event.target.scrollTop;
+  }
+
+  onTest() {
+    let currentUser: string = this.store.selectSnapshot(AuthState.username);
+    for (let index = 0; index < 10; index++) {
+      this.apiService.CreatePost({ id: String(index), title: `test${index}`, userID: currentUser, content: "test", category: CategoryType.ANGULAR, show: "true" }).then(() => {});
+    }
   }
 }

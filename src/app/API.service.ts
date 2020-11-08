@@ -84,7 +84,8 @@ export type CreatePostInput = {
   userID: string;
   content?: string | null;
   category?: CategoryType | null;
-  show?: boolean | null;
+  show?: string | null;
+  createdAt?: string | null;
 };
 
 export type ModelPostConditionInput = {
@@ -92,7 +93,8 @@ export type ModelPostConditionInput = {
   userID?: ModelIDInput | null;
   content?: ModelStringInput | null;
   category?: ModelCategoryTypeInput | null;
-  show?: ModelBooleanInput | null;
+  show?: ModelStringInput | null;
+  createdAt?: ModelStringInput | null;
   and?: Array<ModelPostConditionInput | null> | null;
   or?: Array<ModelPostConditionInput | null> | null;
   not?: ModelPostConditionInput | null;
@@ -119,20 +121,14 @@ export type ModelCategoryTypeInput = {
   ne?: CategoryType | null;
 };
 
-export type ModelBooleanInput = {
-  ne?: boolean | null;
-  eq?: boolean | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-};
-
 export type UpdatePostInput = {
   id: string;
   title?: string | null;
   userID?: string | null;
   content?: string | null;
   category?: CategoryType | null;
-  show?: boolean | null;
+  show?: string | null;
+  createdAt?: string | null;
 };
 
 export type DeletePostInput = {
@@ -230,11 +226,27 @@ export type ModelPostFilterInput = {
   userID?: ModelIDInput | null;
   content?: ModelStringInput | null;
   category?: ModelCategoryTypeInput | null;
-  show?: ModelBooleanInput | null;
+  show?: ModelStringInput | null;
+  createdAt?: ModelStringInput | null;
   and?: Array<ModelPostFilterInput | null> | null;
   or?: Array<ModelPostFilterInput | null> | null;
   not?: ModelPostFilterInput | null;
 };
+
+export type ModelStringKeyConditionInput = {
+  eq?: string | null;
+  le?: string | null;
+  lt?: string | null;
+  ge?: string | null;
+  gt?: string | null;
+  between?: Array<string | null> | null;
+  beginsWith?: string | null;
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC"
+}
 
 export type ModelPostLikeFilterInput = {
   id?: ModelIDInput | null;
@@ -281,8 +293,8 @@ export type CreateUserMutation = {
       userID: string;
       content: string | null;
       category: CategoryType | null;
-      show: boolean | null;
-      createdAt: string;
+      show: string | null;
+      createdAt: string | null;
       updatedAt: string;
       user: {
         __typename: "User";
@@ -356,8 +368,8 @@ export type UpdateUserMutation = {
       userID: string;
       content: string | null;
       category: CategoryType | null;
-      show: boolean | null;
-      createdAt: string;
+      show: string | null;
+      createdAt: string | null;
       updatedAt: string;
       user: {
         __typename: "User";
@@ -431,8 +443,8 @@ export type DeleteUserMutation = {
       userID: string;
       content: string | null;
       category: CategoryType | null;
-      show: boolean | null;
-      createdAt: string;
+      show: string | null;
+      createdAt: string | null;
       updatedAt: string;
       user: {
         __typename: "User";
@@ -496,8 +508,8 @@ export type CreatePostMutation = {
   userID: string;
   content: string | null;
   category: CategoryType | null;
-  show: boolean | null;
-  createdAt: string;
+  show: string | null;
+  createdAt: string | null;
   updatedAt: string;
   user: {
     __typename: "User";
@@ -516,8 +528,8 @@ export type CreatePostMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -598,8 +610,8 @@ export type CreatePostMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -656,8 +668,8 @@ export type CreatePostMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -693,8 +705,8 @@ export type UpdatePostMutation = {
   userID: string;
   content: string | null;
   category: CategoryType | null;
-  show: boolean | null;
-  createdAt: string;
+  show: string | null;
+  createdAt: string | null;
   updatedAt: string;
   user: {
     __typename: "User";
@@ -713,8 +725,8 @@ export type UpdatePostMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -795,8 +807,8 @@ export type UpdatePostMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -853,8 +865,8 @@ export type UpdatePostMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -890,8 +902,8 @@ export type DeletePostMutation = {
   userID: string;
   content: string | null;
   category: CategoryType | null;
-  show: boolean | null;
-  createdAt: string;
+  show: string | null;
+  createdAt: string | null;
   updatedAt: string;
   user: {
     __typename: "User";
@@ -910,8 +922,8 @@ export type DeletePostMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -992,8 +1004,8 @@ export type DeletePostMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -1050,8 +1062,8 @@ export type DeletePostMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -1104,8 +1116,8 @@ export type CreatePostLikeMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -1158,8 +1170,8 @@ export type UpdatePostLikeMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -1212,8 +1224,8 @@ export type DeletePostLikeMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -1266,8 +1278,8 @@ export type CreatePostReportMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -1301,8 +1313,8 @@ export type CreatePostReportMutation = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -1321,8 +1333,8 @@ export type CreatePostReportMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -1374,8 +1386,8 @@ export type CreatePostReportMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -1407,8 +1419,8 @@ export type CreatePostReportMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -1441,8 +1453,8 @@ export type UpdatePostReportMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -1476,8 +1488,8 @@ export type UpdatePostReportMutation = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -1496,8 +1508,8 @@ export type UpdatePostReportMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -1549,8 +1561,8 @@ export type UpdatePostReportMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -1582,8 +1594,8 @@ export type UpdatePostReportMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -1616,8 +1628,8 @@ export type DeletePostReportMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -1651,8 +1663,8 @@ export type DeletePostReportMutation = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -1671,8 +1683,8 @@ export type DeletePostReportMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -1724,8 +1736,8 @@ export type DeletePostReportMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -1757,8 +1769,8 @@ export type DeletePostReportMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -1792,8 +1804,8 @@ export type CreateCommentMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -1827,8 +1839,8 @@ export type CreateCommentMutation = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -1847,8 +1859,8 @@ export type CreateCommentMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -1900,8 +1912,8 @@ export type CreateCommentMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -1933,8 +1945,8 @@ export type CreateCommentMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -1968,8 +1980,8 @@ export type UpdateCommentMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -2003,8 +2015,8 @@ export type UpdateCommentMutation = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -2023,8 +2035,8 @@ export type UpdateCommentMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -2076,8 +2088,8 @@ export type UpdateCommentMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -2109,8 +2121,8 @@ export type UpdateCommentMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -2144,8 +2156,8 @@ export type DeleteCommentMutation = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -2179,8 +2191,8 @@ export type DeleteCommentMutation = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -2199,8 +2211,8 @@ export type DeleteCommentMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -2252,8 +2264,8 @@ export type DeleteCommentMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -2285,8 +2297,8 @@ export type DeleteCommentMutation = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -2314,8 +2326,8 @@ export type ListUsersQuery = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -2362,8 +2374,8 @@ export type GetUserQuery = {
       userID: string;
       content: string | null;
       category: CategoryType | null;
-      show: boolean | null;
-      createdAt: string;
+      show: string | null;
+      createdAt: string | null;
       updatedAt: string;
       user: {
         __typename: "User";
@@ -2429,8 +2441,8 @@ export type ListPostsQuery = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -2449,8 +2461,8 @@ export type ListPostsQuery = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -2502,8 +2514,8 @@ export type ListPostsQuery = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -2535,8 +2547,8 @@ export type ListPostsQuery = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -2553,8 +2565,8 @@ export type GetPostQuery = {
   userID: string;
   content: string | null;
   category: CategoryType | null;
-  show: boolean | null;
-  createdAt: string;
+  show: string | null;
+  createdAt: string | null;
   updatedAt: string;
   user: {
     __typename: "User";
@@ -2573,8 +2585,8 @@ export type GetPostQuery = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -2655,8 +2667,8 @@ export type GetPostQuery = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -2713,8 +2725,8 @@ export type GetPostQuery = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -2743,6 +2755,132 @@ export type GetPostQuery = {
   } | null;
 };
 
+export type PostByDateQuery = {
+  __typename: "ModelPostConnection";
+  items: Array<{
+    __typename: "Post";
+    id: string;
+    title: string;
+    userID: string;
+    content: string | null;
+    category: CategoryType | null;
+    show: string | null;
+    createdAt: string | null;
+    updatedAt: string;
+    user: {
+      __typename: "User";
+      id: string;
+      name: string | null;
+      phone: string | null;
+      accountNumber: string | null;
+      createdAt: string;
+      updatedAt: string;
+      posts: {
+        __typename: "ModelPostConnection";
+        items: Array<{
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: string | null;
+          createdAt: string | null;
+          updatedAt: string;
+        } | null> | null;
+        nextToken: string | null;
+      } | null;
+    } | null;
+    likes: {
+      __typename: "ModelPostLikeConnection";
+      items: Array<{
+        __typename: "PostLike";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    reports: {
+      __typename: "ModelPostReportConnection";
+      items: Array<{
+        __typename: "PostReport";
+        id: string;
+        postID: string;
+        userID: string;
+        createdAt: string;
+        updatedAt: string;
+        user: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: string | null;
+          createdAt: string | null;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+    comments: {
+      __typename: "ModelCommentConnection";
+      items: Array<{
+        __typename: "Comment";
+        id: string;
+        userID: string;
+        postID: string;
+        content: string;
+        createdAt: string;
+        updatedAt: string;
+        commentor: {
+          __typename: "User";
+          id: string;
+          name: string | null;
+          phone: string | null;
+          accountNumber: string | null;
+          createdAt: string;
+          updatedAt: string;
+        } | null;
+        post: {
+          __typename: "Post";
+          id: string;
+          title: string;
+          userID: string;
+          content: string | null;
+          category: CategoryType | null;
+          show: string | null;
+          createdAt: string | null;
+          updatedAt: string;
+        } | null;
+      } | null> | null;
+      nextToken: string | null;
+    } | null;
+  } | null> | null;
+  nextToken: string | null;
+};
+
 export type GetPostLikeQuery = {
   __typename: "PostLike";
   id: string;
@@ -2767,8 +2905,8 @@ export type GetPostLikeQuery = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -2823,8 +2961,8 @@ export type ListPostLikesQuery = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -2858,8 +2996,8 @@ export type GetPostReportQuery = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -2893,8 +3031,8 @@ export type GetPostReportQuery = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -2913,8 +3051,8 @@ export type GetPostReportQuery = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -2966,8 +3104,8 @@ export type GetPostReportQuery = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -2999,8 +3137,8 @@ export type GetPostReportQuery = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -3035,8 +3173,8 @@ export type ListPostReportsQuery = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -3049,8 +3187,8 @@ export type ListPostReportsQuery = {
       userID: string;
       content: string | null;
       category: CategoryType | null;
-      show: boolean | null;
-      createdAt: string;
+      show: string | null;
+      createdAt: string | null;
       updatedAt: string;
       user: {
         __typename: "User";
@@ -3132,8 +3270,8 @@ export type GetCommentQuery = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -3167,8 +3305,8 @@ export type GetCommentQuery = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -3187,8 +3325,8 @@ export type GetCommentQuery = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -3240,8 +3378,8 @@ export type GetCommentQuery = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -3273,8 +3411,8 @@ export type GetCommentQuery = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -3310,8 +3448,8 @@ export type ListCommentsQuery = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -3324,8 +3462,8 @@ export type ListCommentsQuery = {
       userID: string;
       content: string | null;
       category: CategoryType | null;
-      show: boolean | null;
-      createdAt: string;
+      show: string | null;
+      createdAt: string | null;
       updatedAt: string;
       user: {
         __typename: "User";
@@ -3399,8 +3537,8 @@ export type OnCreateUserSubscription = {
       userID: string;
       content: string | null;
       category: CategoryType | null;
-      show: boolean | null;
-      createdAt: string;
+      show: string | null;
+      createdAt: string | null;
       updatedAt: string;
       user: {
         __typename: "User";
@@ -3474,8 +3612,8 @@ export type OnUpdateUserSubscription = {
       userID: string;
       content: string | null;
       category: CategoryType | null;
-      show: boolean | null;
-      createdAt: string;
+      show: string | null;
+      createdAt: string | null;
       updatedAt: string;
       user: {
         __typename: "User";
@@ -3549,8 +3687,8 @@ export type OnDeleteUserSubscription = {
       userID: string;
       content: string | null;
       category: CategoryType | null;
-      show: boolean | null;
-      createdAt: string;
+      show: string | null;
+      createdAt: string | null;
       updatedAt: string;
       user: {
         __typename: "User";
@@ -3614,8 +3752,8 @@ export type OnCreatePostSubscription = {
   userID: string;
   content: string | null;
   category: CategoryType | null;
-  show: boolean | null;
-  createdAt: string;
+  show: string | null;
+  createdAt: string | null;
   updatedAt: string;
   user: {
     __typename: "User";
@@ -3634,8 +3772,8 @@ export type OnCreatePostSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -3716,8 +3854,8 @@ export type OnCreatePostSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -3774,8 +3912,8 @@ export type OnCreatePostSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -3811,8 +3949,8 @@ export type OnUpdatePostSubscription = {
   userID: string;
   content: string | null;
   category: CategoryType | null;
-  show: boolean | null;
-  createdAt: string;
+  show: string | null;
+  createdAt: string | null;
   updatedAt: string;
   user: {
     __typename: "User";
@@ -3831,8 +3969,8 @@ export type OnUpdatePostSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -3913,8 +4051,8 @@ export type OnUpdatePostSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -3971,8 +4109,8 @@ export type OnUpdatePostSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -4008,8 +4146,8 @@ export type OnDeletePostSubscription = {
   userID: string;
   content: string | null;
   category: CategoryType | null;
-  show: boolean | null;
-  createdAt: string;
+  show: string | null;
+  createdAt: string | null;
   updatedAt: string;
   user: {
     __typename: "User";
@@ -4028,8 +4166,8 @@ export type OnDeletePostSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -4110,8 +4248,8 @@ export type OnDeletePostSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -4168,8 +4306,8 @@ export type OnDeletePostSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -4222,8 +4360,8 @@ export type OnCreatePostLikeSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -4276,8 +4414,8 @@ export type OnUpdatePostLikeSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -4330,8 +4468,8 @@ export type OnDeletePostLikeSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -4384,8 +4522,8 @@ export type OnCreatePostReportSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -4419,8 +4557,8 @@ export type OnCreatePostReportSubscription = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -4439,8 +4577,8 @@ export type OnCreatePostReportSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -4492,8 +4630,8 @@ export type OnCreatePostReportSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -4525,8 +4663,8 @@ export type OnCreatePostReportSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -4559,8 +4697,8 @@ export type OnUpdatePostReportSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -4594,8 +4732,8 @@ export type OnUpdatePostReportSubscription = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -4614,8 +4752,8 @@ export type OnUpdatePostReportSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -4667,8 +4805,8 @@ export type OnUpdatePostReportSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -4700,8 +4838,8 @@ export type OnUpdatePostReportSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -4734,8 +4872,8 @@ export type OnDeletePostReportSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -4769,8 +4907,8 @@ export type OnDeletePostReportSubscription = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -4789,8 +4927,8 @@ export type OnDeletePostReportSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -4842,8 +4980,8 @@ export type OnDeletePostReportSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -4875,8 +5013,8 @@ export type OnDeletePostReportSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -4910,8 +5048,8 @@ export type OnCreateCommentSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -4945,8 +5083,8 @@ export type OnCreateCommentSubscription = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -4965,8 +5103,8 @@ export type OnCreateCommentSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -5018,8 +5156,8 @@ export type OnCreateCommentSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -5051,8 +5189,8 @@ export type OnCreateCommentSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -5086,8 +5224,8 @@ export type OnUpdateCommentSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -5121,8 +5259,8 @@ export type OnUpdateCommentSubscription = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -5141,8 +5279,8 @@ export type OnUpdateCommentSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -5194,8 +5332,8 @@ export type OnUpdateCommentSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -5227,8 +5365,8 @@ export type OnUpdateCommentSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -5262,8 +5400,8 @@ export type OnDeleteCommentSubscription = {
         userID: string;
         content: string | null;
         category: CategoryType | null;
-        show: boolean | null;
-        createdAt: string;
+        show: string | null;
+        createdAt: string | null;
         updatedAt: string;
         user: {
           __typename: "User";
@@ -5297,8 +5435,8 @@ export type OnDeleteCommentSubscription = {
     userID: string;
     content: string | null;
     category: CategoryType | null;
-    show: boolean | null;
-    createdAt: string;
+    show: string | null;
+    createdAt: string | null;
     updatedAt: string;
     user: {
       __typename: "User";
@@ -5317,8 +5455,8 @@ export type OnDeleteCommentSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null> | null;
         nextToken: string | null;
@@ -5370,8 +5508,8 @@ export type OnDeleteCommentSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -5403,8 +5541,8 @@ export type OnDeleteCommentSubscription = {
           userID: string;
           content: string | null;
           category: CategoryType | null;
-          show: boolean | null;
-          createdAt: string;
+          show: string | null;
+          createdAt: string | null;
           updatedAt: string;
         } | null;
       } | null> | null;
@@ -5417,10 +5555,7 @@ export type OnDeleteCommentSubscription = {
   providedIn: "root"
 })
 export class APIService {
-  async CreateUser(
-    input: CreateUserInput,
-    condition?: ModelUserConditionInput
-  ): Promise<CreateUserMutation> {
+  async CreateUser(input: CreateUserInput, condition?: ModelUserConditionInput): Promise<CreateUserMutation> {
     const statement = `mutation CreateUser($input: CreateUserInput!, $condition: ModelUserConditionInput) {
         createUser(input: $input, condition: $condition) {
           __typename
@@ -5503,15 +5638,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <CreateUserMutation>response.data.createUser;
   }
-  async UpdateUser(
-    input: UpdateUserInput,
-    condition?: ModelUserConditionInput
-  ): Promise<UpdateUserMutation> {
+  async UpdateUser(input: UpdateUserInput, condition?: ModelUserConditionInput): Promise<UpdateUserMutation> {
     const statement = `mutation UpdateUser($input: UpdateUserInput!, $condition: ModelUserConditionInput) {
         updateUser(input: $input, condition: $condition) {
           __typename
@@ -5594,15 +5724,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <UpdateUserMutation>response.data.updateUser;
   }
-  async DeleteUser(
-    input: DeleteUserInput,
-    condition?: ModelUserConditionInput
-  ): Promise<DeleteUserMutation> {
+  async DeleteUser(input: DeleteUserInput, condition?: ModelUserConditionInput): Promise<DeleteUserMutation> {
     const statement = `mutation DeleteUser($input: DeleteUserInput!, $condition: ModelUserConditionInput) {
         deleteUser(input: $input, condition: $condition) {
           __typename
@@ -5685,15 +5810,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <DeleteUserMutation>response.data.deleteUser;
   }
-  async CreatePost(
-    input: CreatePostInput,
-    condition?: ModelPostConditionInput
-  ): Promise<CreatePostMutation> {
+  async CreatePost(input: CreatePostInput, condition?: ModelPostConditionInput): Promise<CreatePostMutation> {
     const statement = `mutation CreatePost($input: CreatePostInput!, $condition: ModelPostConditionInput) {
         createPost(input: $input, condition: $condition) {
           __typename
@@ -5898,15 +6018,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <CreatePostMutation>response.data.createPost;
   }
-  async UpdatePost(
-    input: UpdatePostInput,
-    condition?: ModelPostConditionInput
-  ): Promise<UpdatePostMutation> {
+  async UpdatePost(input: UpdatePostInput, condition?: ModelPostConditionInput): Promise<UpdatePostMutation> {
     const statement = `mutation UpdatePost($input: UpdatePostInput!, $condition: ModelPostConditionInput) {
         updatePost(input: $input, condition: $condition) {
           __typename
@@ -6111,15 +6226,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <UpdatePostMutation>response.data.updatePost;
   }
-  async DeletePost(
-    input: DeletePostInput,
-    condition?: ModelPostConditionInput
-  ): Promise<DeletePostMutation> {
+  async DeletePost(input: DeletePostInput, condition?: ModelPostConditionInput): Promise<DeletePostMutation> {
     const statement = `mutation DeletePost($input: DeletePostInput!, $condition: ModelPostConditionInput) {
         deletePost(input: $input, condition: $condition) {
           __typename
@@ -6324,15 +6434,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <DeletePostMutation>response.data.deletePost;
   }
-  async CreatePostLike(
-    input: CreatePostLikeInput,
-    condition?: ModelPostLikeConditionInput
-  ): Promise<CreatePostLikeMutation> {
+  async CreatePostLike(input: CreatePostLikeInput, condition?: ModelPostLikeConditionInput): Promise<CreatePostLikeMutation> {
     const statement = `mutation CreatePostLike($input: CreatePostLikeInput!, $condition: ModelPostLikeConditionInput) {
         createPostLike(input: $input, condition: $condition) {
           __typename
@@ -6394,15 +6499,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <CreatePostLikeMutation>response.data.createPostLike;
   }
-  async UpdatePostLike(
-    input: UpdatePostLikeInput,
-    condition?: ModelPostLikeConditionInput
-  ): Promise<UpdatePostLikeMutation> {
+  async UpdatePostLike(input: UpdatePostLikeInput, condition?: ModelPostLikeConditionInput): Promise<UpdatePostLikeMutation> {
     const statement = `mutation UpdatePostLike($input: UpdatePostLikeInput!, $condition: ModelPostLikeConditionInput) {
         updatePostLike(input: $input, condition: $condition) {
           __typename
@@ -6464,15 +6564,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <UpdatePostLikeMutation>response.data.updatePostLike;
   }
-  async DeletePostLike(
-    input: DeletePostLikeInput,
-    condition?: ModelPostLikeConditionInput
-  ): Promise<DeletePostLikeMutation> {
+  async DeletePostLike(input: DeletePostLikeInput, condition?: ModelPostLikeConditionInput): Promise<DeletePostLikeMutation> {
     const statement = `mutation DeletePostLike($input: DeletePostLikeInput!, $condition: ModelPostLikeConditionInput) {
         deletePostLike(input: $input, condition: $condition) {
           __typename
@@ -6534,15 +6629,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <DeletePostLikeMutation>response.data.deletePostLike;
   }
-  async CreatePostReport(
-    input: CreatePostReportInput,
-    condition?: ModelPostReportConditionInput
-  ): Promise<CreatePostReportMutation> {
+  async CreatePostReport(input: CreatePostReportInput, condition?: ModelPostReportConditionInput): Promise<CreatePostReportMutation> {
     const statement = `mutation CreatePostReport($input: CreatePostReportInput!, $condition: ModelPostReportConditionInput) {
         createPostReport(input: $input, condition: $condition) {
           __typename
@@ -6725,15 +6815,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <CreatePostReportMutation>response.data.createPostReport;
   }
-  async UpdatePostReport(
-    input: UpdatePostReportInput,
-    condition?: ModelPostReportConditionInput
-  ): Promise<UpdatePostReportMutation> {
+  async UpdatePostReport(input: UpdatePostReportInput, condition?: ModelPostReportConditionInput): Promise<UpdatePostReportMutation> {
     const statement = `mutation UpdatePostReport($input: UpdatePostReportInput!, $condition: ModelPostReportConditionInput) {
         updatePostReport(input: $input, condition: $condition) {
           __typename
@@ -6916,15 +7001,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <UpdatePostReportMutation>response.data.updatePostReport;
   }
-  async DeletePostReport(
-    input: DeletePostReportInput,
-    condition?: ModelPostReportConditionInput
-  ): Promise<DeletePostReportMutation> {
+  async DeletePostReport(input: DeletePostReportInput, condition?: ModelPostReportConditionInput): Promise<DeletePostReportMutation> {
     const statement = `mutation DeletePostReport($input: DeletePostReportInput!, $condition: ModelPostReportConditionInput) {
         deletePostReport(input: $input, condition: $condition) {
           __typename
@@ -7107,15 +7187,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <DeletePostReportMutation>response.data.deletePostReport;
   }
-  async CreateComment(
-    input: CreateCommentInput,
-    condition?: ModelCommentConditionInput
-  ): Promise<CreateCommentMutation> {
+  async CreateComment(input: CreateCommentInput, condition?: ModelCommentConditionInput): Promise<CreateCommentMutation> {
     const statement = `mutation CreateComment($input: CreateCommentInput!, $condition: ModelCommentConditionInput) {
         createComment(input: $input, condition: $condition) {
           __typename
@@ -7299,15 +7374,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <CreateCommentMutation>response.data.createComment;
   }
-  async UpdateComment(
-    input: UpdateCommentInput,
-    condition?: ModelCommentConditionInput
-  ): Promise<UpdateCommentMutation> {
+  async UpdateComment(input: UpdateCommentInput, condition?: ModelCommentConditionInput): Promise<UpdateCommentMutation> {
     const statement = `mutation UpdateComment($input: UpdateCommentInput!, $condition: ModelCommentConditionInput) {
         updateComment(input: $input, condition: $condition) {
           __typename
@@ -7491,15 +7561,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <UpdateCommentMutation>response.data.updateComment;
   }
-  async DeleteComment(
-    input: DeleteCommentInput,
-    condition?: ModelCommentConditionInput
-  ): Promise<DeleteCommentMutation> {
+  async DeleteComment(input: DeleteCommentInput, condition?: ModelCommentConditionInput): Promise<DeleteCommentMutation> {
     const statement = `mutation DeleteComment($input: DeleteCommentInput!, $condition: ModelCommentConditionInput) {
         deleteComment(input: $input, condition: $condition) {
           __typename
@@ -7683,16 +7748,10 @@ export class APIService {
     if (condition) {
       gqlAPIServiceArguments.condition = condition;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <DeleteCommentMutation>response.data.deleteComment;
   }
-  async ListUsers(
-    filter?: ModelUserFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ListUsersQuery> {
+  async ListUsers(filter?: ModelUserFilterInput, limit?: number, nextToken?: string): Promise<ListUsersQuery> {
     const statement = `query ListUsers($filter: ModelUserFilterInput, $limit: Int, $nextToken: String) {
         listUsers(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
@@ -7754,9 +7813,7 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <ListUsersQuery>response.data.listUsers;
   }
   async GetUser(id: string): Promise<GetUserQuery> {
@@ -7839,16 +7896,10 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       id
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <GetUserQuery>response.data.getUser;
   }
-  async ListPosts(
-    filter?: ModelPostFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ListPostsQuery> {
+  async ListPosts(filter?: ModelPostFilterInput, limit?: number, nextToken?: string): Promise<ListPostsQuery> {
     const statement = `query ListPosts($filter: ModelPostFilterInput, $limit: Int, $nextToken: String) {
         listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
@@ -7986,9 +8037,7 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <ListPostsQuery>response.data.listPosts;
   }
   async GetPost(id: string): Promise<GetPostQuery> {
@@ -8193,10 +8242,165 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       id
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <GetPostQuery>response.data.getPost;
+  }
+  async PostByDate(
+    show?: string,
+    createdAt?: ModelStringKeyConditionInput,
+    sortDirection?: ModelSortDirection,
+    filter?: ModelPostFilterInput,
+    limit?: number,
+    nextToken?: string
+  ): Promise<PostByDateQuery> {
+    const statement = `query PostByDate($show: String, $createdAt: ModelStringKeyConditionInput, $sortDirection: ModelSortDirection, $filter: ModelPostFilterInput, $limit: Int, $nextToken: String) {
+        postByDate(show: $show, createdAt: $createdAt, sortDirection: $sortDirection, filter: $filter, limit: $limit, nextToken: $nextToken) {
+          __typename
+          items {
+            __typename
+            id
+            title
+            userID
+            content
+            category
+            show
+            createdAt
+            updatedAt
+            user {
+              __typename
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+              posts {
+                __typename
+                items {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+                nextToken
+              }
+            }
+            likes {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            reports {
+              __typename
+              items {
+                __typename
+                id
+                postID
+                userID
+                createdAt
+                updatedAt
+                user {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+            comments {
+              __typename
+              items {
+                __typename
+                id
+                userID
+                postID
+                content
+                createdAt
+                updatedAt
+                commentor {
+                  __typename
+                  id
+                  name
+                  phone
+                  accountNumber
+                  createdAt
+                  updatedAt
+                }
+                post {
+                  __typename
+                  id
+                  title
+                  userID
+                  content
+                  category
+                  show
+                  createdAt
+                  updatedAt
+                }
+              }
+              nextToken
+            }
+          }
+          nextToken
+        }
+      }`;
+    const gqlAPIServiceArguments: any = {};
+    if (show) {
+      gqlAPIServiceArguments.show = show;
+    }
+    if (createdAt) {
+      gqlAPIServiceArguments.createdAt = createdAt;
+    }
+    if (sortDirection) {
+      gqlAPIServiceArguments.sortDirection = sortDirection;
+    }
+    if (filter) {
+      gqlAPIServiceArguments.filter = filter;
+    }
+    if (limit) {
+      gqlAPIServiceArguments.limit = limit;
+    }
+    if (nextToken) {
+      gqlAPIServiceArguments.nextToken = nextToken;
+    }
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
+    return <PostByDateQuery>response.data.postByDate;
   }
   async GetPostLike(id: string): Promise<GetPostLikeQuery> {
     const statement = `query GetPostLike($id: ID!) {
@@ -8257,16 +8461,10 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       id
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <GetPostLikeQuery>response.data.getPostLike;
   }
-  async ListPostLikes(
-    filter?: ModelPostLikeFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ListPostLikesQuery> {
+  async ListPostLikes(filter?: ModelPostLikeFilterInput, limit?: number, nextToken?: string): Promise<ListPostLikesQuery> {
     const statement = `query ListPostLikes($filter: ModelPostLikeFilterInput, $limit: Int, $nextToken: String) {
         listPostLikes(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
@@ -8315,9 +8513,7 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <ListPostLikesQuery>response.data.listPostLikes;
   }
   async GetPostReport(id: string): Promise<GetPostReportQuery> {
@@ -8500,16 +8696,10 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       id
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <GetPostReportQuery>response.data.getPostReport;
   }
-  async ListPostReports(
-    filter?: ModelPostReportFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ListPostReportsQuery> {
+  async ListPostReports(filter?: ModelPostReportFilterInput, limit?: number, nextToken?: string): Promise<ListPostReportsQuery> {
     const statement = `query ListPostReports($filter: ModelPostReportFilterInput, $limit: Int, $nextToken: String) {
         listPostReports(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
@@ -8619,9 +8809,7 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <ListPostReportsQuery>response.data.listPostReports;
   }
   async GetComment(id: string): Promise<GetCommentQuery> {
@@ -8805,16 +8993,10 @@ export class APIService {
     const gqlAPIServiceArguments: any = {
       id
     };
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <GetCommentQuery>response.data.getComment;
   }
-  async ListComments(
-    filter?: ModelCommentFilterInput,
-    limit?: number,
-    nextToken?: string
-  ): Promise<ListCommentsQuery> {
+  async ListComments(filter?: ModelCommentFilterInput, limit?: number, nextToken?: string): Promise<ListCommentsQuery> {
     const statement = `query ListComments($filter: ModelCommentFilterInput, $limit: Int, $nextToken: String) {
         listComments(filter: $filter, limit: $limit, nextToken: $nextToken) {
           __typename
@@ -8925,9 +9107,7 @@ export class APIService {
     if (nextToken) {
       gqlAPIServiceArguments.nextToken = nextToken;
     }
-    const response = (await API.graphql(
-      graphqlOperation(statement, gqlAPIServiceArguments)
-    )) as any;
+    const response = (await API.graphql(graphqlOperation(statement, gqlAPIServiceArguments))) as any;
     return <ListCommentsQuery>response.data.listComments;
   }
   OnCreateUserListener: Observable<OnCreateUserSubscription> = API.graphql(
@@ -9782,9 +9962,7 @@ export class APIService {
     )
   ) as Observable<OnDeletePostSubscription>;
 
-  OnCreatePostLikeListener: Observable<
-    OnCreatePostLikeSubscription
-  > = API.graphql(
+  OnCreatePostLikeListener: Observable<OnCreatePostLikeSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnCreatePostLike {
         onCreatePostLike {
@@ -9844,9 +10022,7 @@ export class APIService {
     )
   ) as Observable<OnCreatePostLikeSubscription>;
 
-  OnUpdatePostLikeListener: Observable<
-    OnUpdatePostLikeSubscription
-  > = API.graphql(
+  OnUpdatePostLikeListener: Observable<OnUpdatePostLikeSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnUpdatePostLike {
         onUpdatePostLike {
@@ -9906,9 +10082,7 @@ export class APIService {
     )
   ) as Observable<OnUpdatePostLikeSubscription>;
 
-  OnDeletePostLikeListener: Observable<
-    OnDeletePostLikeSubscription
-  > = API.graphql(
+  OnDeletePostLikeListener: Observable<OnDeletePostLikeSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnDeletePostLike {
         onDeletePostLike {
@@ -9968,9 +10142,7 @@ export class APIService {
     )
   ) as Observable<OnDeletePostLikeSubscription>;
 
-  OnCreatePostReportListener: Observable<
-    OnCreatePostReportSubscription
-  > = API.graphql(
+  OnCreatePostReportListener: Observable<OnCreatePostReportSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnCreatePostReport {
         onCreatePostReport {
@@ -10151,9 +10323,7 @@ export class APIService {
     )
   ) as Observable<OnCreatePostReportSubscription>;
 
-  OnUpdatePostReportListener: Observable<
-    OnUpdatePostReportSubscription
-  > = API.graphql(
+  OnUpdatePostReportListener: Observable<OnUpdatePostReportSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnUpdatePostReport {
         onUpdatePostReport {
@@ -10334,9 +10504,7 @@ export class APIService {
     )
   ) as Observable<OnUpdatePostReportSubscription>;
 
-  OnDeletePostReportListener: Observable<
-    OnDeletePostReportSubscription
-  > = API.graphql(
+  OnDeletePostReportListener: Observable<OnDeletePostReportSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnDeletePostReport {
         onDeletePostReport {
@@ -10517,9 +10685,7 @@ export class APIService {
     )
   ) as Observable<OnDeletePostReportSubscription>;
 
-  OnCreateCommentListener: Observable<
-    OnCreateCommentSubscription
-  > = API.graphql(
+  OnCreateCommentListener: Observable<OnCreateCommentSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnCreateComment {
         onCreateComment {
@@ -10701,9 +10867,7 @@ export class APIService {
     )
   ) as Observable<OnCreateCommentSubscription>;
 
-  OnUpdateCommentListener: Observable<
-    OnUpdateCommentSubscription
-  > = API.graphql(
+  OnUpdateCommentListener: Observable<OnUpdateCommentSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnUpdateComment {
         onUpdateComment {
@@ -10885,9 +11049,7 @@ export class APIService {
     )
   ) as Observable<OnUpdateCommentSubscription>;
 
-  OnDeleteCommentListener: Observable<
-    OnDeleteCommentSubscription
-  > = API.graphql(
+  OnDeleteCommentListener: Observable<OnDeleteCommentSubscription> = API.graphql(
     graphqlOperation(
       `subscription OnDeleteComment {
         onDeleteComment {

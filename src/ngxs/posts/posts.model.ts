@@ -10,6 +10,7 @@ export interface PostsStateModel {
 }
 
 export interface ListPostsParams {
+  show?: string;
   filter?: ModelPostFilterInput;
   limit?: number;
   nextToken?: string;

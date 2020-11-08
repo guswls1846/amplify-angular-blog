@@ -1,4 +1,4 @@
-<div *ngIf="(post$ | async)?.show">
+<div *ngIf="(post$ | async)?.show === 'true'">
   <div class="row" *ngIf="loading">
     <div class="col-12 text-center">
       <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
@@ -45,7 +45,7 @@
   </div>
 </div>
 
-<div *ngIf="!(post$ | async)?.show" class="noti_wrap">
+<div *ngIf="(post$ | async)?.show === 'false'" class="noti_wrap">
   <p>
     신고가 접수되어 관리자가 글을 가렸습니다.
   </p>

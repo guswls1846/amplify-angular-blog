@@ -118,7 +118,7 @@ export class AuthorPostComponent implements OnInit {
 
     this.processing = this.submitted = true;
     let content = this.editor.getHtml();
-    this.apiService.CreatePost({ id: this.setPostId, title: this.post.title, userID: userID, content: content, category: this.cateSelected, show: true }).then(() => {
+    this.apiService.CreatePost({ id: this.setPostId, title: this.post.title, userID: userID, content: content, category: this.cateSelected, show: "true" }).then(() => {
       this.success = true;
     });
   }

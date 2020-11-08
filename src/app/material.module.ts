@@ -13,6 +13,8 @@ import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { ScrollingModule } from "@angular/cdk/scrolling";
+import { MatRadioModule } from "@angular/material/radio";
 const modules = [
   MatAutocompleteModule,
   MatCardModule,
@@ -27,7 +29,9 @@ const modules = [
   MatMenuModule,
   MatProgressSpinnerModule,
   MatSortModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  ScrollingModule,
+  MatRadioModule
 ];
 
 @NgModule({

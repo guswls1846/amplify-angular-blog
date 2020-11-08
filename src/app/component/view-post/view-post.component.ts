@@ -126,16 +126,13 @@ export class ViewPostComponent implements OnInit {
 
     html2canvas(content, {
       logging: true,
-
       useCORS: true
-
-      // allowTaint: false
     }).then(canvas => {
       let imgWidth = 208;
       let imgHeight = (canvas.height * imgWidth) / canvas.width;
 
       const contentDataURL = canvas.toDataURL("image/png");
-      // console.log(contentDataURL);
+
       let pdf = new jsPDF("p", "mm", "a4");
       let position = 5;
       pdf.addImage(contentDataURL, "PNG", 0, position, imgWidth, imgHeight);

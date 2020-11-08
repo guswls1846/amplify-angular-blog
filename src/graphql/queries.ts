@@ -405,6 +405,133 @@ export const getPost = /* GraphQL */ `
     }
   }
 `;
+export const postByDate = /* GraphQL */ `
+  query PostByDate(
+    $show: String
+    $createdAt: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    postByDate(
+      show: $show
+      createdAt: $createdAt
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        title
+        userID
+        content
+        category
+        show
+        createdAt
+        updatedAt
+        user {
+          id
+          name
+          phone
+          accountNumber
+          createdAt
+          updatedAt
+          posts {
+            items {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+            nextToken
+          }
+        }
+        likes {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        reports {
+          items {
+            id
+            postID
+            userID
+            createdAt
+            updatedAt
+            user {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+        comments {
+          items {
+            id
+            userID
+            postID
+            content
+            createdAt
+            updatedAt
+            commentor {
+              id
+              name
+              phone
+              accountNumber
+              createdAt
+              updatedAt
+            }
+            post {
+              id
+              title
+              userID
+              content
+              category
+              show
+              createdAt
+              updatedAt
+            }
+          }
+          nextToken
+        }
+      }
+      nextToken
+    }
+  }
+`;
 export const getPostLike = /* GraphQL */ `
   query GetPostLike($id: ID!) {
     getPostLike(id: $id) {
