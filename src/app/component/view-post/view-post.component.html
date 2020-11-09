@@ -31,9 +31,9 @@
     <a (click)="onDeletePost()" class="btn btn-light pointer"> 삭제 </a>
   </div>
 
-  <div class="clearfix text-center mx-auto pdf_down_btn" *ngIf="currentUser !== null && (post$ | async)?.userID === currentUser">
+  <!-- <div class="clearfix text-center mx-auto pdf_down_btn" *ngIf="currentUser !== null && (post$ | async)?.userID === currentUser">
     <input type="button" value="Download PDF" class="btn btn-light" (click)="onSavePDF()" />
-  </div>
+  </div> -->
 
   <div class="clearfix text-center mx-auto pdf_down_btn" *ngIf="currentUser !== null">
     <input type="button" value="후원하기" class="btn btn-light" (click)="onsupport()" />
