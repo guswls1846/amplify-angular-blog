@@ -1,0 +1,98 @@
+._3FdjES4vvG0L2eHDCb-x96 {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 480px;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+._3FdjES4vvG0L2eHDCb-x96 > div {
+  width: 530px;
+  height: 380px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+._2qowEcs-iC4SN2dFRLdjFO {
+  background: 50% / cover no-repeat url(https://static.wanted.co.kr/images/newintro/001.jpg), #fff;
+}
+
+._3FdjES4vvG0L2eHDCb-x96 .content {
+  text-align: left;
+  padding-left: 60px;
+}
+
+._2zBPFWbPbPyn1IphRBe96E {
+  position: absolute;
+  top: -51.5px;
+  left: 50%;
+  -webkit-transform: translate(-50%);
+  transform: translate(-50%);
+}
+
+._2zBPFWbPbPyn1IphRBe96E > img {
+  width: 4px;
+}
+
+._16ZDoj7hSa6EXJYN-Xuohu {
+  background: 50% / cover no-repeat url(https://static.wanted.co.kr/images/newintro/002.jpg), #fff;
+}
+._3VHCNw1-2tgbjb1sYgQPwh {
+  background: 50% / cover no-repeat url(https://static.wanted.co.kr/images/newintro/003.jpg), #fff;
+}
+
+@media (max-width: 767px) {
+  ._3FdjES4vvG0L2eHDCb-x96.second {
+    padding-top: 80px;
+  }
+  ._3FdjES4vvG0L2eHDCb-x96 {
+    height: auto;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    padding-top: 82.5px;
+    padding-bottom: 82.5px;
+  }
+  ._3FdjES4vvG0L2eHDCb-x96 > div {
+    width: 320px;
+    height: 228px;
+  }
+  ._3FdjES4vvG0L2eHDCb-x96 .content {
+    height: auto;
+    text-align: center;
+    padding-left: 0;
+  }
+  ._3FdjES4vvG0L2eHDCb-x96 > div {
+    width: 320px;
+    height: 228px;
+  }
+  ._3FdjES4vvG0L2eHDCb-x96 .content h1 {
+    font-size: 24px;
+    line-height: 34px;
+    margin-bottom: 12px;
+  }
+  ._3FdjES4vvG0L2eHDCb-x96 .content h3 {
+    font-size: 15px;
+    line-height: 24px;
+  }
+}
