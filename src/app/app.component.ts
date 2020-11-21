@@ -1,9 +1,10 @@
 import { Component } from "@angular/core";
 import { Actions, ofActionDispatched, Store } from "@ngxs/store";
-import { Router } from "@angular/router";
+import { Router, NavigationEnd } from "@angular/router";
 import { Logout } from "src/ngxs/auth/auth.action";
 import { APIService, CategoryType } from "./API.service";
 import { AuthState } from "src/ngxs/auth/auth.state";
+import { filter } from "rxjs/operators";
 
 @Component({
   selector: "app-root",

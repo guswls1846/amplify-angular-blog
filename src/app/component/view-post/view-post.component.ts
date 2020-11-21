@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild, ElementRef } from "@angular/core";
-import { ActivatedRoute, ParamMap } from "@angular/router";
+import { ActivatedRoute, ParamMap, Router, NavigationEnd } from "@angular/router";
 import { Select, Store, Actions, ofActionSuccessful, ofActionDispatched } from "@ngxs/store";
 import { GetPost, CreatPostsListener, DeletePost, CreateLikePost, ListPostLike, CreateReportPost } from "src/ngxs/posts/posts.action";
 import { PostsState } from "src/ngxs/posts/posts.state";
-import { Observable, Subject } from "rxjs";
+import { Observable, Subject, pipe } from "rxjs";
 import { GetPostQuery, ListCommentsQuery, CreatePostLikeInput, ListPostLikesQuery, ModelPostLikeFilterInput } from "../../API.service";
-import { takeUntil, debounceTime, take, tap } from "rxjs/operators";
+import { takeUntil, debounceTime, take, tap, filter } from "rxjs/operators";
 import { AuthState } from "src/ngxs/auth/auth.state";
 import Amplify from "aws-amplify";
 import { jsPDF } from "jspdf";
@@ -143,4 +143,6 @@ export class ViewPostComponent implements OnInit {
   onsupport() {
     this.store.dispatch(new Navigate(["support", this.PosterInfo.userID]));
   }
+
+  test() {}
 }
